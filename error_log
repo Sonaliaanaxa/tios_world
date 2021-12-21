@@ -1,0 +1,125 @@
+[14-Apr-2021 06:54:36 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:54:36 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:54:36 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:54:36 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:54:36 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:54:36 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:54:36 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:54:36 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:54:53 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:54:53 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:54:53 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:54:53 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:55:06 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:55:06 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[14-Apr-2021 06:55:06 UTC] PHP Parse error:  syntax error, unexpected '}', expecting ')' in /home2/demoapit/public_html/socialvaidya/app/Exceptions/Handler.php on line 58
+[14-Apr-2021 06:55:06 UTC] PHP Fatal error:  Exception thrown without a stack frame in Unknown on line 0
+[22-Apr-2021 09:28:15 UTC] PHP Fatal error:  Cannot use Intervention\Image\Facades\Image as Image because the name is already in use in /home2/demoapit/public_html/socialvaidya/app/Http/Controllers/BlogController.php on line 27
+[22-Apr-2021 09:28:34 UTC] PHP Fatal error:  Cannot use Intervention\Image\Facades\Image as Image because the name is already in use in /home2/demoapit/public_html/socialvaidya/app/Http/Controllers/BlogController.php on line 27
+[22-Apr-2021 09:34:10 UTC] PHP Fatal error:  Cannot use Image as Image because the name is already in use in /home2/demoapit/public_html/socialvaidya/app/Http/Controllers/BlogController.php on line 27
+[23-Apr-2021 09:13:01 UTC] PHP Fatal error:  Cannot redeclare App\Http\Controllers\HomeController::searchdoctors() in /home2/demoapit/public_html/socialvaidya/app/Http/Controllers/HomeController.php on line 786
+[03-May-2021 06:26:45 UTC] PHP Warning:  Uncaught ErrorException: Undefined variable: user in /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php:367
+Stack trace:
+#0 /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php(367): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home2/demoapit...', 367, Array)
+#1 /home2/demoapit/public_html/socialvaidya/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home2/demoapit...')
+#2 /home2/demoapit/public_html/socialvaidya/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home2/demoapit...', Array)
+#3 /home2/demoapit/public_html/socialvaidya/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home2/demoapit...', Array)
+#4 /home2/demoapit/public_html/socialvaidya/vendor/laravel/framework/src/Illum in /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php on line 367
+[03-May-2021 06:26:45 UTC] PHP Fatal error:  Object of class stdClass could not be converted to string in /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php on line 367
+[03-May-2021 06:26:55 UTC] PHP Warning:  Uncaught ErrorException: Undefined variable: user in /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php:367
+Stack trace:
+#0 /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php(367): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home2/demoapit...', 367, Array)
+#1 /home2/demoapit/public_html/socialvaidya/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home2/demoapit...')
+#2 /home2/demoapit/public_html/socialvaidya/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home2/demoapit...', Array)
+#3 /home2/demoapit/public_html/socialvaidya/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home2/demoapit...', Array)
+#4 /home2/demoapit/public_html/socialvaidya/vendor/laravel/framework/src/Illum in /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php on line 367
+[03-May-2021 06:26:55 UTC] PHP Fatal error:  Object of class stdClass could not be converted to string in /home2/demoapit/public_html/socialvaidya/storage/framework/views/1bade9b67d153ae2221cce840dc15d0019042830.php on line 367
+[25-May-2021 10:56:49 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Exceptions\FlattenException' not found in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php:54
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(100): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#2 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#3 {main}
+  thrown in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php on line 54
+[25-May-2021 10:56:52 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Exceptions\FlattenException' not found in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php:54
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(100): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#2 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#3 {main}
+  thrown in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php on line 54
+[25-May-2021 10:56:54 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Exceptions\FlattenException' not found in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php:54
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(100): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#2 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#3 {main}
+  thrown in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php on line 54
+[25-May-2021 10:56:59 UTC] PHP Fatal error:  Uncaught Error: Class 'App\Exceptions\FlattenException' not found in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php:54
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(123): App\Exceptions\Handler->render(Object(Illuminate\Http\Request), Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(100): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#2 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->handleException(Object(Symfony\Component\Debug\Exception\FatalThrowableError))
+#3 {main}
+  thrown in /home/deepak4u4ever/public_html/medto.in/app/Exceptions/Handler.php on line 54
+[29-May-2021 09:18:13 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:19:30 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:28:49 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:29:13 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:29:41 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:31:11 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:37:15 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:37:22 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:38:00 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[29-May-2021 09:39:08 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 98570240 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/HomeController.php on line 966
+[22-Jun-2021 06:06:56 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable: errors in /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php:229
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php(229): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/deepak4u4...', 229, Array)
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home/deepak4u4...')
+#2 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/deepak4u4...', Array)
+#3 /home/deepak4u4ever/public_html/medto.in/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home/deepak4u4...', Array)
+#4 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Ill in /home/deepak4u4ever/public_html/medto.in/resources/views/home/layouts/footer.blade.php on line 228
+[22-Jun-2021 06:06:59 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable: errors in /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php:229
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php(229): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/deepak4u4...', 229, Array)
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home/deepak4u4...')
+#2 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/deepak4u4...', Array)
+#3 /home/deepak4u4ever/public_html/medto.in/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home/deepak4u4...', Array)
+#4 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Ill in /home/deepak4u4ever/public_html/medto.in/resources/views/home/layouts/footer.blade.php on line 228
+[24-Jun-2021 13:41:42 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable: errors in /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php:229
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php(229): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/deepak4u4...', 229, Array)
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home/deepak4u4...')
+#2 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/deepak4u4...', Array)
+#3 /home/deepak4u4ever/public_html/medto.in/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home/deepak4u4...', Array)
+#4 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Ill in /home/deepak4u4ever/public_html/medto.in/resources/views/home/layouts/footer.blade.php on line 228
+[24-Jun-2021 13:41:46 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable: errors in /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php:229
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php(229): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/deepak4u4...', 229, Array)
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home/deepak4u4...')
+#2 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/deepak4u4...', Array)
+#3 /home/deepak4u4ever/public_html/medto.in/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home/deepak4u4...', Array)
+#4 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Ill in /home/deepak4u4ever/public_html/medto.in/resources/views/home/layouts/footer.blade.php on line 228
+[24-Jun-2021 13:42:14 UTC] PHP Fatal error:  Uncaught ErrorException: Undefined variable: errors in /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php:229
+Stack trace:
+#0 /home/deepak4u4ever/public_html/medto.in/storage/framework/views/6a2ebee4cad4ce3d5473973494501891e976223b.php(229): Illuminate\Foundation\Bootstrap\HandleExceptions->handleError(8, 'Undefined varia...', '/home/deepak4u4...', 229, Array)
+#1 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/PhpEngine.php(43): include('/home/deepak4u4...')
+#2 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Illuminate/View/Engines/CompilerEngine.php(59): Illuminate\View\Engines\PhpEngine->evaluatePath('/home/deepak4u4...', Array)
+#3 /home/deepak4u4ever/public_html/medto.in/vendor/facade/ignition/src/Views/Engines/CompilerEngine.php(36): Illuminate\View\Engines\CompilerEngine->get('/home/deepak4u4...', Array)
+#4 /home/deepak4u4ever/public_html/medto.in/vendor/laravel/framework/src/Ill in /home/deepak4u4ever/public_html/medto.in/resources/views/home/layouts/footer.blade.php on line 228
+[16-Jul-2021 08:44:42 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 118
+[16-Jul-2021 08:50:44 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 118
+[16-Jul-2021 09:14:42 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:16:25 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:16:28 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:18:52 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:18:56 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:22:49 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:23:26 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 63
+[16-Jul-2021 09:31:28 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
+[16-Jul-2021 09:33:28 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
+[16-Jul-2021 09:33:47 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
+[16-Jul-2021 09:38:27 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
+[16-Jul-2021 09:40:27 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
+[16-Jul-2021 09:41:01 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
+[16-Jul-2021 09:41:09 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 117444608 bytes) in /home/deepak4u4ever/public_html/medto.in/app/Http/Controllers/BlogController.php on line 139
