@@ -7,9 +7,9 @@ SET sql_mode = 'NO_AUTO_VALUE_ON_ZERO';
 
 SET NAMES utf8mb4;
 
-DROP DATABASE IF EXISTS `hygiene`;
-CREATE DATABASE `hygiene` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
-USE `hygiene`;
+DROP DATABASE IF EXISTS `tios_world`;
+CREATE DATABASE `tios_world` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
+USE `tios_world`;
 
 DROP TABLE IF EXISTS `abouts`;
 CREATE TABLE `abouts` (
