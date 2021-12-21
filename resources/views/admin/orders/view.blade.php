@@ -18,8 +18,15 @@
                 
                 </h4>
                 <!-- <p class="card-category" > {{ __('Here you can manage the products') }}</p> -->
-                <p class="card-category" >Total Orders -  {{ $oCount}}</p>
-                <p class="card-category" > Orders ID -  {{ $order_no}}</p>
+          
+                <p class="card-category mb-0" > Order ID -  {{ $order_no}}</p>
+                <p class="card-category mb-0" > Order Date - 
+                    @foreach($orders as $d)
+                    {{$d->created_at->format('d F,Y')}}<br><br>
+                 
+                    @break;
+                    @endforeach
+                </p>
 
               </div>
               <div class="card-body">
@@ -31,21 +38,24 @@
                   @if(auth()->user()->user_type=='admin')
                    <span style='color:#0099cc;font-weight:bold;'>Bill To</span><br>
                    @foreach($orders as $s)
-                   {{$s->user_name}}<br>
-                   {{$s->user_address}},<br>
-                   <!-- {{$s->user_city}}, {{$s->user_state}},{{$s->user_country}},{{$s->user_zipcode}}<br> -->
-                   {{$s->user_mobile}}
+                   <h5>{{$s->uname}} </h5>
+                   {{$s->apartment}},<br>
+                   {{$s->city}},<br> {{$s->state}},<br>{{$s->area}},<br>
+                   {{$s->pincode}}<br>
+                   {{$s->phone}}
                    @break;
                    @endforeach
                    @endif
                 </div>
-                <div class="col-md-4  col-sm-4" align='right'>
-                   <span style='color:#0099cc;font-weight:bold;'>Ordered At</span><br>
-                   @foreach($orders as $d)
-                   {{$d->created_at->format('d F,Y')}}<br><br>
-                 
-                   @break;
-                   @endforeach
+                <div class="col-md-4  col-sm-4">
+                   <span style='color:#0099cc;font-weight:bold;'>Seller Details</span><br>
+                   <h5>Hygieneherbs Agro Fresh Private Limited</h5>
+                   <p class="mb-0">966, Pocket C, Ghazipur, Delhi</p>
+                   <p class="mb-0">+91-8920867591</p>
+                   <p class="mb-0">contact@hygieneherbs.in</p>
+                   <p class="mb-0"><strong>GST No.</strong>07AAFCH8455C1ZL</p>
+                   <p class="mb-0"><strong>FSSAI license No.</strong>13321003000320</p>
+
                 </div>
 
 
@@ -56,11 +66,12 @@
                          
                           @sortablelink('id',__('S No')) 
                       </th>
+                      
                       <th>
-                       
+                       @sortablelink('product_name',__('Product Image'))  
                       </th>
                       <th>
-                       @sortablelink('product_name',__('Product'))  
+                       @sortablelink('product_name',__('Product Name'))  
                       </th>
                       <th>
                        @sortablelink('price',__('Price'))  
@@ -78,22 +89,23 @@
                      
                     </thead>
                     <tbody id="myTable"> 
-                    <?php $i=0; ?>
+                    <?php $i=0; $gtotal = 0; $gsave = 0; ?>
                       @foreach($orders as $r)
-                      <?php $i++; ?>
+                      <?php
+                        $i++;
+                        $gtotal = $gtotal + $r->total;
+
+                          $totalsave = $r->product_mrp - $r->product_price;
+                          $gsave = $gsave + $totalsave;
+                         
+                      ?>
                         <tr>
                         <td>
                         <?php echo $i; ?>
                           </td>
+                         
                           <td>
-                               
-                               @if($r->img)
-                                 <a href="{{ asset('public/uploads/products') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('public/uploads/products') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>
-                                @else
-                                <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
-                                {{ substr($r->name,0,1) }}
-                                </p>
-                                @endif 
+                              <a href="{{ asset('uploads/products') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('/uploads/products') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>    
                            </td>
                             <td>
                             <u><a href="{{route('products.view',$r->product_id)}}" target='_blank'>{{ $r->product_name }} </a>  </u>
@@ -111,7 +123,7 @@
                              </td>
                             
                              <td>
-                                  <span style='color:#00cc99;font-size:12px;'>{{ $r->currency }} </span><b>{{ $r->total_price }}  </b>
+                                  <span style='color:#00cc99;font-size:12px;'>{{ $r->currency }} </span><b>{{ $r->total }}  </b>
                              </td>
                              
                         
@@ -120,34 +132,20 @@
                       <tr style='border:2px solid #0099cc;'>
                           <td colspan='3' align='center' style='color:#0099cc;font-weight:bolder;'>Subtotal<br>Tax</td>
                           <td   style='color:orange;font-size:10px;font-weight:bolder;'>
-                          @foreach($orders as $s)
+
                          
-                          Total Saving : <span style='color:#333333;'>{{ $s->currency }} {{$s->final_saving}}</span>
-                              @break
-                            @endforeach
+                          Total Saving : <span style='color:#333333;'>₹ {{$gsave}}</span>
+
                             </td>
-                          <td > 
-                            @foreach($orders as $s)
-                            <b><span style='color:#00cc99;font-size:12px;'> </span> {{$s->total_items}}</b>
-                                    @break
-                            @endforeach
-                          </td>
-                          <td > 
-                            @foreach($orders as $s)
-                            <b><span style='color:#00cc99;font-size:12px;'>{{ $s->currency }} </span> {{$s->final_subtoatal_price}}</b><br>
-                            <b><span style='color:#00cc99;font-size:12px;'>{{ $s->currency }} </span> {{$s->final_taxprice}}</b>
-                                    @break
-                            @endforeach
-                          </td>
+                         
                       <tr>
                       <tr>
                   
                           <td colspan='5' align='right' style='color:#0099cc;font-weight:bolder;'>Grand Total</td>
-                          <td > 
-                            @foreach($orders as $s)
-                            <b><span style='color:#00cc99;font-size:12px;'>{{ $r->currency }} </span> {{$s->final_price}}</b>
-                                    @break
-                            @endforeach
+                          <td >
+
+                            <b><span style='color:#00cc99;font-size:12px;'>₹ </span> {{$gtotal}}.00 </b>
+
                           </td>
                       <tr>
                      

@@ -180,13 +180,13 @@
                       @endif
                     </div>
                   </div>
-                            <label class="col-sm-2 col-form-label">{{ __('CIN No.') }}</label>
+                            <label class="col-sm-2 col-form-label">{{ __('Fssai No.') }}</label>
                   <div class="col-sm-4">
                     <div class="form-group{{ $errors->has('cin') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('cin') ? ' is-invalid' : '' }}" name="cin" value="{{ $web->cin}}" id="input-cin" type="cin" placeholder="{{ __('CIN No.') }}"  aria-required="true"/>
+                      <input class="form-control{{ $errors->has('cin') ? ' is-invalid' : '' }}" name="cin" value="{{ $web->cin}}" id="input-cin" type="cin" placeholder="{{ __('Fssai No.') }}"  aria-required="true"/>
                       
                       @if ($errors->has('cin'))
-                        <span id="cin-error" class="error text-danger" for="input-cin">CIN No. is Empty!</span>
+                        <span id="cin-error" class="error text-danger" for="input-cin">Fssai No. is Empty!</span>
                       @endif
                     </div>
                   </div>
@@ -208,7 +208,7 @@
                               id="myImage"
                           /></label>
                           <br>
-                          <img src="{{ asset('public/uploads/logo') }}/{{ $web->logo }}" style='margin-bottom:30px;height:130px;width:300px;border-radius:5%;'/>
+                          <img src="{{ asset('/uploads/logo') }}/{{ $web->logo }}" style='margin-bottom:30px;height:130px;width:300px;border-radius:5%;'/>
                                 <br>
 
                                </div>

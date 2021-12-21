@@ -2,9 +2,8 @@
 
 namespace App\Exceptions;
 
-use Exception;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Throwable;
 
 class Handler extends ExceptionHandler
 {
@@ -23,47 +22,20 @@ class Handler extends ExceptionHandler
      * @var array
      */
     protected $dontFlash = [
+        'current_password',
         'password',
         'password_confirmation',
     ];
 
     /**
-     * Report or log an exception.
+     * Register the exception handling callbacks for the application.
      *
-     * @param  \Exception  $exception
      * @return void
-     *
-     * @throws \Exception
      */
-    public function report(Exception $exception)
+    public function register()
     {
-        parent::report($exception);
+        $this->reportable(function (Throwable $e) {
+            //
+        });
     }
-
-    /**
-     * Render an exception into an HTTP response.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \Exception  $exception
-     * @return \Symfony\Component\HttpFoundation\Response
-     *
-     * @throws \Exception
-     */
-    public function render($request, Exception $e)
-{
-
-    // 404 page when a model is not found
-    if ($e instanceof ModelNotFoundException) {
-        return response()->view('errors.404', [], 404);
-    }
-
-    // custom error message
-    if ($e instanceof \ErrorException) {
-        return response()->view('errors.500', [], 500);
-    } else {
-        return parent::render($request, $e);
-    }
-
-    return parent::render($request, $e);
-}
 }

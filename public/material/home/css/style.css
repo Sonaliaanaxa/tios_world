@@ -1119,12 +1119,6 @@ button.bg-danger:hover {
     margin-bottom: 1.25rem;
 }
 
-input[type=number]::-webkit-inner-spin-button, 
-input[type=number]::-webkit-outer-spin-button { 
-  -webkit-appearance: none; 
-  margin: 0; 
-}
-
 
 
 
@@ -1454,18 +1448,10 @@ input[type=number]::-webkit-outer-spin-button {
 
 .nav-tabs .nav-link:focus,
 .nav-tabs .nav-link:hover {
-       background-color: #00385e;
+    background-color: #eee;
     border-color: transparent;
-    color: #ffffff;
+    color: #272b41;
 }
-
-
-.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {
-    color:#ffffff !important;
-    background-color: #00385e !important;
-    border-color: #dee2e6 #dee2e6 #fff !important;
-}
-
 
 .nav-tabs.nav-justified > li > a {
     border-radius: 0;
@@ -2400,15 +2386,14 @@ input[type=number]::-webkit-outer-spin-button {
 -----------------------*/
 
 .sidebar-overlay {
-   /* background-color: rgba(0, 0, 0, 0.6);*/
+    background-color: rgba(0, 0, 0, 0.6);
     display: none;
     height: 100%;
     left: 0;
     position: fixed;
     top: 0;
     width: 100%;
-    z-index:999;
-    -webkit-transform: translate3d(0,0,0);
+    z-index: 1040;
 }
 
 .menu-opened .main-menu-wrapper {
@@ -2503,6 +2488,7 @@ html.menu-opened body {
 
 .footer .footer-widget .footer-about-content p {
     color: #fff;
+    text-align: justify;
 }
 
 .footer .footer-widget .footer-about-content p:last-child {
@@ -2674,7 +2660,7 @@ html.menu-opened body {
 }
 
 .account-page .content {
-    padding: 50px 0px 0px 0px ;
+    padding: 50px 0;
 }
 
 .login-right {
@@ -2812,11 +2798,11 @@ html.menu-opened body {
     margin-top: 15px;
 }
 
-/*.banner-wrapper {*/
-/*    margin: 0 auto;*/
-/*    max-width: 800px;*/
-/*    width: 100%;*/
-/*}*/
+.banner-wrapper {
+    margin: 0 auto;
+    max-width: 800px;
+    width: 100%;
+}
 
 .banner-wrapper .banner-header {
     margin-bottom: 30px;
@@ -2861,23 +2847,14 @@ html.menu-opened body {
 
 .search-box .search-info {
     -ms-flex: 0 0 490px;
+    flex: 0 0 250px;
     margin-right: 12px;
     position: relative;
+    width: 450px;
 }
 
 .search-info .form-control {
-    background: #fff url(../img/sec.png) no-repeat 10px center;
-}
-
-.search-box .search-doc {
-    -ms-flex: 0 0 490px;
-    flex: 0 0 230px;
-    margin-right: 12px;
-    position: relative;
-}
-
-.search-doc .form-control {
-    background: #fff url(../img/doc.png) no-repeat 10px center;
+    background: #fff url(../img/search.png) no-repeat 10px center;
 }
 
 .search-box .search-btn {
@@ -3771,7 +3748,6 @@ html.menu-opened body {
 
 .filter-widget {
     margin-bottom: 20px;
-        text-align: left;
 }
 
 .filter-widget h4 {
@@ -3837,7 +3813,7 @@ html.menu-opened body {
 .doc-location {
     color: #757575;
     font-size: 14px;
-    margin-bottom: 0px;
+    margin-bottom: 25px;
 }
 
 .pharmacy-location,
@@ -4248,6 +4224,9 @@ html.menu-opened body {
     border-bottom: 1px solid #f5f7fc;
     margin-top: 20px;
     padding-bottom: 30px;
+    overflow: scroll;
+    max-height: 245px;
+    overflow-x: hidden;
 }
 
 .review-listing > ul {
@@ -5021,15 +5000,14 @@ html.menu-opened body {
 }
 
 .doc-slot-list {
-    background-color: #00385e;
-    border: 1px solid #00385e;
+    background-color: #d9534f;
+    border: 1px solid #d43f3a;
     border-radius: 4px;
     color: #fff;
     font-size: 14px;
     margin: 10px 10px 0 0;
     padding: 6px 15px;
 }
-
 
 .doc-slot-list a {
     color: #e48784;
@@ -8819,7 +8797,10 @@ ul.benifits-col li i {
         text-align: center;
         margin: 0 auto;
     }
-
+.search-top {
+        width: 100% !important;
+        
+    }
     .doctor-slider {
         margin-top: 25px;
     }
@@ -8829,7 +8810,7 @@ ul.benifits-col li i {
     }
 
     .login-right {
-        margin: 0 0px;
+        margin: 0 15px;
         padding: 15px;
     }
 
@@ -9374,7 +9355,9 @@ ul.benifits-col li i {
         overflow-x: auto;
     }
 
-   
+    .booking-schedule.schedule-widget > div {
+        width: 730px;
+    }
 
     .booking-schedule .day-slot ul {
         display: -webkit-box;
@@ -9660,127 +9643,3 @@ ul.benifits-col li i {
   font-size: 20px;
   color: white;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-.doctor-slider img{
-    width:100%;
-    height:200px;
-}
-
-
-
-
-
-
-
-
-
-@media only screen and (max-width: 767px){
-    .doctor-slider .slick-slide{
-        width:auto!important;
-        margin-left: -14px;
-    margin-right: 42px;
-    }
-}
-
-
-@media only screen and (max-width: 767px){
-.card {
-    margin-bottom: 20px;
-    text-align:center;
-}
-
-}
-
-
-@media only screen and (max-width: 767px){
-.speicality-img {
-    width: 150px;
-    height: 150px;
-     text-align:center;
-}
-
-}
-
-
-
-@media only screen and (max-width: 1024px){
-.speicality-img {
-    width: 150px;
-    height: 150px;
-     text-align:center;
-}
-
-
-.specialities-slider .slick-slide {
-    margin-right: 15px;
-}
-}
-
-
-
-/* iPhone 6 landscape */
-@media only screen and (min-device-width: 375px)
-  and (max-device-width: 667px)
-  and (orientation: landscape)
-  and (-webkit-min-device-pixel-ratio: 2)
-{ 
-    
-    .card {
-  margin-bottom: 20px;
-    margin-left: 40px;
-    margin-right: 47px;
-    text-align:center;
-  }
-  
-  
-  .speicality-img {
-    width: 150px;
-    height: 150px;
-     text-align:center;
-}  
-}
-
-
-@media only screen and (max-width: 575.98px){
-.card {
-    margin-bottom: 0.9375rem;
-}}
-@media only screen and (max-width: 767.98px){
-.card {
-   margin-bottom: 20px;
-    text-align:center;
-}
-    
-  .doctor-slider img{
-  
-  }  
-    
-}
-.top-add-search{
-  padding-left: 20px;
-}
-
-
-
-@media only screen and (max-width: 767.98px){ 
-     .top-search-btton{
-         margin-left:0px !important;; 
-      }  
-      
-      .top-add-search{
-          
-    padding-left: 0px;
-      }
-        
-    }

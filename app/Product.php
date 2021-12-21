@@ -4,8 +4,22 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use App\Cart;
+use App\Order;
+
 class Product extends Model
 {
+  public function carts()
+    {
+        return $this->hasMany(Cart::class);
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class);
+    }
+
+    
     use Sortable;
 
      protected $guarded=[];

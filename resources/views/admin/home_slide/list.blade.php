@@ -1,5 +1,4 @@
 
-
 @include("admin.layouts.sidebar")
 
 <div class="page-wrapper">
@@ -12,9 +11,9 @@
             <div class="card">
             <div class="card-header card-header-default" >
                 <h4 class="card-title" >{{ __($title) }}
+                 <a href="{{route('home.slide.create')}}"  class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
+
                
-                <a href="{{route('home.slide.create')}}"  class="btn btn-sm btn-default float-right" style='background-color:white ;color:#0099cc;'><i class='fa fa-plus-circle' style='font-size:12px;'>  {{ __('New') }}</i> </a>
-                
                 </h4>
                 <p class="card-client" >Total Slide -  {{ $tCount}}</p>
                
@@ -40,18 +39,21 @@
                          
                           @sortablelink('id',__('S No')) 
                       </th>
-                     
+                       <th>
+                      {{__('Slider Image')}}  
+                      </th>
+                    
                        <th>
                        @sortablelink('title',__('title'))  
                       </th>
                       <th>
-                       @sortablelink('details',__('Details'))  
+                       @sortablelink('sub_title',__('sub_title'))  
+                      </th>
+                       <th>
+                       @sortablelink('offers',__('offers'))  
                       </th>
                       
-                      <th>
-                      {{__('Slide Image')}}  
-                      </th>
-                    
+                     
                       <th>
                       @sortablelink('created_at',__('Added At'))  
                       
@@ -71,23 +73,27 @@
                         <td>
                         <?php echo $i; ?>
                           </td>
-                         
-                             <td>
-                              <b> {{$r->title}}</a> </b>
-                             </td>
-                             <td>
-                              <b> {{$r->details}}</a> </b>
-                             </td>
-                             <td>
+                          <td>
                                
                                  @if($r->img)
-                                   <a href="{{ asset('public/uploads/slide') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('public/uploads/slide') }}/{{ $r->img }}" style='height:200px;width:300px;border-radius:5%;'/></a>
+                                   <a href="{{ asset('/uploads/homeslider') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('/uploads/homeslider') }}/{{ $r->img }}" style='height:100px;width:100px;border-radius:5%;'/></a>
                                   @else
                                   <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
                                   {{ substr($r->name,0,1) }}
                                   </p>
                                   @endif 
                              </td>
+                             <td>
+                              <b> {{$r->title}}</a> </b>
+                             </td>
+
+                             <td>
+                              <b> {{$r->sub_title}}</a> </b>
+                             </td>
+                             <td>
+                              <b> {{$r->offers}}</a> </b>
+                             </td>
+                             
                          
                         
                           <td style='font-size:12px;'>
@@ -96,9 +102,11 @@
                           </td>
                          
                           <td>
-                          
                            <a href="{{route('home.slide.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                          <i class="fa fa-edit"></i></a>
+                           <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-slider' title="Delete" data-id="{{$r->id}}">
+                        <i class="fa fa-trash"></i>
+                        </a>
 
                    
                           </td>
@@ -119,6 +127,34 @@
   </div>
   </div>
   </div>
+
+  <script>
+        $(document).ready(function() {
+            $('.delete-slider').on('click', function (e) {
+                if (!confirm("Are you sure? It can't be undone.")) {
+                    e.preventDefault();
+                    return false;
+                }
+
+                var id = $(this).data('id');
+              
+                $.ajax({
+                    type: 'POST',
+                    url:"{{route('home.slide.destroy')}}",
+                    data: {id: id, _token: '{{ csrf_token() }}'},
+                    success: function (data) {
+                        if (data.success == 1) {
+                        //    selector.closest('tr').hide('slow');
+                             swal("Success!", "Slider Successfully Deleted!", "success");
+                             
+                        }
+
+                       location.reload();
+                       
+                    }
+                });
+            }); });
+  </script>
 
 
 

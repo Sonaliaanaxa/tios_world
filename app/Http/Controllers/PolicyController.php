@@ -27,9 +27,9 @@ class PolicyController extends Controller
   
     public function index()
     {
-        $title = "Policy";
-      $subtitle="Policy";
-      $activePage = "Policy";
+        $title = "Privacy Policy";
+      $subtitle="Privacy Policy";
+      $activePage = "PrivacyPolicy";
       $tCount=Policy::select('*')->count();
       $policies=Policy::select('policies.*')
          ->orderBy('id','DESC')
@@ -37,8 +37,27 @@ class PolicyController extends Controller
         return view('admin.policy.list',compact('title','policies','activePage','subtitle','tCount'));
     }
   
-    
-  
+     public function create()
+    {
+        $title = "Create Privacy Policy";
+        $subtitle="Privacy Policy";
+        $activePage = "Privacy Policy"; 
+          return view('admin.policy.add',compact('title','activePage','subtitle'));
+    }
+     public function save(Request $request)
+    {
+        $this->validate(request(), [
+            'title' => 'required',
+            'details' => 'required'
+        ]);   
+         $data=[
+            'title' => $request->title,
+            'details' => $request->details,
+            'status' => $request->status,           
+        ];
+        $result = Policy::create($data);
+        return redirect(route('policy.list'))->with('success', 'Privacy Policy Successfully Added!');
+    } 
   
     public function edit(Request $request, $id)
     {
@@ -46,7 +65,7 @@ class PolicyController extends Controller
         $subtitle="Policy";
         $activePage = "Policy";
         $policies=Policy::where('id',$id)->first();
-          return view('admin.policy.edit',compact('title','policies','activePage','subtitle','id'));
+        return view('admin.policy.edit',compact('title','policies','activePage','subtitle','id'));
     }
   
     
@@ -54,19 +73,13 @@ class PolicyController extends Controller
     {
         $this->validate(request(), [
             'title' => 'required',
-        'details' => 'required'
+            'details' => 'required',
           
         ]);   
-        
-  
-
-        
-
         $data=[
             'title' => $request->title,
             'details' => $request->details,
-        
-            
+            'status' => $request->status,
             'updated_at'=>date('Y-m-d H:i:s')
         ];
        
@@ -74,5 +87,21 @@ class PolicyController extends Controller
 
     $result=Policy::where('id',$id)->update($data);
     return redirect(route('policy.list'))->with('success', 'Policy Successfully Updated!');
+    }
+
+    public function destroy(Request $request)
+    {
+        $id=$request->id; 
+        $delete = Policy::where('id', $id)->delete();
+        if ($delete){  
+              return redirect()->back()->with('success','Policy Deleted Successfully!');
+              
+            }
+            else
+                {
+                   return redirect()->back()->with('error','Error Occured!');
+             
+                }
+     
     }
 }

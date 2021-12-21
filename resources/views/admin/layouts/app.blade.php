@@ -12,19 +12,19 @@
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('public/material/admin') }}/img/favicon.png">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="{{ asset('material/admin') }}/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{{ asset('material/admin') }}/assets2/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{{ asset('material/admin/css/bootstrap.min.css') }}">
+    <link rel="stylesheet" href="{{ asset('material/admin/assets2/css/bootstrap.min.css') }}">
 
     <!-- Fontawesome CSS -->
-    <link rel="stylesheet" href="{{ asset('material/admin') }}/css/font-awesome.min.css">
+    <link rel="stylesheet" href="{{ asset('material/admin/css/font-awesome.min.css') }}">
 
     <!-- Feathericon CSS -->
-    <link rel="stylesheet" href="{{ asset('material/admin') }}/css/feathericon.min.css">
+    <link rel="stylesheet" href="{{ asset('material/admin/css/feathericon.min.css') }}">
 
-    <link rel="stylesheet" href="{{ asset('material/admin') }}/plugins/morris/morris.css">
+    <link rel="stylesheet" href="{{ asset('material/admin/plugins/morris/morris.css') }}">
 
     <!-- Main CSS -->
-    <link rel="stylesheet" href="{{ asset('material/admin') }}/css/style.css">
+    <link rel="stylesheet" href="{{ asset('material/admin/css/style.css') }}">
 
     
     <!-- Fontawesome CSS -->
@@ -46,37 +46,37 @@
             </form>
      
         @endauth 
-    <!-- jQuery --
+    
     <script src="{{ asset('material/admin') }}/js/jquery-3.2.1.min.js"></script>
 
-    <!-- Bootstrap Core JS --
+    <!-- Bootstrap Core JS -->
     <script src="{{ asset('material/admin') }}/js/popper.min.js"></script>
     <script src="{{ asset('material/admin') }}/js/bootstrap.min.js"></script>
 
-    <!-- Slimscroll JS --
+    <!-- Slimscroll JS -->
     <script src="{{ asset('material/admin') }}/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
     <script src="{{ asset('material/admin') }}/plugins/raphael/raphael.min.js"></script>
     <script src="{{ asset('material/admin') }}/plugins/morris/morris.min.js"></script>
     <script src="{{ asset('material/admin') }}/js/chart.morris.js"></script>
 
-    <!-- Custom JS --
+    <!-- Custom JS -->
     <script src="{{ asset('material/admin') }}/js/script.js"></script>
 
 
 
-     <!-- Bootstrap Core JS --
+     <!-- Bootstrap Core JS -->
      <script src="{{ asset('material/admin') }}/assets2/js/popper.min.js"></script>
     <script src="{{ asset('material/admin') }}/assets/js/bootstrap.min.js"></script>
 
-    <!-- Sticky Sidebar JS --
+    <!-- Sticky Sidebar JS -->
     <script src="{{ asset('material/admin') }}/assets2/plugins/theia-sticky-sidebar/ResizeSensor.js"></script>
     <script src="{{ asset('material/admin') }}/assets2/plugins/theia-sticky-sidebar/theia-sticky-sidebar.js"></script>
 
-    <!-- Select2 JS --
+    <!-- Select2 JS -->
     <script src="{{ asset('material/admin') }}/assets2/plugins/select2/js/select2.min.js"></script>
 
-    <!-- Custom JS --
+    <!-- Custom JS -->
     <script src="{{ asset('material/admin') }}/assets2/js/script.js"></script>
 
 </body>

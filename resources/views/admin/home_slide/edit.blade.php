@@ -20,7 +20,8 @@
             <div class="card ">
               <div class="card-header card-header-default" >
                 <h4 class="card-title">{{ __($title) }}
-                <a href="{{route('home.slide.list')}}"  class="btn btn-sm btn-default float-right" style='background-color:white ;color:#0099cc;'><i class='fa fa-arrow-left' style='font-size:12px;'>  {{ __('Back') }}</i> </a>
+                  <a href="{{route('home.slide.list')}}"  class="btn btn-primary float-right mt-2"><i class='fa fa-arrow-left' style='font-size:12px;'>  {{ __('Back') }}</i> </a>
+                
                   
                 </h4>
                
@@ -33,7 +34,7 @@
 
               
                
-              <label class="col-sm-2 col-form-label">{{ __('Title :') }}</label>
+              <label class="col-sm-2 col-form-label">{{ __('Title') }}</label>
                   <div class="col-sm-12">
                     <div class="form-group{{ $errors->has('title') ? ' has-danger' : '' }}">
                       <input class="form-control{{ $errors->has('title') ? ' is-invalid' : '' }}" name="title" value="{{ $homeslides->title}}" id="input-title" type="text" placeholder="{{ __('Title') }}"  aria-required="true"/>
@@ -43,15 +44,24 @@
                     </div>
                   </div>
 
+                      <label class="col-sm-2 col-form-label">{{ __('Subtitle') }}</label>
+                  <div class="col-sm-12">
+                    <div class="form-group{{ $errors->has('sub_title') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('sub_title') ? ' is-invalid' : '' }}" name="sub_title" value="{{$homeslides->sub_title}}" id="input-sub_title" type="text" placeholder="{{ $homeslides->sub_title }}"  aria-required="true"/>
+                      @if ($errors->has('sub_title'))
+                        <span id="sub_title-error" class="error text-danger" for="input-sub_title">Subtitle is empty!</span>
+                      @endif
+                    </div>
+                  </div>
     
 
-                  <label class="col-sm-2 col-form-label">{{ __('Details :') }}</label>
+                  <label class="col-sm-2 col-form-label">{{ __('Offers') }}</label>
                   <div class="col-sm-12">
-                    <div class="form-group{{ $errors->has('details') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}" name="details" value="{{ $homeslides->details}}" id="input-details" type="details" placeholder="{{ __('Details') }}"  aria-required="true"/>
-                      <input  name="old_details"  type="hidden" />
-                      @if ($errors->has('details'))
-                        <span id="details-error" class="error text-danger" for="input-details">Details is Empty!</span>
+                    <div class="form-group{{ $errors->has('offers') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('offers') ? ' is-invalid' : '' }}" name="offers" value="{{ $homeslides->offers}}" id="input-offers" type="offers" placeholder="{{ __('Offers') }}"  aria-required="true"/>
+                      <input  name="old_offers"  type="hidden" />
+                      @if ($errors->has('offers'))
+                        <span id="offers-error" class="error text-danger" for="input-offers">Offers is Empty!</span>
                       @endif
                     </div>
                   </div>
@@ -71,7 +81,7 @@
                               id="myImage"
                           /></label>
                           <br>
-                          <img src="{{ asset('public/uploads/slide') }}/{{ $homeslides->img }}" style='margin-bottom:30px;height:200px;width:450px;'/>
+                          <img src="{{ asset('/uploads/homeslider') }}/{{ $homeslides->img }}" style='margin-bottom:30px;height:200px;width:450px;'/>
                                 <br>
                              </div>
                         

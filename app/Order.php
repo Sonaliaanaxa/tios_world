@@ -4,12 +4,18 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
+use App\Product;
+
 class Order extends Model
 {
+  public function products()
+    {
+        return $this->belongsto(Product::class);
+    }
     use Sortable;
 
    protected $guarded=[];
-  //  protected $fillable=['name','mobile','address_line_1','city','state','country','zipcode','final_price','final_saving'];
+  
 
   public $sortable = ['id','name','order_no','final_price','total_items','city','status','payment','created_at'];
 }

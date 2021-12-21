@@ -11,9 +11,11 @@ use App\Specialitie;
 use App\BloodbankRequest;
 use App\HomeSlide;
 use App\About;
+use App\Service;
 use App\Blog;
 use App\Policy;
 use App\Homenotification;
+use App\OrderDetail;
 use App\Procomment;
 use App\Procommentreply;
 //-----------------------------Orders-------------------------------
@@ -25,31 +27,36 @@ function totalOrders()
 
 function allOrders()
 {
-   $orders=Order::distinct('order_no')->where('payment','1')->groupBy('order_no')->count();
+   $orders=Order::count();
    return $orders;
 }
 
 function newOrders()
 {
-   $orders=Order::distinct('order_no')->where('payment','1')->where('status','new')->count();
+   $orders=Order::where('payment','pending')->count();
    return $orders;
 }
 
-function processingOrders()
+function pendingOrders()
 {
-   $orders=Order::distinct('order_no')->where('payment','1')->where('status','processing')->count();
+   $orders=Order::where('payment','pending')->count();
+   return $orders;
+}
+function shippedOrders()
+{
+   $orders=Order::where('payment','shipped')->count();
    return $orders;
 }
 
-function completedOrders()
+function deliveredOrders()
 {
-   $orders=Order::distinct('order_no')->where('payment','1')->where('status','completed')->count();
+   $orders=Order::where('payment','delivered')->count();
    return $orders;
 }
 
 function cancelledOrders()
 {
-   $orders=Order::distinct('order_no')->where('payment','1') ->where('status','cancelled')->count();
+   $orders=OrderDetail::where('delivery_status','cancelled')->count();
    return $orders;
 }
 

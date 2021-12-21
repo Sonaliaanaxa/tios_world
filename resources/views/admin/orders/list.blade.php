@@ -15,11 +15,11 @@
             <div class="card-header card-header-default" >
                 <h4 class="card-title" >{{ __($title) }}
                
-                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:orange;'><i class='fa fa-question-circle' style='font-size:12px;'> Processing :   {{ processingOrders() }}</i> </button>
-                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:#0099cc;'><i class='fa fa-check-circle' style='font-size:12px;'> Completed :  {{ completedOrders() }}</i> </button>
-                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:black;'><i class='fa fa-check' style='font-size:12px;'> All Orders :   {{ allOrders() }}</i> </button>
-                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:green;'><i class='fa fa-shopping-cart' style='font-size:12px;'> New Orders :   {{ newOrders() }}</i> </button>
-            
+                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:orange;'><i class='fa fa-shopping-cart' style='font-size:12px;'> All Orders :   {{ allOrders() }}</i> </button>
+                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:#0099cc;'><i class='fa fa-check-circle' style='font-size:12px;'> Delivered Orders:  {{ deliveredOrders() }}</i> </button>
+                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:black;'><i class='fa fa-check' style='font-size:12px;'> Shipped Orders :   {{ shippedOrders() }}</i> </button>
+                <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:green;'><i class='fa fa-shopping-cart' style='font-size:12px;'> Pending Orders :   {{ pendingOrders() }}</i> </button>
+                <!-- <button  class="btn btn-sm btn-default float-right" style='background-color:white ;color:red;'><i class='fa fa-question-circle' style='font-size:12px;'> Cancelled Orders :   {{ cancelledOrders() }}</i> </button> -->
                 </h4>
                 <!-- <p class="card-category" > {{ __('Here you can manage the products') }}</p> -->
                 <p class="card-category" >Total {{ __($title) }} -  {{ $oCount}}</p>
@@ -50,16 +50,8 @@
                       </th>
                     
                       <th>
-                       @sortablelink('final_price',__('Total Pay'))  
+                       @sortablelink('total_price',__('Total Pay'))  
                       </th>
-                      <th>
-                       @sortablelink('total_items',__('Total Items '))  
-                      </th>
-                     
-                      <th>
-                       @sortablelink('user_country',__('Country'))  
-                      </th>
-                    
                       <th>
                       @sortablelink('name',__('Customer'))  
                         
@@ -71,7 +63,15 @@
                       </th>
                      
                       <th>
-                      @sortablelink('payment',__('Payment')) 
+                      @sortablelink('payment',__('Payment Type')) 
+                    
+                      </th>
+                      <th>
+                      @sortablelink('payment',__('Payment Method')) 
+                    
+                      </th>
+                      <th>
+                      @sortablelink('payment',__('Change Status')) 
                     
                       </th>
                     
@@ -98,36 +98,35 @@
                                   <u><a href="{{route('orders.view',$r->order_no)}}">{{ $r->order_no }} </a>  </u>
                              </td>
                              <td>
-                                  <span style='color:#00cc99;font-size:12px;'>{{ $r->currency }} </span><b>{{ $r->final_price }}  </b>
+                                  <span style='color:#0c3889;font-size:17px;'>{{ $r->currency }} {{$r->total_price}} </span><b> </b>
                              </td>
                              <td>
-                                  <b>{{countOrder($r->order_no)}}  </b>
+                              {{ $r->name }} <br>
+                              {{ $r->phone }}  
                              </td>
-                             <td>
+                             <td changetext='{{ $r->order_no}}'>
                                   
-                                {{ $r->user_country }}  
+                                {{ $r->payment }}  
                              </td>
-                         
-                             <td>
-                                  {{ $r->user_name }} <br>
-                                  {{ $r->user_email }} <br>
-                                   {{ $r->user_mobile }}  
-                             </td>
-                        
 
+                             <td>
+                                  {{$r->payment_type}}
+                             </td>
+
+                            <td>
+                              {{$r->payment_method}}
+                            </td>
                              <td>
                                
                                   <select id="{{ $r->order_no}}" style='width:112px;'  class="custom-select status" name='status'   >
-                               
-                                    <option value='new' {{ ('new'== $r->status)?'selected':''}}> New </option>  
-                                    <option value='processing' {{ ('processing'== $r->status)?'selected':''}}> Processing</option>
-                                    <option value='completed' {{ ('completed'== $r->status)?'selected':''}}> Completed</option>
-                                    <option value='cancelled' {{ ('cancelled'== $r->status)?'selected':''}}> Cancelled</option>
-                                 
+                                    <option value='pending' {{ ('pending'== $r->payment)?'selected':''}}> Pending</option>
+                                    <option value='shipped' {{ ('shipped'== $r->payment)?'selected':''}}> Shipped</option>
+                                    <option value='delivered' {{ ('delivered'== $r->payment)?'selected':''}}> Delivered</option>
+                                    <option value='success' {{ ('success'== $r->payment)?'selected':''}}> Success</option>
                                   </select> 
                              </td>
                            
-                             <td>
+                             <!-- <td>
                                
                                   <select id="{{ $r->order_no}}" style='width:112px;'  class="custom-select payment" name='payment'   >
                                 
@@ -138,7 +137,7 @@
                                  
                                   </select> 
                              </td>
-                        
+                         -->
                              <td>
                             
                                   {{ $r->created_at->format('d F,Y') }}  
@@ -179,7 +178,6 @@
 
                 var order_no = $(this).attr('id');
                 var status =  $(this).val();
-              
             
                 if (!confirm("Confirm if you want to update status to " + status+ " ?")) {
                     e.preventDefault();
@@ -191,16 +189,12 @@
                     url:"{{ route('orders.status.update') }}",
                     data: {order_no: order_no,status:status,_token: '{{ csrf_token() }}'},
                     success: function (data) {
-                        if (data.success == 1) {
-                            
-                             swal("Success!", "Order Status Successfully Updated!", "success");
+                        if(data.status == true){
+                            alert(data.message);
+                            location.reload();
+                        }else{
+                            alert('data.message');
                         }
-                        else{
-                            
-                            swal("Error!", "Error Occurred!", "waring");
-                       }
-                      //  location.reload();
-                       
                     }
                 });
             });

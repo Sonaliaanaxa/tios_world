@@ -51,18 +51,11 @@
                      <th>
                       @sortablelink('name',__('Product'))  
                      </th>
-                   
-                      <th>
-                      @sortablelink('category_id',__('Category'))  
-                     </th>
+                  
                      <th>
                       @sortablelink('price',__('MRP & Price'))  
                      </th>
-                     <th>
-                      @sortablelink('user_name',__('Pharmacy Details'))  
-                     </th>
-                 
-               
+                    
                      <th>
                       @sortablelink('stock',__('Stock'))  
                      </th>
@@ -91,8 +84,8 @@
                          </td>
                          <td>
                               
-                              @if($r->img)
-                                <a href="{{ asset('public/uploads/products') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('public/uploads/products') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>
+                              @if($r->upload_image)
+                                <a href="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;'/></a>
                                @else
                                <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
                                {{ substr($r->name,0,1) }}
@@ -103,9 +96,7 @@
                                  {{ $r->name }} 
                             </td>
                          
-                            <td>
-                                {{ $r->category_name }}  
-                            </td>
+            
                             <td>
                             <span style='color:#00cc99;font-size:12px;'>Price - </span>{{ $r->currency }}  {{ $r->price }}  
                             <p style='color:orange;font-size:10px;margin-top:-2px;'>Saving :{{ $r->currency }}  {{ $r->saving }}  </p>
@@ -113,13 +104,7 @@
                             <p style='color:gray;font-size:10px;margin-top:-14px;'>Discount : {{ $r->discount }}% </span> </p>
                             </td>
                      
-                            <td>
-                                 {{ $r->user_name }}, <br>
-                                {{ $r->user_email }},  <br>
-                              {{ $r->user_mobile }},   
-                               
-                            </td>
-                            
+                           
                             <td>
                                  @if($r->stock==1)
                                  

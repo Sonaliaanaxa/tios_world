@@ -27,9 +27,9 @@ class HomeSlideController extends Controller
   
     public function index()
     {
-        $title = "Home Slide";
-      $subtitle="Home Slide";
-      $activePage = "HomeSlide";
+        $title = "Home Slider";
+      $subtitle="Home Slider";
+      $activePage = "HomeSlider";
       $tCount=HomeSlide::select('*')->count();
       $home_slides=HomeSlide::select('home_slides.*')
          ->orderBy('id','DESC')
@@ -39,10 +39,10 @@ class HomeSlideController extends Controller
   
     public function create()
     {
-        $title = "Create HomeSlide";
-        $subtitle="HomeSlide";
-        $activePage = "HomeSlide";
-          return view('admin.home_slide.add',compact('title','activePage','subtitle'));
+        $title = "Create Home Slider";
+        $subtitle="HomeSlider";
+        $activePage = "HomeSlider";
+        return view('admin.home_slide.add',compact('title','activePage','subtitle'));
       
     }
   
@@ -50,8 +50,10 @@ class HomeSlideController extends Controller
     public function save(Request $request)
     {
         $this->validate(request(), [
+            'sub_title' => 'required',
             'title' => 'required',
-            'details' => 'required'
+            'offers' => 'required',
+          
           
         ]);    
         
@@ -65,7 +67,7 @@ class HomeSlideController extends Controller
                 {
 
                         $image_name ='slide_'.time().'.'.$extension;
-                        $destinationPath = public_path('/uploads/slide');
+                        $destinationPath = public_path('/uploads/homeslider');
                         $file->move($destinationPath, $image_name);
                 }
                 else
@@ -77,20 +79,21 @@ class HomeSlideController extends Controller
 
         $data=[
             'title' => $request->title,
-            'details' => $request->details,
+            'sub_title' => $request->sub_title,
+            'offers' => $request->offers,
             'img' =>  $image_name
         ];
 
         $result=HomeSlide::create($data);
-        return redirect(route('home.slide.list'))->with('success', 'HomeSlide Successfully Added!');
+        return redirect(route('home.slide.list'))->with('success', 'HomeSlider Successfully Added!');
     }
   
   
     public function edit(Request $request, $id)
     {
-        $title = "Update HomeSlide";
-        $subtitle="HomeSlide";
-        $activePage = "HomeSlide";
+        $title = "Update HomeSlider";
+        $subtitle="HomeSlider";
+        $activePage = "HomeSlider";
         $homeslides=HomeSlide::where('id',$id)->first();
           return view('admin.home_slide.edit',compact('title','homeslides','activePage','subtitle','id'));
     }
@@ -100,7 +103,8 @@ class HomeSlideController extends Controller
     {
         $this->validate(request(), [
             'title' => 'required',
-        'details' => 'required'
+            'sub_title' => 'required',
+            'offers' => 'required'
           
         ]);   
         
@@ -113,7 +117,7 @@ class HomeSlideController extends Controller
                 {
 
                         $image_name ='slide_'.time().'.'.$extension;
-                        $destinationPath = public_path('/uploads/slide');
+                        $destinationPath = public_path('/uploads/homeslider');
                         $file->move($destinationPath, $image_name);
                 }
                 else
@@ -124,7 +128,8 @@ class HomeSlideController extends Controller
 
         $data=[
             'title' => $request->title,
-            'details' => $request->details,
+            'sub_title' => $request->sub_title,
+            'offers' => $request->offers,
             'img' =>  $image_name,
             
             'updated_at'=>date('Y-m-d H:i:s')
@@ -134,13 +139,29 @@ class HomeSlideController extends Controller
     {
         $data=[
             'title' => $request->title,
-            'details' => $request->details,
+            'sub_title' => $request->sub_title,
+            'offers' => $request->offers,
             'updated_at'=>date('Y-m-d H:i:s')
         ];
     }
 
     $result=HomeSlide::where('id',$id)->update($data);
-    return redirect(route('home.slide.list'))->with('success', 'Home Slide Successfully Updated!');
+    return redirect(route('home.slide.list'))->with('success', 'Home Slider Successfully Updated!');
     }
 
+     public function destroy(Request $request)
+    {
+        $id=$request->id; 
+        $delete = HomeSlide::where('id', $id)->delete();
+        if ($delete){  
+              return ['success' => 1, 'Slider Successfully Deleted!'];
+              
+            }
+            else
+                {
+                    return ['success' => 0, 'Error Occured!'];
+             
+                }
+     
+    }
 }

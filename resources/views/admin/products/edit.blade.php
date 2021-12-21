@@ -12,7 +12,7 @@
 						<div class="row">
 							<div class="col-sm-12">
 								<h3 class="page-title">{{ __($title) }}
-                                <a href="{{route('products.mylist')}}"  class="btn btn-primary float-right" ><i class='fa fa-arrow-left'>  {{ __('Back') }}</i> </a>
+                                <a href="{{route('products.list')}}"  class="btn btn-primary float-right" ><i class='fa fa-arrow-left'>  {{ __('Back') }}</i> </a>
                                 </h3>
 							
 							</div>
@@ -34,23 +34,7 @@
 
 									<div class="service-fields mb-3">
                   <div class="row">
-              <label class="col-sm-2 col-form-label">{{ __('Select Category *')  }}</label>
-                  <div class="col-sm-6 col-md-4">
-                    <div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
-                    <select  class="custom-select {{ $errors->has('category_id') ? ' is-invalid' : '' }}category" name='category_id' id="input-category_id"   >
-                            <option value=''>Select Category</option>
-                            @foreach($categories as $c)
-                            <option value='{{ $c->id}}' {{ ($c->id==$product->category_id)?'selected':''}} > {{ $c->name}} </option> 
-                            @endforeach </select>
-                           @if ($errors->has('category_id'))
-                        <span id="category_id-error" class="error text-danger" for="input-category_id">Category is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-        
-
-                  
+  
                   <label class="col-sm-2 col-form-label">{{ __('Product Name*') }}</label>
                   <div class="col-sm-4">
                     <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -60,11 +44,23 @@
                       @endif
                     </div>
                   </div>
+
+                    <label class="col-sm-2 col-form-label">{{ __('Slug')  }}</label>
+                     <div class="col-sm-6 col-md-4">
+                    <div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="input-slug" type="text" placeholder="{{ __(' Slug') }}"  value="{{ $product->slug }}"  aria-required="true"/>
+                      @if ($errors->has('slug'))
+                        <span id="slug-error" class="error text-danger" for="input-slug">Slug is Empty!</span>
+                      @endif
+                    </div>
+                        
+                    </div>
+
                 </div>
 
 
 
-                <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
+                <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
                 Price & Discount
                 </h4>
               
@@ -157,7 +153,7 @@
                       </div>
                   </div>
 
-                  <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
+                  <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
                       Stock & Quantity
                 </h4>
 
@@ -184,7 +180,7 @@
                             <option value='ltr' {{ ('ltr'==$product->unit)?'selected':''}}> Ltr</option>
                             <option value='gm' {{ ('gm'==$product->unit)?'selected':''}}> gm</option>
                             <option value='ml' {{ ('ml'==$product->unit)?'selected':''}}> ml</option>
-                            <option value='piece' {{ ('piece'==$product->unit)?'selected':''}}> Piece</option>
+                            <option value='pc' {{ ('pc'==$product->unit)?'selected':''}}> Pc</option>
                        </select>  @if ($errors->has('unit'))
                         <span id="unit-error" class="error text-danger" for="input-unit">Unit is Empty!</span>
                       @endif
@@ -204,10 +200,33 @@
                     </div>
                   </div>
 
+                  <label class="col-sm-2 col-form-label">{{ __('Current Stock*') }}</label>
+                  <div class="col-sm-4">
+                    <div class="form-group{{ $errors->has('current_stock') ? ' has-danger' : '' }}">
+                    <input class="form-control{{ $errors->has('current_stock') ? ' is-invalid' : '' }}"  name="current_stock" id="input-current_stock" type="text" placeholder="{{ __(' Current Stock') }}"   value="{{$product->current_stock }}"  aria-required="true"/>
+                    
+                     @if ($errors->has('current_stock'))
+                        <span id="current_stock-error" class="error text-danger" for="input-current_stock">Current Stock is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+
+                  <label class="col-sm-2 col-form-label">{{ __('Min Qty*') }}</label>
+                  <div class="col-sm-4">
+                    <div class="form-group{{ $errors->has('min_qty') ? ' has-danger' : '' }}">
+                    <input class="form-control{{ $errors->has('min_qty') ? ' is-invalid' : '' }}"  name="min_qty" id="input-min_qty" type="text" placeholder="{{ __(' Minimum Qty') }}"   value="{{ $product->min_qty }}"  aria-required="true"/>
+                    
+                     @if ($errors->has('min_qty'))
+                        <span id="min_qty-error" class="error text-danger" for="input-min_qty">Minimum Qty is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+
+                
                   </div>
                   
 
-                  <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
+                  <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
                       Advance Features
                 </h4>
 
@@ -247,15 +266,15 @@
                   
                   <label class="col-sm-2 col-form-label">{{ __('Product Details & Features*')  }}</label>
                   <div class="col-sm-10 col-md-10">
-                    <div class="form-group{{ $errors->has('details') ? ' has-danger' : '' }}">
-                    <textarea class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}"  name="details" id="input-details" type="details" value="{{ old('details') }}" placeholder="{{ __('Product Details') }}"  />
-                    {{ $product->details }}
+                    <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
+                    <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"  name="description" id="input-description" type="description" value="{{ old('description') }}" placeholder="{{ __('Product Description') }}"  />
+                    {{ $product->description }}
                       </textarea>
                       <script>
-                        CKEDITOR.replace( 'input-details' );
+                        CKEDITOR.replace( 'input-description' );
                       </script>
-                           @if ($errors->has('details'))
-                        <span id="details-error" class="error text-danger" for="input-details">Product Details is Empty!</span>
+                           @if ($errors->has('description'))
+                        <span id="description-error" class="error text-danger" for="input-description">Product Description is Empty!</span>
                       @endif
                     </div>
                   </div>
@@ -272,12 +291,44 @@
 
                           <input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg"  name='myImage' id="myImage" class="form-control"  title="Upload image" class="add-input" onChange="displayImage1(this)" > 
                           <br>
-                          <img src="{{ asset('public/uploads/products') }}/{{ $product->img }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;'/>
+                          <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;'/>
                                 <br>
                                         
                              </div>
                              <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                             <br>
+                           </div>
+                             <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
+                      Meta Title & Description
+                </h4>
+                 <div class="row"  >
+                <label class="col-sm-2 col-form-label">{{ __('Meta Title*') }}</label>
+                  <div class="col-sm-10">
+                    <div class="form-group{{ $errors->has('meta_title') ? ' has-danger' : '' }}">
+                    <input class="form-control{{ $errors->has('meta_title') ? ' is-invalid' : '' }}"  name="meta_title" id="input-meta_title" type="text" placeholder="{{ __(' Meta Title') }}"   value="    {{ $product->meta_title }}"  aria-required="true"/>
+                    
+                     @if ($errors->has('meta_title'))
+                        <span id="meta_title-error" class="error text-danger" for="input-meta_title">Meta Title is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+                  
+                  <label class="col-sm-2 col-form-label">{{ __('Meta Description*')  }}</label>
+                  <div class="col-sm-10 col-md-10">
+                    <div class="form-group{{ $errors->has('meta_description') ? ' has-danger' : '' }}">
+                    <textarea class="form-control{{ $errors->has('meta_description') ? ' is-invalid' : '' }}"  name="meta_description" id="input-meta_description" type="meta_description" value="{{ old('meta_description') }}" placeholder="{{ __('Meta Description') }}"  />
+                    {{ $product->meta_description }}
+                      </textarea>
+                      <script>
+                        CKEDITOR.replace( 'input-meta_description' );
+                      </script>
+                           @if ($errors->has('meta_description'))
+                        <span id="meta_description-error" class="error text-danger" for="input-meta_description">Meta Description is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
 
+                </div>
                              <div class="submit-section">
 										<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
 									</div>

@@ -2,11 +2,11 @@
 
 namespace App;
 
-use Illuminate\Contracts\Auth\MustVerifyEmail;
+
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
-
+use App\Cart;
 class User extends Authenticatable
 {
     use Notifiable;
@@ -22,9 +22,12 @@ class User extends Authenticatable
     ];
 
     
+    public function carts()
+    {
+        return $this->belongsto(Cart::class);
+    }
 
-
-    public $sortable = ['id','name','email','city','status','mobile','country','created_at'];
+    public $sortable = ['id','name','email','city','status','img','phone','country','created_at'];
     
     
     public function setPasswordAttribute($password)

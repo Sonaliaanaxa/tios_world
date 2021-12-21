@@ -2,28 +2,13 @@
 
 namespace App\Http\Controllers;
 
-
-
 use Illuminate\Http\Request;
 
-use Illuminate\Support\Facades\Session;
 
 use App\Http\Controllers\Controller;
 
-use Illuminate\Foundation\Auth\RegistersUsers;
-use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Redirect;
-use App\User; 
-use App\Category;
-use App\Subcategory; 
-use App\Product;
-use App\City;
 use App\Order;
+use App\OrderDetail;
 
 use App\Http\Requests;
 class OrderController extends Controller
@@ -40,87 +25,57 @@ class OrderController extends Controller
         $title = "All Orders";
       $subtitle="Orders";
       $activePage = "Orders";
-      $oCount=Order::distinct('order_no')->where('payment','1')->groupBy('order_no')->count();
-      $orders=Order::select('*')
-          
-            ->where('payment','1')
-         ->orderBy('id','DESC')
-         ->groupBy('order_no')
-         ->sortable()->paginate(30);
+      $oCount=Order::count();
+      $orders=Order::select('orders.*','users.name as uname')
+        ->join('users','users.id','orders.user_id')
+        ->orderBy('orders.id','DESC')
+        ->sortable()->paginate(30);
         return view('admin.orders.list',compact('title','orders','activePage','subtitle','oCount'));
     }
 
-    public function myorder()
+    
+    
+    public function pending()
     {
-        $title = "All My Orders";
-      $subtitle="Orders";
-      $activePage = "Orders";
-      $oCount=Order::where('seller_id',auth()->user()->id)->where('payment','1')->count();
-      $orders=Order::select('*')
-      ->where('seller_id',auth()->user()->id)
-            ->where('payment','1')
-         ->orderBy('id','DESC')
-        
-         ->sortable()->paginate(30);
-        return view('admin.orders.seller_list',compact('title','orders','activePage','subtitle','oCount'));
-    }
-    public function myorderHis()
-    {
-        $title = "My Orders History";
-      $subtitle="Orders";
-      $activePage = "Orders";
-      $oCount=Order::where('user_id',auth()->user()->id)->where('payment','1')->count();
-      $orders=Order::select('*')
-      ->where('user_id',auth()->user()->id)
-            ->where('payment','1')
-         ->orderBy('id','DESC')
-        
-         ->sortable()->paginate(30);
-        return view('admin.orders.orderhis_list',compact('title','orders','activePage','subtitle','oCount'));
-    }
-    public function new()
-    {
-        $title = "New Orders";
-      $subtitle="NewOrders";
-      $activePage = "Orders";
-      $status='new';
-      $oCount=Order::distinct('order_no') ->where('payment','1') ->where('status',$status)->count();
-      $orders=Order::select('*')
-               ->where('payment','1')
-            ->where('status',$status)
-         ->orderBy('id','DESC')
-         ->groupBy('order_no')
-         ->sortable()->paginate(30);
+        $title = "Pending Orders";
+      $subtitle="Pending";
+      $activePage = "PendingOrders";
+      $status='pending';
+      $oCount=Order::where('payment',$status)->count();
+      $orders=Order::select('orders.*','users.name as uname')
+      ->join('users','users.id','orders.user_id')
+      ->where('orders.payment',$status)
+      ->orderBy('orders.id','DESC')
+      ->sortable()->paginate(30);
+     
         return view('admin.orders.list',compact('title','orders','activePage','subtitle','oCount'));
     }
-    public function processing()
+    public function shipped()
     {
-        $title = "Processing Orders";
-      $subtitle="ProcessingOrders";
+        $title = "Shipped Orders";
+      $subtitle="ShippedOrders";
       $activePage = "Orders";
-      $status='processing';
-      $oCount=Order::distinct('order_no') ->where('payment','1')->where('status',$status)->count();
-      $orders=Order::select('*')
-             ->where('payment','1')
-            ->where('status',$status)
-         ->orderBy('id','DESC')
-         ->groupBy('order_no')
-         ->sortable()->paginate(30);
+      $status='shipped';
+      $oCount=Order::where('payment',$status)->count();
+      $orders=Order::select('orders.*','users.name as uname')
+                        ->join('users','users.id','orders.user_id')
+                        ->where('orders.payment',$status)
+                        ->orderBy('orders.id','DESC')
+                        ->sortable()->paginate(30);
         return view('admin.orders.list',compact('title','orders','activePage','subtitle','oCount'));
     }
-    public function completed()
+    public function delivered()
     {
-        $title = "Completed Orders";
-      $subtitle="CompletedOrders";
+        $title = "Delivered Orders";
+      $subtitle="DeliveredOrders";
       $activePage = "Orders";
-      $status='completed';
-      $oCount=Order::distinct('order_no')->where('payment','1')->where('status',$status)->count();
-      $orders=Order::select('*')
-          ->where('payment','1')
-            ->where('status',$status)
-         ->orderBy('id','DESC')
-         ->groupBy('order_no')
-         ->sortable()->paginate(30);
+      $status='delivered';
+      $oCount=Order::where('payment',$status)->count();
+      $orders=Order::select('orders.*','users.name as uname')
+                    ->join('users','users.id','orders.user_id')
+                    ->where('orders.payment',$status)
+                    ->orderBy('orders.id','DESC')
+                    ->sortable()->paginate(30);
         return view('admin.orders.list',compact('title','orders','activePage','subtitle','oCount'));
     }
     public function cancelled()
@@ -129,13 +84,14 @@ class OrderController extends Controller
       $subtitle="CancelledOrders";
       $activePage = "Orders";
       $status='cancelled';
-      $oCount=Order::distinct('order_no')->where('payment','1') ->where('status',$status)->count();
-      $orders=Order::select('*')
-         ->where('payment','1')
-            ->where('status',$status)
-         ->orderBy('id','DESC')
-         ->groupBy('order_no')
-         ->sortable()->paginate(30);
+      $oCount=OrderDetail::where('delivery_status',$status)->count();
+      $orders = Order::select('orders.*','order_details.product_id','products.currency as currency','products.name as product_name','order_details.delivery_status as delivery_status')
+                    ->join('users','users.id','orders.id')
+                    ->join('order_details','order_details.order_id','orders.id')
+                    ->join('products','products.id','order_details.product_id')
+                    ->where('orders.payment',$status)
+                    ->orderBy('id','DESC')
+                    ->sortable()->paginate(30);
         return view('admin.orders.list',compact('title','orders','activePage','subtitle','oCount'));
     }
 
@@ -143,14 +99,18 @@ class OrderController extends Controller
     {
         $order_no=$id;
         $title = "View Order Details";
-      $subtitle="Orders";
-      $activePage = "Orders";
+        $subtitle="Orders";
+        $activePage = "Orders";   
    
-      $oCount=Order::where('payment','1')->where('order_no',$order_no)->count();
-      $orders=Order::select('*')
-       ->where('payment','1')
-            ->where('order_no',$order_no)
-            ->get();
+      $oCount=Order::select('*')
+      ->where('order_no',$order_no)->count();
+      $orders=Order::select('*','products.name as product_name','products.upload_image as img','products.price as product_price','products.mrp as product_mrp','users.name as uname')
+                    ->join('users','users.id','orders.user_id')
+                    ->join('order_details','order_details.order_id','orders.id')
+                    ->join('products','products.id','order_details.product_id')
+                    ->where('order_no',$order_no)
+                    ->get();
+        // dd($orders);
         return view('admin.orders.view',compact('title','orders','activePage','subtitle','oCount','order_no'));
     }
 
@@ -160,12 +120,15 @@ class OrderController extends Controller
         $title = "View Order Details";
       $subtitle="Orders";
       $activePage = "Orders";
-   
-      $oCount=Order::distinct('order_no')->where('payment','1')->where('order_no',$order_no)->count();
-      $orders=Order::select('*')
-         ->where('payment','1')
-            ->where('order_no',$order_no)
-            ->get();
+     
+      $oCount=Order::where('order_no',$order_no)->count();
+      $orders=Order::select('*','products.name as product_name','products.upload_image as img','products.price as product_price','products.mrp as product_mrp','users.name as uname')
+                    ->join('users','users.id','orders.user_id')
+                    ->join('order_details','order_details.order_id','orders.id')
+                    ->join('products','products.id','order_details.product_id')
+                    ->where('order_no',$order_no)
+                    ->get();
+           
         return view('admin.orders.print',compact('title','orders','activePage','subtitle','oCount','order_no'));
     }
 
@@ -208,20 +171,20 @@ class OrderController extends Controller
     
      
     public function statusUpdate(Request $request)
-    {
+    {   
         $order_no=$request->order_no; 
-        $data['status']=$request->status; 
+        $data['payment']=$request->status;
+
         $res=Order::where('order_no',$order_no)->update($data);
        
         if ($res){
     
-         
-              return ['success' => 1, 'Status Successfully Updated!'];
+              return response()->json(array('status'=>true,'message'=>'Status updated!'));
               
             }
             else
                 {
-                    return ['success' => 0, 'Error Occured!'];
+                    return response()->json(array('status'=>false,'message'=>'Sorry Error!'));
              
                 }
      

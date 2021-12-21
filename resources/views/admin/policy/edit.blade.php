@@ -19,7 +19,7 @@
             <div class="card ">
               <div class="card-header card-header-default" >
                 <h4 class="card-title">{{ __($title) }}
-                <a href="{{route('policy.list')}}"  class="btn btn-sm btn-default float-right" style='background-color:white ;color:#0099cc;'><i class='fa fa-arrow-left' style='font-size:12px;'>  {{ __('Back') }}</i> </a>
+                <a href="{{route('policy.list')}}"  class="btn btn-primary float-right" ><i class='fa fa-arrow-left'>  {{ __('Back') }}</i> </a>
                   
                 </h4>
                
@@ -46,7 +46,7 @@
 
                   <div class='row'>
                   <label class="col-sm-2 col-form-label">{{ __('Details*')  }}</label>
-                  <div class="col-sm-10 col-md-10">
+                  <div class="col-sm-12 col-md-10">
                     <div class="form-group{{ $errors->has('details') ? ' has-danger' : '' }}">
                     <textarea class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}"  name="details" id="input-details" type="details" value="{{ old('details') }}" placeholder="{{ __('Pages Details') }}"  />
                     {{ $policies->details }}
@@ -56,6 +56,19 @@
                       </script>
                            @if ($errors->has('details'))
                         <span id="details-error" class="error text-danger" for="input-details">Pages Details is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+
+                    <label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>
+                  <div class="col-sm-12">
+                    <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
+                    <select  class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status"   >
+                            <option value='{{ $policies->status }}'>{{ $policies->status }}</option>
+                            <option value='1' {{ ('1'==$policies->status)?'selected':''}}> Activate </option>  
+                            <option value='0' {{ ('0'==$policies->status)?'selected':''}}> Deactivate</option>
+                       </select>  @if ($errors->has('status'))
+                        <span id="status-error" class="error text-danger" for="input-status"> Status</span>
                       @endif
                     </div>
                   </div>
