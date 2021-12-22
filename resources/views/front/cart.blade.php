@@ -1,132 +1,107 @@
 @include('front.layouts.header')
 
-        <!-- main-area -->
-        <main>
+<section class="ec-page-content section-space-p pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="ec-cart-leftside col-md-8 ">
+                <!-- cart content Start -->
+                <form action="#">
+                    <div class="table-content table-responsive cart-table-content">
+                        <div class="cart-content">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Image</th>
+                                        <th>Product Name</th>
+                                        <th>Until Price</th>
+                                        <th>Qty</th>
+                                        <th>Subtotal</th>
+                                        <th>action</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td class="product-thumbnail">
+                                            <a href="#"><img src="{{asset('assets/img/Instagram5.png')}}" alt="#"></a>
+                                        </td>
+                                        <td class="product-name"><a href="#">Indigenous honey</a></td>
+                                        <td class="product-price-cart"><span class="amount">₹150.00</span></td>
+                                        <td class="product-quantity pro-details-quality">
+                                            <div class="control">
+                                                <button class="bttn bttn-left" id="minus">
+                                                    <span>-</span>
+                                                </button>
+                                                <input type="number" class="input" id="input">
+                                                <button class="bttn bttn-right" id="plus">
+                                                    <span>+</span>
+                                                </button>
+                                            </div>
+                                        </td>
+                                        <td class="product-subtotal">₹150.00</td>
+                                        <td class="product-remove">
+                                            <a href="#"><i class="fa fa-trash"></i></a>
+                                        </td>
+                                    </tr>
 
-            <!-- breadcrumb-area -->
-            <section class="breadcrumb-area breadcrumb-bg"  style="background-image:url('{{ asset('/uploads/banner/'.$slider->image) }}');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="breadcrumb-content">
-                                <h2 class="title">Shopping Cart</h2>
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Shopping Cart</li>
-                                        </ol>
-                                    </nav>
-                            </div>
+                                </tbody>
+                            </table>
                         </div>
-                    </div>
-                </div>
-            </section>
-            <!-- breadcrumb-area-end -->
-
-            <!-- cart-area -->
-            <div class="cart-area pt-90 pb-90">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-xl-7">
-                            <div class="cart-wrapper">
-                                <div class="table-responsive">
-                                    <table class="table mb-0">
-                                        <thead>
-                                            <tr>
-                                                <th class="product-thumbnail"></th>
-                                                <th class="product-name">Product</th>
-                                                <th class="product-price">Price</th>
-                                                <th class="product-quantity">QUANTITY</th>
-                                                <th class="product-subtotal">SUBTOTAL</th>
-                                                <th class="product-delete"></th>
-                                            </tr>
-                                        </thead>
-                                       
-                                        <tbody>
-                                        @php
-                                            $total = 0;
-                                            $delcharge = 0;
-                                        @endphp
-                                            @foreach($carts as $cart)
-                                       
-                                            <tr>
-                                                <td class="product-thumbnail"><a href="{{route('shop-details')}}"><img src="{{asset('uploads/products/'.$cart->products->upload_image)}}" alt=""></a></td>
-                                                <td class="product-name">
-                                                    <h4><a href="{{route('shop-details')}}">{{$cart->products->name}}</a></h4>
-                                                </td>
-                                                <td class="product-price">{{$cart->products->currency}} {{$cart->products->price}}</td>
-                                                <td class="product-quantity">
-                                                    <div class="cart--plus--minus">
-                                                        <form  class="num-block">
-                                                            <input type="number" class="in-num qty-{{$cart->products_id}}"  value="{{$cart->quantity}}" readonly="" name="quantity">
-                                                            <div class="qtybutton-box">
-                                                                <span class="plus" onclick="return increment('{{$cart->products_id}}')"><i class="fas fa-angle-up"></i></span>
-                                                                <span class="minus dis" onclick="return decrement('{{$cart->products_id}}')"><i class="fas fa-angle-down"></i></span>
-                                                                <input type="hidden" name="products_id" value="{{$cart->products_id}}">
-                                                            </div>
-
-                                                        </form>
-                                                    </div>
-                                                </td>
-                                                <td class="product-subtotal"><span>{{$cart->products->currency}}  {{$cart->products->price * $cart->quantity}}.00</span></td>
-                                                <td class="product-delete"><a href="{{url('delete-cart/'.$cart->id)}}"><i class="far fa-trash-alt"></i></a></td>
-                                            </tr>
-                                            @php
-                                                $delcharge = $delcharge + $cart->products->delivery_charge;
-                                                $price = $cart->quantity *  $cart->products->price;
-                                                $total = $total + $price;
-                                            @endphp
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
-                            <!-- <div class="shop-cart-bottom">
-                                <div class="cart-coupon">
-                                    <form action="#">
-                                        <input type="text" placeholder="Enter Coupon Code...">
-                                        <button class="btn">Apply Coupon</button>
-                                    </form>
-                                </div>
-                                <div class="continue-shopping">
-                                    <a href="" class="btn">update Cart</a>
-                                </div>
-                            </div> -->
-                        </div>
-                        <div class="col-xl-5 col-lg-12">
-                            <div class="shop-cart-total">
-                                <h3 class="title">Cart Totals</h3>
-                                <div class="shop-cart-widget">
-                                    <form action="#">
-                                        <ul>
-                                            <li class="sub-total">
-                                                <span>Subtotal</span>
-                                                {{$cart->products->currency}} {{$total}}.00 
-                                            </li>
-                                            
-                                            <li class="cart-total-amount">
-                                                <span>Delivery Charges</span> 
-                                                <del><span class="amount">{{$cart->products->currency}} {{$delivery_charges->delivery_charges}}</span></del>
-                                            </li>
-
-                                            <li class="cart-total-amount">
-                                                <span>Total Price</span> 
-                                                <span class="amount">{{$cart->products->currency}}  {{$total}}.00</span>
-                                            </li>
-                                        </ul>
-                                        <a href="{{route('checkout')}}" class="btn">PROCEED TO CHECKOUT</a>
-                                    </form>
+                        <div class="row">
+                            <div class="col-lg-12">
+                                <div class="cart-shiping-update-wrapper">
+                                    <div class="cart-shiping-update">
+                                        <a href="#">Continue Shopping</a>
+                                    </div>
+                                    <div class="cart-clear">
+                                        <button>Update Cart</button>
+                                        <a href="#">Clear Cart</a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
+                </form>
+
             </div>
-            <!-- cart-area-end -->
+            <!--cart content End -->
+        </div>
 
-        </main>
-        <!-- main-area-end -->
 
+        <!-- Sidebar Area Start -->
+        <div class="ec-cart-rightside col-lg-4 ">
+            <!-- Sidebar Summary Block -->
+            <div class="grand-totall">
+                <div class="title-wrap">
+                    <h4 class="cart-bottom-title section-bg-gary-cart">Cart Total</h4>
+                </div>
+                <h5>Total products <span>₹260.00</span></h5>
+                <div class="total-shipping">
+                    <h5>Total shipping</h5>
+                    <ul>
+                        <li><input type="checkbox"> Standard <span>₹20.00</span></li>
+                        <li><input type="checkbox"> Express <span>₹30.00</span></li>
+                    </ul>
+                </div>
+                <h4 class="grand-totall-title">Grand Total <span>₹260.00</span></h4>
+                <a href="{{route('checkout')}}" class="checkbtn">Proceed to Checkout</a>
+            </div>
+            <!-- Sidebar Summary Block -->
+            <div class="grand-coupon">
+                <form>
+                    <div class="form-group">
+                        <label>Coupon code<sup>*</sup>
+                        </label>
+                        <div class="form-group__content">
+                            <input class="form-control" type="text" placeholder="coupon code">
+
+                            <a href="{{route('checkout')}}" class="checkbtn">Apply coupon</a>
+
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    </div>
+</section>
 
 @include('front.layouts.footer')
-        

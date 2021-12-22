@@ -121,7 +121,11 @@ class AuthController extends Controller
 
     }
 
-
+    public function loginSeller()
+    {
+       $title = "Login";
+      return view('front.login',compact('title')); 
+    }
 
     public function loginPage()
     {

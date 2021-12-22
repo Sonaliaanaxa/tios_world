@@ -28,7 +28,7 @@
 						<!-- Add Blog -->
 						<form method='post' action="{{ route('products.create') }}" enctype="multipart/form-data">
 							@csrf
-							@include('common.flash-msg')
+							@include('admin.layouts.flash_msg')
 
 							<div class="service-fields mb-3">
 
@@ -49,7 +49,7 @@
 										</div>
 									</div>
 
-									<label class="col-sm-2 col-form-label">{{ __('Select Subcategory *')  }}</label>
+									<!-- <label class="col-sm-2 col-form-label">{{ __('Select Subcategory *')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('subcategory_id') ? ' has-danger' : '' }}">
 											<select id="subcategoryList" class="custom-select {{ $errors->has('subcategory_id') ? ' is-invalid' : '' }}subcategory" name='subcategory_id' disabled>
@@ -62,7 +62,7 @@
 											<span id="subcategory_id-error" class="error text-danger" for="subcategoryList">Please Select Subcategory!</span>
 											@endif
 										</div>
-									</div>
+									</div> -->
 
 									<label class="col-sm-2 col-form-label">{{ __('Product Name')  }}</label>
 									<div class="col-sm-6 col-md-4">
@@ -77,7 +77,7 @@
 										</div>
 									</div>
 
-									{{--<label class="col-sm-2 col-form-label">{{ __('Product Slug')  }}</label>
+									<label class="col-sm-2 col-form-label">{{ __('Product Slug')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
 											<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
@@ -88,7 +88,7 @@
 											</div>
 
 										</div>
-									</div>--}}
+									</div>
 								</div>
 								<br>
 
@@ -120,29 +120,7 @@
 
 									</div>
 
-									<label class="col-sm-2 col-form-label">{{ __('Purchase Bitcoin*') }}</label>
-									<div class="col-sm-4">
-										<div class="form-group{{ $errors->has('purchase_bitcoin') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('purchase_bitcoin') ? ' is-invalid' : '' }}" readonly name="purchase_bitcoin" id="input-purchase_bitcoin" type="number" placeholder="{{ __(' Purchase Bitcoin') }}" value="{{ old('Purchase Bitcoin') }}" style='background-color:#fafafa;' aria-required="true" />
-											@if ($errors->has('purchase_bitcoin'))
-											<span id="purchase_bitcoin-error" class="error text-danger" for="input-purchase_bitcoin">Purchase Bitcoin is Empty!</span>
-											@endif
-										</div>
-									</div>
-
-									<label class="col-sm-2 col-form-label">{{ __('Selling Bitcoin*') }}</label>
-									<div class="col-sm-4">
-										<div class="form-group{{ $errors->has('selling_bitcoin') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('selling_bitcoin') ? ' is-invalid' : '' }}" readonly name="selling_bitcoin" id="input-selling_bitcoin" type="number" placeholder="{{ __(' Selling Bitcoin') }}" value="{{ old('Selling Bitcoin ') }}" style='background-color:#fafafa;' aria-required="true" />
-											@if ($errors->has('selling_bitcoin'))
-											<span id="selling_bitcoin-error" class="error text-danger" for="input-selling_bitcoin">Selling Bitcoin is Empty!</span>
-											@endif
-											<span id="err_selling_bitcoin" style="color:red;font-size:12px;"></span>
-										</div>
-
-									</div>
-
-
+									
 									<label class="col-sm-2 col-form-label">{{ __('Discount % *') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('discount') ? ' has-danger' : '' }}">

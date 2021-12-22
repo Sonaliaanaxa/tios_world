@@ -1,180 +1,172 @@
 @include('front.layouts.flash-msg')
 @include('front.layouts.header')
 
-
-       <!-- main-area -->
-       <main>
-
-            <!-- breadcrumb-area -->
-            <section class="breadcrumb-area breadcrumb-bg"  style="background-image:url('{{ asset('/uploads/banner/'.$slider->image) }}');">
-                <div class="container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="breadcrumb-content">
-                                <h2 class="title">Checkout</h2>
-                                    <nav aria-label="breadcrumb">
-                                        <ol class="breadcrumb">
-                                            <li class="breadcrumb-item"><a href="{{route('home')}}">Home</a></li>
-                                            <li class="breadcrumb-item active" aria-current="page">Checkout</li>
-                                        </ol>
-                                    </nav>
+<!--checkout-->
+<section class="page-content pt-30 pb-30">
+    <div class="checkout">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <div class="checkout-form">
+                        <form>
+                            <div class="row">
+                                <div class="col-lg-12">
+                                    <h2 class="checkout-title">Billing Address</h2>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="name" name="name" placeholder="You Name Here">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="email" class="form-control" id="email" name="email" placeholder="Email Address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="street-address" name="street-address" placeholder="Street Address">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="state" name="state" placeholder="State">
+                                    </div>
+                                </div>
+                                <div class="col-lg-6">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" id="zipcode" name="zipcode" placeholder="Zip/Postal Code">
+                                    </div>
+                                </div>
+                                <div class="col-lg-12">
+                                    <select class="form-select" id="country">
+                                        <option>Country</option>
+                                        <option>india</option>
+                                        <option>bangladesh</option>
+                                    </select>
+                                </div>
                             </div>
-                        </div>
+                            <div class="payment-method">
+                                <div class="row">
+                                    <div class="col-lg-12">
+                                        <h2 class="checkout-title">Payment Method</h2>
+                                    </div>
+                                    <div class="col-lg-12">
+                                        <div class="form-group">
+                                            <div class="form-check card-check">
+                                                <input class="form-check-input" type="radio" name="card" id="creditcard" value="creditcard" checked="checked">
+                                                <label class="form-check-label" for="creditcard"> Credit Card</label>
+                                                <div class="input-icon">
+                                                    <img src="{{asset('assets/img/payment-method.png')}}" alt="payment-method">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="card-infor-box">
+                                            <div class="row">
+                                                <div class="col-lg-12">
+                                                    <div class="form-group">
+                                                        <label for="card-humber">Card Number</label>
+                                                        <input type="text" class="form-control" id="card-humber" name="card-humber" placeholder="0000 0000 0000 0000 ">
+                                                        <div class="input-icon">
+                                                            <img src="{{asset('assets/img/card-image.png')}}" alt="payment-method">
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-8">
+                                                    <div class="row">
+                                                        <div class="col-lg-12">
+                                                            <label>Expire Date</label>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <select class="form-select" id="Month">
+                                                                <option>Month</option>
+                                                                <option>1</option>
+                                                                <option>2</option>
+                                                                <option>3</option>
+                                                                <option>4</option>
+                                                            </select>
+                                                        </div>
+                                                        <div class="col-lg-6">
+                                                            <select class="form-select" id="Year">
+                                                                <option>Year</option>
+                                                                <option>2020</option>
+                                                                <option>2019</option>
+                                                                <option>2018</option>
+                                                                <option>2017</option>
+                                                                <option>2016</option>
+                                                            </select>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div class="col-lg-4">
+                                                    <div class="form-group">
+                                                        <label for="ccv">ccv</label>
+                                                        <input type="text" class="form-control" id="ccv" name="ccv" placeholder="Three Digit ">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="form-check card-check">
+                                                <input class="form-check-input" type="radio" name="card" id="paypal" value="paypal">
+                                                <label class="form-check-label" for="paypal">Paypal</label>
+                                                <div class="input-icon">
+                                                    <img src="{{asset('assets/img/paypal.png')}}" alt="paypal">
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group form-check terms-agree">
+                                            <input type="checkbox" class="form-check-input" id="agree">
+                                            <label class="form-check-label" for="agree">By clicking the button you agree to our <a href="#">Terms &amp; Conditions</a></label>
+                                        </div>
+                                        <button type="button" class="checkout-btn form-btn">Place Order</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-            </section>
-        <!-- breadcrumb-area-end -->
-
-        <!-- checkout-area -->
-        <div class="checkout-area pt-90 pb-90">
-            <div class="container">
-                <div class="row justify-content-center">
-                    <div class="col-lg-7">
-                        <div id="pincheckarea" class="checkout-progress-wrap mb-0 pt-0">
-                            <div class="row">
-                                <div class="col-lg-6">
-                                    <input id="pincode" class="form-control" type="text" placeholder="Enter Pincode">
-                                </div>
-                                <div class="col-lg-6">
-                                    <button class="btn btn-primary" onclick="return checkPin()">Check For Delivery</button>
-                                </div>
-                                
-                            </div>
+                <div class="col-lg-6 col-md-6">
+                    <div class="cart-summary">
+                        <div class="summary-top d-flex">
+                            <h2>Cart Summary</h2>
                         </div>
-                        <div id="addressarea" class="checkout-form-wrap">
-                            
-                                <div class="checkout-form-top">
-                                    <h5 class="title">Contact information</h5>
+                        <ul class="cart-product-list">
+                            <li class="single-cart-product d-flex justify-content-between">
+                                <div class="product-info">
+                                    <h3>Indigenous honey</h3>
+                                    <p>quantity : 500ml</p>
+                                    <p>P. Code: SF5FS4F54FD</p>
                                 </div>
-                                <input type="number" placeholder="Phone Number *" name="phone" value="{{Auth::user()->phone}}">
-                                
-                                <div class="building-info-wrap">
-                                    <h5 class="title">Billing Information</h5>
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <input type="text" placeholder="Full Name*" name="name" value="{{Auth::user()->name}}">
-                                        </div>
-                                        
-                                    </div>
-                                    <input id="pininput" type="text" placeholder="Pincode*" name="pincode" >
-                                    <input type="text" placeholder="Flat, House No, Building, Company, Apartment Name*" name="apartment" value="{{@$userAddress->apartment}}">
-                                    <input type="text" placeholder="Area, Colony, Street, Sector, Village*" name="area" value="{{@$userAddress->area}}">
-                                    <div class="row">
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Landmark e.g. Near Kailash Hospital" name="landmark" value="{{@$userAddress->landmark}}">
-                                        </div>
-                                        <div class="col-md-6">
-                                            <input type="text" placeholder="Town\City" name="city" value="{{@$userAddress->city}}">
-                                        </div>
-                                        
-                                        <div class="col-md-12">
-                                            <input type="text" placeholder="State*" name="state" value="{{@$userAddress->state}}">
-                                        </div>
-                                    </div>
-                                    
-                                    <!-- <textarea name="message" id="message" placeholder="Comment"></textarea> -->
+                                <div class="price-area">
+                                    <h3 class="price">₹50.60</h3>
                                 </div>
-                           
+                            </li>
+                            <li class="single-cart-product d-flex justify-content-between">
+                                <div class="product-info">
+                                    <h3>Indigenous honey</h3>
+                                    <p>quantity : 500ml</p>
+                                    <p>P. Code: SF5FS4F54FD</p>
+                                </div>
+                                <div class="price-area">
+                                    <h3 class="price">₹50.60</h3>
+                                </div>
+                            </li>
+                        </ul>
+                        <ul class="summary-list">
+                            <li>Subtotal <span>₹500.50</span></li>
+                            <li>Shipping Cost <span>₹15.50</span></li>
+                            <li>VAT/Tax 15% <span>₹20.00</span></li>
+                        </ul>
+                        <div class="total-amount">
+                            <h3>Total Cost <span class="float-right">₹20.00</span></h3>
                         </div>
-                    </div>
-                    <div class="col-lg-5">
-                    
-                        <div class="shop-cart-total order-summary-wrap">
-                           
-                            <h3 class="title">Order Summary</h3>
-                            @php
-                                $total = 0;
-                                $delcharge = 0;
-                              
-                            @endphp
-                            @foreach($carts as $cart)
-                                @php
-                                  
-                                    $prosum = $cart->quantity * $cart->products->price;
-                                    $total = $total + $prosum;
-                                    $cart_price = $cart->price;
-                                @endphp
-                            <div class="os-products-item">
-                                <div class="thumb">
-                                   <img src="{{asset('uploads/products/'.$cart->products->upload_image)}}" alt="">
-                                </div>
-                                <div class="content">
-                                    <h6 class="title">{{$cart->products->name}}</h6>
-                                    <span class="price">{{$cart->currency}} {{$cart->price}}.00</span>
-                                    <span class="quantity">{{$cart->quantity}} Products</span>
-                                    <span class="quantity">Total : {{$cart->currency}} {{$prosum}}.00</span>
-                                    
-                                    
-                                </div>
-                                <div class="remove"><a href="{{url('delete-cart/'.$cart->id)}}">x</a></div>
-                            </div>
-                            @endforeach
-
-                            <div class="shop-cart-widget">
-                                
-                                    <ul>
-                                        <li class="cart-total-amount"><span>Subtotal</span> <span class="amount">{{$cart->currency}}  {{$total}}.00</span></li>
-                                        <li class="cart-total-amount"><span>Delivery Charges</span> <span class="amount"><del>{{$cart->currency}} {{$delivery_charges->delivery_charges}}</del></span></li>
-                                        <li class="sub-total"><span>Grand Total</span> {{$cart->currency}}  {{$total}}.00</li>
-                                        
-                                        
-                                    </ul>
-                                    <div class="payment-method-info">
-                                        <div class="paypal-method-flex">
-                                            <input id="cod" type="radio" name="paymethod" value="cash_on_delivery" checked>
-                                            <label for="cod">Cash on delivery</label>
-                                        </div>
-                                        <div class="paypal-method-flex">
-                                            <input id="rozar" type="radio" name="paymethod" value="online">
-                                            <label for="rozar">Online Payment</label>
-                                        </div>
-                                    </div>
-                                   <!-- <div class="cod_button">
-                                        <input type="button" value="Place Order" class="btn" onclick="return placeOrder()">
-                                    </div> -->
-                                     
-                                    @if($total >= 200)    
-                                    <div class="cod_button">
-                                        <input type="button" value="PLACE ORDER" class="btn" onclick="return placeOrder()">
-                                    </div>
-                                    @else
-                                    <p style="color:red;text-align:center;">Minimum Order value is Rs. 200</p>
-                                    @endif
-                                   
-                                    @if($total >= 200)      
-                                    <div class="razorpay_btn">
-                                        <div class="card-body text-center p-0">
-                                            <form action="{{route('razorpay')}}" method="POST" onclick="return placeOrder()">
-                                                @csrf
-                                                <script src="https://checkout.razorpay.com/v1/checkout.js"
-                                                        data-key="{{ env('RAZORPAY_KEY') }}"
-                                                        data-amount="{{$total * 100}}"
-                                                        data-buttontext="PLACE ORDER"
-                                                        data-name="Hygieneherbs Agro Fresh Private Limited"
-                                                        data-description="RazorPay"
-                                                        data-image="{{url('assets/front/img/logo/logo.png')}}"
-                                                        data-prefill.contact="{{Auth::user()->phone}}"
-                                                        data-prefill.name="{{Auth::user()->name}}"
-                                                        data-prefill.email="{{Auth::user()->email}}"
-                                                        data-theme.color="#ff7529">
-                                                </script>
-                                            </form>
-                                      
-
-                                
-                            </div>
-                            
-                        </div>
-                        @endif
                     </div>
                 </div>
             </div>
         </div>
-        <!-- checkout-area-end -->
-
-    </main>
-    <!-- main-area-end -->
+    </div>
+</section>
+<!--checkout end-->
 
 @include('front.layouts.footer')
-        <script>
-</script>

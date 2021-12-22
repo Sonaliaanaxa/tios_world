@@ -74,7 +74,7 @@
                           <td>
                                
                                @if($r->img)
-                                 <a href="{{ asset('public/uploads/categories') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('/uploads/categories') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>
+                                 <a href="{{ asset('/uploads/categories') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('/uploads/categories') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>
                                 @else
                                 <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
                                 {{ substr($r->name,0,1) }}

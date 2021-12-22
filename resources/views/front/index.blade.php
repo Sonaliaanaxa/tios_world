@@ -1,257 +1,549 @@
-
 @include('front.layouts.header')
 @include('front.layouts.flash-msg')
 
-    @include('front.login')
-        <!-- main-area -->
-        <main>
-    
-            <!-- slider-area -->
-            <section class="slider-area" style="background-image: url(assets/front/img/bg/slider_area_bg.jpg)"> 
-                <div class="container custom-container">
-                    <div class="row">
-                        <div class="col-12">
-                            <div class="slider-active">
-                                @foreach($slider as $slide)
-                                <div class="single-slider slider-bg" style="background-image:url('{{ asset('/uploads/homeslider/'.$slide->img) }}');">
-                                    <div class="slider-content">
-                                        <h5 class="sub-title" data-animation="fadeInUp" data-delay=".2s">{{$slide->sub_title}}</h5>
-                                        <h2 class="title" data-animation="fadeInUp" data-delay=".4s">{{$slide->title}}</h2>
-                                        <p data-animation="fadeInUp" data-delay=".6s">{{$slide->offers}}</p>
-                                    </div>
-                                </div>
-                                @endforeach
-                            </div>
-                        </div>
-                       
-                    </div>
-                </div>
-             </section>
-            <!-----------------Slider Area End --------------------------------------->
 
-            <!-- Marqee slider -->
-            <!-- special-products-area -->
-            <section class="special-products-area gray-bg bgcolor py-3">
-                <div class="container">
-                    <div class="row align-items-end">
-                        <marquee behavior="scroll" > <i class="fas fa-asterisk"></i> <b>18 Hours Delivery of Fresh Vegetable and Fruits From Farm to Your Door.</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-asterisk"></i> <b>3 Level Quality Check Before Delivery.</b> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<i class="fas fa-asterisk"></i> <b>Hygienically Packing</b></marquee>
-                    </div>
-                </div>
-            </section>
-            <!-- special-products-area-end -->
-            <!-- Marqee slider -->
-
-            <!-- special-products-area -->
-            <section class="special-products-area gray-bg pt-75 pb-60">
-                <div class="container">
-                    <div class="row align-items-end mb-50">
-                        <div class="col-md-8 col-sm-9">
-                            <div class="section-title">
-                                <!-- <span class="sub-title">Awesome Shop</span> -->
-                                <h2 class="title">Our Products</h2>
-                            </div>
-                        </div>
-                        <div class="col-md-4 col-sm-3">
-                            <div class="section-btn text-left text-md-right">
-                                <!-- <a href="#" class="btn">View All</a> -->
-                            </div>
-                        </div>
-                    </div>
-                    <div class="special-products-wrap">
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="row justify-content-center">
-                                    @foreach($products as $product)
-                                    <div class="col-xl-2 col-md-2 col-sm-6">
-                                        <div class="sp-product-item mb-20">
-                                            <div class="sp-product-thumb">
-                                                <!-- <span class="batch {{$product->discount % 2 == 0 ? 'even':'odd'}}">{{$product->discount}}%</span> -->
-                                                <a href="javascript:void(0);"><img src="{{url('uploads/products/'.$product->upload_image)}}" alt=""></a>
-                                            </div>
-                                            <div class="sp-product-content">
-                                                <!-- <div class="rating">
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                    <i class="fas fa-star"></i>
-                                                </div> -->
-                                                <h6 class="title"><a href="javascript:void(0);">{{$product->name}}</a></h6>
-                                                <span class="product-status">@if($product->current_stock >='1')
-                                                                            In stock
-                                                                            @else <p style="color:red;font-size: 12px;font-weight: 900;">Out Of Stock</p>
-                                                                        @endif</span>
-                                                <div class="sp-cart-wrap">
-                             @php
-                             if(Auth::user()) {
-                                 $cart = App\Cart::where('products_id',$product->id)->where('user_id', Auth::user()->id)->first();
-                                    if($cart){
-                                       $quantity = $cart->quantity;
-                                     }
-                              else{
-                                     $quantity = 0;
-  
-                                 }
-                             }
-                             else {
-                                $quantity = 0;
-                             }
-                             @endphp
-                                                 
-                                                        <div class="cart-plus-minus">
-                                                        <div class="dec qtybutton" onclick="return decrement('{{$product->id}}')">-</div>
-                                                        <div class="inc qtybutton" onclick="return increment('{{$product->id}}')">+</div>
-                                                        <input class='qty-{{$product->id}}' type="number" value="{{$quantity}}" min="0" name="quantity">
-                                                        <input type="hidden" name="product_id" value="{{$product->id}}">
-                                                    
-                                                        </div>
-                                                   
-                                                </div>
-                                                <p>{{$product->currency}} {{$product->price}} </p>
-                                                <div class="weight">
-                                                <p> {{$product->weight}} {{$product->unit}}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    @endforeach
-                                   
-                                   
-                                </div>
-                            </div>
+<!--hero banner-->
+<section class="banner">
+</section>
+<!--hero banner end-->
+<!--service box-->
+<section class="service-box pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <div class="service-group">
+                    <div class="service-content">
+                        <span class="offer-span">Free</span>
+                        <div class="service-right-content">
+                            <h6>Any 5 samples</h6>
+                            <span>Try <span class="it-style">First,</span> Shipping Rs.100</span>
                         </div>
                     </div>
                 </div>
-            </section>
-            <!-- special-products-area-end -->
-
-            <!-- discount-area -->
-            <!-- <section class="discount-style-two pt-60 pb-50">
-                <div class="container">
-                    <div class="row">
-                          @foreach($banners as $banner)
-                        <div class="col-lg-6">
-                            <div class="discount-item-two">
-                                <div class="discount-thumb">
-                                    <img src="{{asset('uploads/banner/'.$banner->image)}}" alt="">
-                                </div>
-                                <div class="discount-content">
-                                    <span>{{$banner->sub_title}}</span>
-                                    <h4 class="title"><a href="#">{{$banner->title}}</a></h4>
-                                    <p>{{$banner->offers}}</p>
-                                    
-                                </div>
-                            </div>
+            </div>
+            <div class="col-md-4">
+                <div class="service-group">
+                    <div class="service-content">
+                        <span class="offer-span">10% off</span>
+                        <div class="service-right-content">
+                            <h6>Honey, <span style="font-weight: 300; font-style: italic; font-size: 20px;">Honey</span></h6>
+                            <span>ALL honeys, code <span class="it-style">HOney</span></span>
                         </div>
-                            @endforeach
-                        
                     </div>
                 </div>
-            </section> -->
-         <!-- discount-area-end -->
-         {{--
-                            <div class="col-md-12">
-                                <div class="avatar-post mt-10 mb-10">
-                                    <div class="post-avatar-content">
-                                    
-                                        <h1><span style="font-weight:bold;"><b>.</b> 18 Hours Delivery of Fresh Vegetable and Fruits From Farm to Your Door.</span></h1><br>
+            </div>
+            <div class="col-md-4">
+                <div class="service-group">
+                    <div class="service-content">
+                        <span class="offer-span">5% off</span>
+                        <div class="service-right-content">
+                            <h6>HDFC bank </h6>
+                            <span>Debit and credit cards</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--service box end-->
+<!--Curated collections-->
+<section class="curated-collections pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9 my-5">
+                <div class="curated-collections-heading">
+                    <h3><span class="normal-style">Curated</span> collections</h3>
+                    <span>HANDPICKED products in each COLLECTION</span>
+                </div>
+            </div>
+            <div class="col-md-3  my-5">
+                <div class="collections-btn">
+                    <a href="{{route('sample-product')}}" class="common-btn"><span class="normal-style">view all</span>
+                        collections</a>
+                </div>
+            </div>
 
-                                        <h1><span style="font-weight:bold;"><b>.</b> 3 Level Quality Check Before Delivery.</span></h1><br>
+            <div class="col-lg-3">
+                <div class="block-1">
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
 
-                                        <h1><span style="font-weight:bold;"><b>.</b> Hygiene packing</span></h1>
-                                    </div>
-                                </div>
-                          
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="block-2">
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="block-3">
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="col-lg-3">
+                <div class="block-4">
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                    <div class="col-lg-12">
+                        <div class="collection-card-custom">
+                            <h4>Toothbrushes</h4>
+                            <img src="{{asset('assets/img/collaction-1.png')}}">
+                            <button class="btn-collection">View <span class="it-style">products</span></button>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!--2nd row end-->
+        </div>
+    </div>
+</section>
+<!--Curated collections end-->
+<!--try samples-->
+<section class="try-samples pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="try-samples-heading" id="home-try">
+                    <span class="star-logo">
+                        <h3>try samples</h3>
+                        <figure>
+                            <img src="{{asset('assets/img/star.png')}}" alt="star">
+                        </figure>
+                    </span>
+                    <span>Use your TIOS POINTS to try samples</span>
+                </div>
+            </div>
+            <div class="col-md-3 my-3">
+                <div class="collections-btn" id="sapmple-btn">
+                    <a href="{{route('sample-product')}}" class="common-btn"><span class="normal-style">view all</span> <span class="it-style ml-0">free sample</span></a>
+                </div>
+            </div>
+            <!--carousel start-->
+            <div class="col-md-12 my-5">
+                <div class="owl-carousel carousel-main">
+                    @foreach($products as $product)
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>{{$product->name}}</h4>
+                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
-                            --}}
+                        </div>
+                    </div>
+                    @endforeach
+                  
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--try samples end-->
+<!--trending-->
+<section class="trending pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="try-samples-heading">
+                    <h3><span class="normal-style">trending</span> now</h3>
+                    <span>BESTSELLILNG PRODUCTS ON TIOSWORLD</span>
+                </div>
+            </div>
+            <!--carousel start-->
+            <div class="col-md-12 my-5">
+                <div class="owl-carousel carousel-main">
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
 
-        </main>
-        <!-- main-area-end -->
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="sample-card">
+                        <div class="sample-logo">
+                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        </div>
+                        <div class="sample-card-image">
+                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                        </div>
+                        <div class="sample-content">
+                            <h4>Bamboo toothbrush</h4>
+                            <p>Rs 270</p>
+                        </div>
+                        <div class="sample-footer">
+                            <div class="cart-group">
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--trending end-->
+<!--add-->
+<section>
+    <a href="#"><img src="{{asset('assets/img/add-1.png')}}"></a>
 
+</section>
+<!--add end-->
+<!--barnd-logo-->
+<section class="bpt-30 pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-9">
+                <div class="try-samples-heading" id="partners-heading">
+                    <h3><span class="normal-style">trusted</span> partners</h3>
+                    <span>CURATED <span class="it-style">156 BRANDS</span> FOR YOU</span>
+                </div>
+            </div>
+            <div class="col-md-3 my-3">
+                <div class="collections-btn" id="sapmple-btn">
+                    <a href="{{route('sample-product')}}" class="common-btn"><span class="normal-style">view all</span> <span class="it-style ml-0"> brands</span></a>
+                </div>
+            </div>
+            <div class="col-md-12 py-5">
+                <div class="row">
+                    <div class="col col1">
+                        <div class="barnd-logo">
+                            <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                        </div>
+                    </div>
+                    <div class="col col2">
+                        <div class="barnd-logo">
+                            <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                        </div>
+                    </div>
+                    <div class="col col2">
+                        <div class="barnd-logo">
+                            <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                        </div>
+                    </div>
+                    <div class="col col2">
+                        <div class="barnd-logo">
+                            <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                        </div>
+                    </div>
+                    <div class="col col2">
+                        <div class="barnd-logo">
+                            <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--2nd colom-->
+            <div class="col col2">
+                <div class="barnd-logo">
+                    <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                </div>
+            </div>
+            <div class="col col2">
+                <div class="barnd-logo">
+                    <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                </div>
+            </div>
+            <div class="col col2">
+                <div class="barnd-logo">
+                    <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                </div>
+            </div>
+            <div class="col col2">
+                <div class="barnd-logo">
+                    <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                </div>
+            </div>
+            <div class="col col2">
+                <div class="barnd-logo">
+                    <img src="{{asset('assets/img/brand-logo.png')}}" alt="sample-1">
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<!--barnd logo end-->
+<!--testimonial  -->
+<section class="testimonial pt-30 pb-30">
+    <div class="container">
+        <div id="carouselExampleCaptions" class="carousel slide" data-ride="carousel">
+            <ol class="carousel-indicators">
+                <li data-target="#carouselExampleCaptions" data-slide-to="0" class="active"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="1"></li>
+                <li data-target="#carouselExampleCaptions" data-slide-to="2"></li>
+            </ol>
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div class="carousel-caption  d-md-block">
+                        <h5>It was so difficult for me to make choice for all my sustainable shopping needs. Tiosworld has done
+                            the hard part of me. Plus i’am hooked to using free samples now...Read More</h5>
+                        <p>SAKSHI AGARWAL 02 • 02 • 22</p><br>
+                        <a href="#" class="common-btn"><span class="normal-style">write your review about us</span></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-caption  d-md-block">
+                        <h5>It was so difficult for me to make choice for all my sustainable shopping needs. Tiosworld has done
+                            the hard part of me. Plus i’am hooked to using free samples now...Read More</h5>
+                        <p>SAKSHI AGARWAL 02 • 02 • 22</p><br>
+                        <a href="#" class="common-btn"><span class="normal-style">write your review about us</span></a>
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div class="carousel-caption  d-md-block">
+                        <h5>It was so difficult for me to make choice for all my sustainable shopping needs. Tiosworld has done
+                            the hard part of me. Plus i’am hooked to using free samples now...Read More</h5>
+                        <p>SAKSHI AGARWAL 02 • 02 • 22</p><br>
+                        <a href="#" class="common-btn"><span class="normal-style">write your review about us</span></a>
+                    </div>
+                </div>
+                <button class="carousel-control-prev" type="button" data-target="#carouselExampleCaptions" data-slide="prev">
+                    <span class="carousel-control fa fa-long-arrow-left" aria-hidden="true"></span>
+                    <span class="sr-only">Previous</span>
+                </button>
+                <button class="carousel-control-next" type="button" data-target="#carouselExampleCaptions" data-slide="next">
+                    <span class="carousel-control fa fa-long-arrow-right" aria-hidden="true"></span>
+                    <span class="sr-only">Next</span>
+                </button>
+            </div>
+        </div>
+    </div>
+</section>
+<!--testimonial end -->
+<!--add-->
+<section>
+    <a href="#"><img src="{{asset('assets/img/add-2.png')}}"></a>
+
+</section>
+<!--add end-->
+<!--frame village-->
+<section class=" projects pt-30 ">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <div class="projects-heading  pt-20 pb-20">
+                    <h2>@tios.world</h2>
+                    <span class="recent-amazone-right-heading">
+                        11.5k+ followers on Instagram
+                        <img src="{{asset('assets/img/insta-2.png')}}">
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="projects-list">
+        <a href="#" class="projects-item">
+            <div class="projects-item-image">
+                <picture class="picture image-cover">
+                    <img src="{{asset('assets/img/Instagram.png')}}">
+                </picture>
+            </div>
+        </a>
+        <a href="#" class="projects-item">
+            <div class="projects-item-image">
+                <picture class="picture image-cover">
+                    <img src="{{asset('assets/img/Instagram1.png')}}">
+                </picture>
+            </div>
+        </a>
+        <a href="#" class="projects-item">
+            <div class="projects-item-image">
+                <picture class="picture image-cover">
+                    <img src="{{asset('assets/img/Instagram3.png')}}">
+                </picture>
+            </div>
+        </a>
+        <a href="#" class="projects-item">
+            <div class="projects-item-image">
+                <picture class="picture image-cover">
+                    <img src="{{asset('assets/img/Rectangle2.png')}}">
+                </picture>
+            </div>
+        </a>
+        <a href="#" class="projects-item">
+            <div class="projects-item-image">
+                <picture class="picture image-cover">
+                    <img src="{{asset('assets/img/Rectangle21.png')}}">
+                </picture>
+            </div>
+        </a>
+        <a href="#" class="projects-item">
+            <div class="projects-item-image">
+                <picture class="picture image-cover">
+                    <img src="{{asset('assets/img/Rectangle23.png')}}">
+                </picture>
+            </div>
+        </a>
+    </div>
+</section>
+<!--frame village-end-->
+<!-- Footer -->
 @include('front.layouts.footer')
-  <script type="text/javascript">
-
-    // function increment(id){
-    //     var qty = $('.qty-'+id).val();
-    //     $.ajax({
-    //         url: "{{ route('addToCart') }}",
-    //         type: 'POST',
-    //         data: {proid:id,qty:qty,_token:'{{ csrf_token() }}'},
-    //         success: function(response)
-    //         {
-    //             console.log(response);
-    //         }
-    //     });
-    // }
-
-    // function decrement(id){
-    //     var qty = $('.qty-'+id).val();
-    //     $.ajax({
-    //         url: "{{ route('addToCart') }}",
-    //         type: 'POST',
-    //         data: {proid:id,qty:qty,_token:'{{ csrf_token() }}'},
-    //         success: function(response)
-    //         {
-    //             console.log(response);
-    //         }
-    //     });
-    // }
-
-
-    // $(window).on('load', function() {
-    //     $('#modalLoginForm').modal('show');
-    // });
-
-   $(document).ready(function() {
-    $('form input').keyup(function() {
-
-        var empty = false;
-        $('form input').each(function() {
-
-            if ($(this).val() == '') {
-                empty = true;
-            }
-        });
-
-        if (empty) {
-            $('#validate-phone').attr('disabled', 'disabled'); 
-        } else {
-            $('#validate-phone').removeAttr('disabled'); 
-        }
-    });
-
-    $('.inc').click(function(){
-        // var id = $('.cart-plus-minus > .inc').attr(id);
-        // alert(id);
-        // var id = $('.cart-plus-minus > .inc').attr('id');
-        var id = $(".inc").parentsUntil(".cart-plus-minus");
-        console.log(id);
-    })
-
-
-
-});
-
-// $(".cart-plus-minus").on('click', function(event) {
-//         event.preventDefault();
-//         var $button = $(this).parent().find('[name=product_id]').val();
-//        alert($button);
-//         var data = $(this).serialize();
-//         $.ajax({
-//             type: "post",
-//             url: "{{ route('addToCart') }}",
-//             dataType: "json",
-//             headers: {'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')},
-//             data: data,
-//         }).done(function () {
-//           $button.prop('disabled', true)
-//         });
-//     });
-    // $('.dec.qtybutton').click(function(){
-    //     console.log($(this).parent().find('[name=product_id]').val())
-    //     }
-    // )
-
-
-
-</script>      

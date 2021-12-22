@@ -34,7 +34,18 @@ use Illuminate\Support\Facades\Route;
 
 /*--------------------WEBSITE PAGES ------------------------------------------*/
 Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/shop',[HomeController::class, 'category'])->name('shop');
+Route::get('/brand',[HomeController::class, 'brand'])->name('brand');
+Route::get('/sample-page',[HomeController::class, 'samplePage'])->name('sample-page');
+Route::get('collections',[HomeController::class, 'collections'])->name('collections');
+
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+
+Route::get('seller-login',  [AuthController::class, 'loginSeller'])->name('seller.login');
+Route::get('cart',[HomeController::class, 'cart'])->name('view-cart');
+Route::get('wishlist',[HomeController::class, 'wishlist'])->name('wishlist');
+Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+Route::get('sample-product',[HomeController::class, 'sampleProduct'])->name('sample-product');
 Route::get('/contact', [HomeController::class, 'contact'])->name('contact');
 Route::get('/terms-condition', [HomeController::class, 'terms'])->name('terms-condition');
 
@@ -455,9 +466,9 @@ Route::post('/search_blogconatent','BlogController@search_blogconatent')->name('
 
 Route::group(['middleware' => ['user','auth']], function() {
 
-    Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
+    // Route::get('/cart', [HomeController::class, 'cart'])->name('cart');
     Route::post('add-to-cart', [CartController::class, 'addCart'])->name('addToCart');
-    Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
+    // Route::get('/checkout', [HomeController::class, 'checkout'])->name('checkout');
     Route::post('/checkpincode', [HomeController::class, 'checkpincode'])->name('check.pincode');
     // Route::post('/checkout', [OrderPlaceController::class,'placeOrder'])->name('placeorder');
 
