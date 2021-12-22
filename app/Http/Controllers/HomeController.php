@@ -13,6 +13,7 @@ use App\HomePageBanner;
 use App\Policy;
 use App\ReturnRefund;
 use App\Cart;
+use App\Category;
 use App\Order;
 use App\OrderDetail;
 use Illuminate\Support\Facades\Session;
@@ -25,71 +26,96 @@ use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
 {
-    
-    public function index(){
-        $title = "Thehygieneherbs - Organic Food & Grocery Market Template";
-        $slider = HomeSlide::where('status','1')->get();
-        $sliders = SideSlider::skip(0)->take(2)->get();
-        $second_sliders = SideSlider::skip(2)->take(1)->get();
-        $products = Product::where('stock','1')->get();
-        $banners = HomePageBanner::take(2)->get();
-        
-        return view('front.index', compact('title','slider','sliders','second_sliders','products','banners'));
+
+    public function index()
+    {
+        $title = "Tios World";
+        $categories = Category::get();
+        $products = Product::get();
+        return view('front.index', compact('title', 'products','categories'));
     }
 
-    public function header(){
+    public function category()
+    {
+        $title = "Tios World";
+        $products = Product::get();
+        return view('front.category', compact('title', 'products'));
+    }
+
+    public function brand()
+    {
+        $title = "Tios World";
+        $products = Product::get();
+        return view('front.brand', compact('title', 'products'));
+    }
+
+    public function samplePage()
+    {
+        $title = "Tios World";
+        $products = Product::get();
+        return view('front.sample-page', compact('title', 'products'));
+    }
+    public function collections()
+    {
+        $title = "Tios World";
+        $products = Product::get();
+        return view('front.collections', compact('title', 'products'));
+    }
+
+    public function about()
+    {
+        $title = "Tios World - About";
+        return view('front.about', compact('title'));
+    }
+
+    public function cart()
+    {
+        $title = "Tios World - Cart";
+        return view('front.cart', compact('title'));
+    }
+
+    public function checkout()
+    {
+        $title = "Tios World - Checkout";
+        return view('front.checkout', compact('title'));
+    }
+
+    public function sampleProduct()
+    {
+        $title = "Tios World - Products";
+        return view('front.sample-product', compact('title'));
+    }
+    public function wishlist()
+    {
+        $title = "Tios World - Wishlist";
+        return view('front.wishlist', compact('title'));
+    }
+
+    public function header()
+    {
         $carts = Cart::where('user_id', Auth::user())->get();
         return view('front.layouts.header', compact('carts'));
     }
 
-    public function contact() {
+    public function contact()
+    {
         $title = "Thehygieneherbs - Contact";
         return view('front.contact', compact('title'));
     }
 
-    public function about (){
-        $title = "Thehygieneherbs - About";
-        $slider = AllSlider::where('navbar_id','1')->where('status','1')->first();
-        return view('front.about', compact('title','slider'));
-    }
 
-    public function terms(){
+
+    public function terms()
+    {
         $title = "Thehygieneherbs - Terms";
         return view('front.terms', compact('title'));
     }
-    public function cart(){
-        $slider = AllSlider::where('navbar_id','7')->where('status','1')->first();
 
-        $title = "Thehygieneherbs - Cart";
-        $carts = Cart::where('user_id', Auth::user()->id)->get();
-        
-        $delivery_charges = DeliveryCharge::select('delivery_charges')->first();
-        if(count($carts) > 0){
-            return view('front.cart')->with(['carts'=>$carts,'title'=>$title,'slider'=>$slider, 'delivery_charges' => $delivery_charges]);
-        }else{
-            Session::flash('error','No product in cart!');
-            return redirect()->route('home');
-        }
-        
-    }
 
-    public function checkout(){
-        $title = "Thehygieneherbs - Checkout";
-        $slider = AllSlider::where('navbar_id','8')->where('status','1')->first();
-        $carts = Cart::where('user_id', Auth::user()->id)->get();
-        $userAddress = Order::where('user_id',Auth::user()->id)->first();
-        $delivery_charges = DeliveryCharge::select('delivery_charges')->first();
-       
-        if(count($carts) > 0){
-            return view('front.checkout', compact('title','slider','carts','userAddress','delivery_charges'));
-        }else{
-            Session::flash('error','No product in cart to checkout!');
-            return redirect()->route('home');
-        }
-        
-    }
 
-    public function shopDetails(){
+
+    public function shopDetails()
+    {
         $title = "Thehygieneherbs - Shop Details";
         return view('front.shop-details', compact('title'));
     }
@@ -97,43 +123,45 @@ class HomeController extends Controller
     public function privacyPolicy()
     {
         $title = "Thehygieneherbs - Privacy Policy";
-        $slider = AllSlider::where('navbar_id','5')->where('status','1')->first();
+        $slider = AllSlider::where('navbar_id', '5')->where('status', '1')->first();
         $policies = Policy::first();
-        return view('front.privacy-policy', compact('title','policies','slider'));
+        return view('front.privacy-policy', compact('title', 'policies', 'slider'));
     }
 
-     public function returnPolicy()
+    public function returnPolicy()
     {
         $title = "Thehygieneherbs - Return Policy";
-        $slider = AllSlider::where('navbar_id','6')->where('status','1')->first();
+        $slider = AllSlider::where('navbar_id', '6')->where('status', '1')->first();
         $return = ReturnRefund::first();
-        return view('front.return-refund', compact('title','return','slider'));
+        return view('front.return-refund', compact('title', 'return', 'slider'));
     }
 
-    public function myProfile(){
+    public function myProfile()
+    {
         $title = "Thehygieneherbs - My Profile";
-        $slider = AllSlider::where('navbar_id','5')->where('status','1')->first();
+        $slider = AllSlider::where('navbar_id', '5')->where('status', '1')->first();
         $orders = Order::where('user_id', Auth::user()->id)->get();
-        $orderDetails = Order::select('orders.*','products.upload_image as image','products.name as name','order_details.quantity as quantity','orders.total_price as total_price','order_details.price as price')
-        ->join('order_details','orders.id','order_details.order_id')
+        $orderDetails = Order::select('orders.*', 'products.upload_image as image', 'products.name as name', 'order_details.quantity as quantity', 'orders.total_price as total_price', 'order_details.price as price')
+            ->join('order_details', 'orders.id', 'order_details.order_id')
             ->join('products', 'products.id', 'order_details.product_id')
             ->where('orders.user_id', Auth::user()->id)->get();
-        $user = Order::where('user_id',Auth::user()->id)->first();
-        return view('front.myprofile', compact('title','slider','orders','user','orderDetails'));
+        $user = Order::where('user_id', Auth::user()->id)->first();
+        return view('front.myprofile', compact('title', 'slider', 'orders', 'user', 'orderDetails'));
     }
 
-    public function checkpincode(Request $request){
+    public function checkpincode(Request $request)
+    {
 
-        $pincode = DB::table('pincode')->where('pincode',$request->pincode)->get();
-        if(count($pincode) > 0){
-            return response()->json(array('status'=>true,'pincode'=>$request->pincode));
-        }else{
-            return response()->json(array('status'=>false));
+        $pincode = DB::table('pincode')->where('pincode', $request->pincode)->get();
+        if (count($pincode) > 0) {
+            return response()->json(array('status' => true, 'pincode' => $request->pincode));
+        } else {
+            return response()->json(array('status' => false));
         }
-
     }
 
-    public function createOrder(Request $request){
+    public function createOrder(Request $request)
+    {
 
         $apartment = $request->apartment;
         $area = $request->area;
@@ -144,7 +172,7 @@ class HomeController extends Controller
         $phone = $request->phone;
         $pincode = $request->pincode;
         $state = $request->state;
-        $orderno = time().'_'.Auth::user()->id;
+        $orderno = time() . '_' . Auth::user()->id;
         $email = Auth::user()->email;
         $date = date('d-m-Y');
 
@@ -168,8 +196,8 @@ class HomeController extends Controller
         $order->payment = 'pending';
         $order->save();
 
-        $carts = Cart::where('user_id',Auth::user()->id)->get();
-        foreach($carts as $cart){
+        $carts = Cart::where('user_id', Auth::user()->id)->get();
+        foreach ($carts as $cart) {
 
             $delcharge = $delcharge + $cart->products->delivery_charge;
             $prosum = $cart->quantity * $cart->products->price;
@@ -182,31 +210,27 @@ class HomeController extends Controller
             $orderdet->total = $prosum;
             $orderdet->quantity = $cart->quantity;
             $orderdet->save();
-            Cart::where('id',$cart->id)->delete();
+            Cart::where('id', $cart->id)->delete();
 
-                $product = Product::findOrFail($cart->products_id);
+            $product = Product::findOrFail($cart->products_id);
 
-                if($product->current_stock >= $cart->quantity) {
-                    $product->update([
-                        'current_stock' => DB::raw('current_stock - ' . $cart->quantity)
-                    ]);
-                    }
-                    else {
-                        Session::flash('error','Product is Out Of Stock!');
-                       
-                    }
-            
-    
+            if ($product->current_stock >= $cart->quantity) {
+                $product->update([
+                    'current_stock' => DB::raw('current_stock - ' . $cart->quantity)
+                ]);
+            } else {
+                Session::flash('error', 'Product is Out Of Stock!');
+            }
         }
-        Order::where('id',$order->id)->update(['total_price'=>$total,'discount'=>$delcharge]);
-        
+        Order::where('id', $order->id)->update(['total_price' => $total, 'discount' => $delcharge]);
+
         // $current_stock = Product::select('current_stock')->where('id',$cart->products_id)->get();
         // $current_stock = $current_stock-$cart->quantity;
         // Product::where('id',$orderdet->product_id)->update(['current_stock'=>$current_stock]);
-        
+
         // mail for order confirmation 
 
-        $address = $apartment.', '.$area.', '.$landmark.', '.$city.', '.$state.', - '.$pincode;
+        $address = $apartment . ', ' . $area . ', ' . $landmark . ', ' . $city . ', ' . $state . ', - ' . $pincode;
         $data = array(
             'name' => $name,
             'email' => $email,
@@ -217,38 +241,35 @@ class HomeController extends Controller
             'orderstatus' => "unpaid",
             'orderdate' => $date,
         );
-    
-        try{
-            Mail::send(['html'=>'front/mailtemplate/order_confirmation'], $data, function($message)  use ($email,$name) {
-                $message->to($email,$name)->subject('Order Confirmation');
-                $message->from('contact@hygieneherbs.in','Hygieneherbs Agro Fresh Pvt Ltd');
+
+        try {
+            Mail::send(['html' => 'front/mailtemplate/order_confirmation'], $data, function ($message)  use ($email, $name) {
+                $message->to($email, $name)->subject('Order Confirmation');
+                $message->from('contact@hygieneherbs.in', 'Hygieneherbs Agro Fresh Pvt Ltd');
             });
-        }catch(\Exception $e){
-            echo "Message: ".$e->getMessage();
+        } catch (\Exception $e) {
+            echo "Message: " . $e->getMessage();
         }
         // mail for order confirmation 
 
 
-        if($request->paymethod == 'cash_on_delivery'){
-            return response()->json(array('status'=>true,'message'=>'Order Placed successfully!'));
-        }else{
-            return response()->json(array('status'=>false,'message'=>'You have not selected any payment mode!'));
+        if ($request->paymethod == 'cash_on_delivery') {
+            return response()->json(array('status' => true, 'message' => 'Order Placed successfully!'));
+        } else {
+            return response()->json(array('status' => false, 'message' => 'You have not selected any payment mode!'));
         }
     }
 
-    public function razorpay(Request $request){
-        $ord = Order::where(['user_id'=>Auth::user()->id])->orderBy('id','desc')->first();
+    public function razorpay(Request $request)
+    {
+        $ord = Order::where(['user_id' => Auth::user()->id])->orderBy('id', 'desc')->first();
 
         // Success response
         // {"_token":"kE2QRyNgGtYdQdXncMXxWOXaRx9seJi4jBAGBnvk","":"pay_IBvbYNL7dFT7Lz","org_logo":null,"org_name":"Razorpay Software Private Ltd","checkout_logo":"https:\/\/cdn.razorpay.com\/logo.png","custom_branding":"false"}
 
-        Order::where('id',$ord->id)->update(['payment_type'=>"paid",'payment'=>'success','online_txnid'=>$request->razorpay_payment_id]);
+        Order::where('id', $ord->id)->update(['payment_type' => "paid", 'payment' => 'success', 'online_txnid' => $request->razorpay_payment_id]);
 
-        Session::flash('success','Order made successfully!');
+        Session::flash('success', 'Order made successfully!');
         return redirect()->route('myProfile');
-
-
     }
-   
-
 }

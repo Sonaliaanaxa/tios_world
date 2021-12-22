@@ -23,9 +23,8 @@ class ProductController extends Controller
         $subtitle = "Products";
         $activePage = "Products";
         $pCount = Product::select('*')->count();
-        $products = Product::select('products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
+        $products = Product::select('products.*', 'categories.name as category_name')
             ->join('categories', 'products.category_id', 'categories.id')
-            ->join('subcategories','products.subcategory_id','subcategories.id')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
         return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
@@ -55,8 +54,6 @@ class ProductController extends Controller
             'name' => 'required',
             'purchase_price' => 'required',
             'selling_price' => 'required',
-            'purchase_bitcoin' => 'required',
-            'selling_bitcoin' => 'required',
             'discount' => 'required',
             'saving' => 'required',
             'tax_type' => 'required',
@@ -92,8 +89,6 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'purchase_price' => $request->purchase_price,
             'selling_price' => $request->selling_price,
-            'purchase_bitcoin' => $request->purchase_bitcoin,
-            'selling_bitcoin' => $request->selling_bitcoin,
             'discount' => $request->discount,
             'saving' => $request->saving,
             'tax_type' => $request->tax_type,
@@ -109,8 +104,8 @@ class ProductController extends Controller
             'user_id' => Auth::user()->id,
             'upload_image' =>  $image_name
         ];
-
         $result = Product::create($data);
+        // dd($data);
         return redirect(route('products.list'))->with('success', 'Products Successfully Added!');
     }
 
@@ -123,10 +118,9 @@ class ProductController extends Controller
         $categories = Category::get();
         $subcategories = Subcategory::get();
 
-        $product = Product::select('products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
+        $product = Product::select('products.*', 'categories.name as category_name')
             ->where('products.id', $id)
             ->join('categories', 'products.category_id', 'categories.id')
-            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
 
             ->first();
         return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id','subcategories', 'categories'));
@@ -135,14 +129,13 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
+        
         $this->validate(request(), [
             'category_id' => 'required',
-            'subcategory_id' => 'required',
+            'subcategory_id' => 'nullable',
             'name' => 'required',
             'purchase_price' => 'required',
             'selling_price' => 'required',
-            'purchase_bitcoin' => 'required',
-            'selling_bitcoin' => 'required',
             'discount' => 'required',
             'saving' => 'required',
             'tax_type' => 'required',
@@ -157,6 +150,7 @@ class ProductController extends Controller
 
         ]);
 
+    
         $image_name = '';
 
         if ($request->hasFile('myImage')) {
@@ -177,8 +171,6 @@ class ProductController extends Controller
                 'slug' => Str::slug($request->name),
                 'purchase_price' => $request->purchase_price,
                 'selling_price' => $request->selling_price,
-                'purchase_bitcoin' => $request->purchase_bitcoin,
-                'selling_bitcoin' => $request->selling_bitcoin,
                 'discount' => $request->discount,
                 'saving' => $request->saving,
                 'tax_type' => $request->tax_type,
@@ -203,8 +195,6 @@ class ProductController extends Controller
             'slug' => Str::slug($request->name),
             'purchase_price' => $request->purchase_price,
             'selling_price' => $request->selling_price,
-            'purchase_bitcoin' => $request->purchase_bitcoin,
-            'selling_bitcoin' => $request->selling_bitcoin,
             'discount' => $request->discount,
             'saving' => $request->saving,
             'tax_type' => $request->tax_type,
@@ -221,6 +211,7 @@ class ProductController extends Controller
             'updated_at' => date('Y-m-d H:i:s')
             ];
         }
+     
 
         $result = Product::where('id', $id)->update($data);
         return redirect(route('products.list'))->with('success', 'Products Successfully Updated!');

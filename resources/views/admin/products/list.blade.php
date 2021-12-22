@@ -18,7 +18,7 @@
                 </div>
             </div>
         </div>
-        @include('common.flash-msg')
+        @include('admin.layouts.flash_msg')
         <div class="row">
 
 
@@ -57,9 +57,7 @@
                                         <th>
                                             @sortablelink('price',__('Price & Discount'))
                                         </th>
-                                        <th>
-                                            @sortablelink('bitcoin',__('Bitcoin'))
-                                        </th>
+                                       
 
 
 
@@ -105,7 +103,7 @@
 
                                         <td>
                                             <strong>Category:</strong> {{ $r->category_name }}<br>
-                                            <strong>Subcategory:</strong> {{ $r->subcategory_name }}
+                                            <!-- <strong>Subcategory:</strong> {{ $r->subcategory_name }} -->
                                         </td>
                                         <td>
                                             <span style='color:#1d77fb;font-size:12px;'>Purchase Price - &#8377 {{ $r->purchase_price }}</span>
@@ -114,10 +112,7 @@
                                             <p style='color:gray;font-size:10px;margin-top:-14px;'>Discount : {{ $r->discount }}% </span> </p>
                                         </td>
 
-                                         <td>
-                                         <span style='color:#1d77fb;font-size:12px;'>Purchase Bitcoin - {{ substr($r->purchase_bitcoin,0,8) }}</span>
-                                         <p style='color:#f2511e;font-size:10px;margin-top:-2px'>Selling Bitcoin : <span>{{ substr($r->selling_bitcoin,0,8) }} </span> </p>
-                                         </td>   
+                                         
                                         <td>
                                             {{$r->current_stock}} Products
                                         </td>

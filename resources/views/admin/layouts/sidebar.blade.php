@@ -158,11 +158,11 @@
                             </li>
                             @endif
 
-                            @if(auth()->user()->user_type=='admin')
+                            <!-- @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
                                 <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
                             </li>
-                            @endif
+                            @endif -->
 
                             @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
@@ -188,7 +188,7 @@
                             <ul style="display: none;">
                            
                                 <li><a href="{{ route('products.list')}}">Product List</a></li>
-                                <li><a href="{{ route('products.create')}}">Add Product</a></li>
+                                <!-- <li><a href="{{ route('products.create')}}">Add Product</a></li> -->
                                 <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
                             
                           
