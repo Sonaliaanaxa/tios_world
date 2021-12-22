@@ -44,7 +44,10 @@
                          <td> {{ $product->name }}</td>
                        </tr>
                     
-                      
+                       <tr>
+                        <th> {{__('Category')}} </th>
+                         <td> {{ $product->category_name }}</td>
+                       </tr>
                        <tr>
                         <th> {{__('MRP')}} </th>
                          <td>{{ $product->currency }}  {{ $product->mrp }}</td>
@@ -96,14 +99,22 @@
                         <th> {{__('Product Details')}} </th>
                          <td>   
                          <?php 
-                         $p= $product->description;
+                         $p= $product->details;
                          $p= htmlspecialchars_decode($p);
                                 echo $p;
                                 ?>
                                 </td>
                        </tr>
 
-                     
+                       <tr>
+                        <th> {{__('Pharmacy Details')}} </th>
+                         <td> 
+                         <b>{{ $product->user_name }}, </b><br>
+                            <b>{{ $product->user_email }},  </b><br>
+                            <b>{{ $product->user_mobile }},  </b>  
+                         
+                         </td>
+                       </tr>
                        <tr>
 
                         <th> {{__('Created On')}} </th>
@@ -118,7 +129,7 @@
                   </table>
             </div>
             <div class="col-md-6">
-            <p class="card-category float-right"  style='color:black;'>   <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='height:200;width:200px;'/></p>
+            <p class="card-category float-right"  style='color:black;'>   <img src="{{ asset('public/uploads/products') }}/{{ $product->img }}" style='height:200;width:200px;'/></p>
           
             </div>
             </div>

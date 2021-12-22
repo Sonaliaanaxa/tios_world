@@ -1,396 +1,426 @@
-
-
 @include("admin.layouts.sidebar")
 
 <!-- Page Wrapper -->
 <div class="page-wrapper">
-<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
-                <div class="content container-fluid">
-				
-					<!-- Page Header -->
-					<div class="page-header">
-						<div class="row">
-							<div class="col-sm-12">
-								<h3 class="page-title">{{ __($title) }}
-                                <a href="{{route('products.list')}}"  class="btn btn-primary float-right" ><i class='fa fa-arrow-left'>  {{ __('Back') }}</i> </a>
-                                </h3>
-							
-							</div>
-						</div>
-					</div>
+	<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
+	<div class="content container-fluid">
 
-					<!-- /Page Header -->
-					
-					<div class="row">
-						<div class="col-sm-12">
-							<div class="card">
-								<div class="card-body custom-edit-service">
-							
-							
-								<!-- Add Blog -->
-                <form method='post'  action="{{ route('products.update',$id) }}"  enctype="multipart/form-data">
-          @csrf
-            @include('admin.layouts.flash_msg')
+		<!-- Page Header -->
+		<div class="page-header">
+			<div class="row">
+				<div class="col-sm-12">
+					<h3 class="page-title">{{ __($title) }}
+						<a href="{{route('products.list')}}" class="btn btn-primary float-right"><i class='fa fa-arrow-left'> {{ __('Back') }}</i> </a>
+					</h3>
 
-									<div class="service-fields mb-3">
-                  <div class="row">
-  
-                  <label class="col-sm-2 col-form-label">{{ __('Product Name*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __(' Name') }}"  value="{{ $product->name }}"  aria-required="true"/>
-                      @if ($errors->has('name'))
-                        <span id="name-error" class="error text-danger" for="input-name">Name is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
+				</div>
+			</div>
+		</div>
 
-                    <label class="col-sm-2 col-form-label">{{ __('Slug')  }}</label>
-                     <div class="col-sm-6 col-md-4">
-                    <div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="input-slug" type="text" placeholder="{{ __(' Slug') }}"  value="{{ $product->slug }}"  aria-required="true"/>
-                      @if ($errors->has('slug'))
-                        <span id="slug-error" class="error text-danger" for="input-slug">Slug is Empty!</span>
-                      @endif
-                    </div>
-                        
-                    </div>
+		<!-- /Page Header -->
 
-                </div>
+		<div class="row">
+			<div class="col-sm-12">
+				<div class="card">
+					<div class="card-body custom-edit-service">
 
 
+						<!-- Add Blog -->
+						<form method='post' action="{{ route('products.update',$id) }}" enctype="multipart/form-data">
+							@csrf
+							@include('common.flash-msg')
 
-                <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
-                Price & Discount
-                </h4>
-              
-
-                <div class="row"> 
-                <label class="col-sm-2 col-form-label">{{ __('MRP*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('mrp') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('mrp') ? ' is-invalid' : '' }}" name="mrp" id="input-mrp" type="number" placeholder="{{ __(' MRP') }}"  value="{{ $product->mrp }}"  aria-required="true"/>
-                      @if ($errors->has('mrp'))
-                        <span id="mrp-error" class="error text-danger" for="input-mrp">MRP is Empty!</span>
-                      @endif
-                      <span id="err_mrp" style="color:red;font-size:12px;"></span>
-                    </div>
-                 
-                  </div>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Price*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('price') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('price') ? ' is-invalid' : '' }}" name="price" id="input-price" type="number" placeholder="{{ __(' Price') }}"  value="{{ $product->price }}"  aria-required="true"/>
-                      @if ($errors->has('price'))
-                        <span id="price-error" class="error text-danger" for="input-price">Price is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Discount % *') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('discount') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('discount') ? ' is-invalid' : '' }}" readonly name="discount" id="input-discount" type="number" placeholder="{{ __(' Discount %') }}"  value="{{ $product->discount }}" style='background-color:#fafafa;' aria-required="true"/>
-                      @if ($errors->has('discount'))
-                        <span id="discount-error" class="error text-danger" for="input-discount">Discount is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Saving Price*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('saving') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('saving') ? ' is-invalid' : '' }}" readonly name="saving" id="input-saving" type="number" placeholder="{{ __(' Saving Price') }}" style='background-color:#fafafa;'  value="{{ $product->saving }}"  aria-required="true"/>
-                      @if ($errors->has('saving'))
-                        <span id="saving-error" class="error text-danger" for="input-saving">Saving Price is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-             
-                  <label class="col-sm-2 col-form-label">{{ __('Tax Types*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('tax_type') ? ' has-danger' : '' }}">
-                    <select  class="custom-select {{ $errors->has('tax_type') ? ' is-invalid' : '' }}" name='tax_type' id="input-tax_type"   >
-                            <option value='{{ $product->tax_type }}'>{{ $product->tax_type }}</option>
-                            <option value='GST' {{ ('GST'==old('tax_type'))?'selected':''}}> GST </option>  
-                           
-                       </select>  @if ($errors->has('tax_type'))
-                        <span id="tax_type-error" class="error text-danger" for="input-tax_type">Tax Types is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-                  <label class="col-sm-2 col-form-label">{{ __('Tax %*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('tax') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('tax') ? ' is-invalid' : '' }}" name="tax" id="input-tax" type="number" placeholder="{{ __(' Tax %') }}"  value="{{ $product->tax }}"  aria-required="true"/>
-                      @if ($errors->has('tax'))
-                        <span id="tax-error" class="error text-danger" for="input-tax">Tax is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-                  <label class="col-sm-2 col-form-label">{{ __('Tax Price*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('tax_price') ? ' has-danger' : '' }}">
-                      <input class="form-control{{ $errors->has('tax_price') ? ' is-invalid' : '' }}" readonly name="tax_price" id="input-tax_price" type="number" placeholder="{{ __(' Tax Price') }}" style='background-color:#fafafa;'  value="{{ $product->tax_price }}"  aria-required="true"/>
-                      @if ($errors->has('tax_price'))
-                        <span id="tax_price-error" class="error text-danger" for="input-tax_price">Tax Price is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-                  <label class="col-sm-2 col-form-label">{{ __(' Currency*') }}</label>
-                      <div class="col-sm-4">
-                        <div class="form-group{{ $errors->has('currency') ? ' has-danger' : '' }}">
-                        <select  class="custom-select {{ $errors->has('currency') ? ' is-invalid' : '' }}" name='currency' id="input-currency"   >
-                                <option value='{{ $product->currency }}'>{{ $product->currency }}</option>
-                                <option value='&#36' {{ ('dollars'==$product->currency)?'selected':''}}> US Dollars </option>  
-                                <option value='&#8377' {{ ('rupee'==$product->currency)?'selected':''}}>  INR Rupee </option> 
-                              
-                          </select>  @if ($errors->has('currency'))
-                            <span id="currency-error" class="error text-danger" for="input-currency">Currency is Empty!</span>
-                          @endif
-                        </div>
-                      </div>
-                  </div>
-
-                  <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
-                      Stock & Quantity
-                </h4>
-
-                <div class='row'>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Weight*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('weight') ? ' has-danger' : '' }}">
-                    <input class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}"  name="weight" id="input-weight" type="text" placeholder="{{ __(' Weight') }}"   value="{{ $product->weight }}"  aria-required="true"/>
-                    
-                     @if ($errors->has('weight'))
-                        <span id="weight-error" class="error text-danger" for="input-weight">Weight is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-
-                  <label class="col-sm-2 col-form-label">{{ __('Weight Unit*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('unit') ? ' has-danger' : '' }}">
-                    <select  class="custom-select {{ $errors->has('unit') ? ' is-invalid' : '' }}" name='unit' id="input-unit"   >
-                            <option value='{{ $product->unit }}'>{{ $product->unit }}</option>
-                            <option value='kg' {{ ('kg'==$product->unit)?'selected':''}}> Kg </option>  
-                            <option value='ltr' {{ ('ltr'==$product->unit)?'selected':''}}> Ltr</option>
-                            <option value='gm' {{ ('gm'==$product->unit)?'selected':''}}> gm</option>
-                            <option value='ml' {{ ('ml'==$product->unit)?'selected':''}}> ml</option>
-                            <option value='pc' {{ ('pc'==$product->unit)?'selected':''}}> Pc</option>
-                       </select>  @if ($errors->has('unit'))
-                        <span id="unit-error" class="error text-danger" for="input-unit">Unit is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Stock*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('stock') ? ' has-danger' : '' }}">
-                    <select  class="custom-select {{ $errors->has('stock') ? ' is-invalid' : '' }}" name='stock' id="input-stock"   >
-                            <option value='{{ $product->stock }}'>{{ $product->stock }}</option>
-                            <option value='1' {{ ('1'==$product->stock)?'selected':''}}> In Stock </option>  
-                            <option value='0' {{ ('0'==$product->stock)?'selected':''}}> Out of Stock</option>
-                       </select>  @if ($errors->has('stock'))
-                        <span id="stock-error" class="error text-danger" for="input-stock">Stock is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Current Stock*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('current_stock') ? ' has-danger' : '' }}">
-                    <input class="form-control{{ $errors->has('current_stock') ? ' is-invalid' : '' }}"  name="current_stock" id="input-current_stock" type="text" placeholder="{{ __(' Current Stock') }}"   value="{{$product->current_stock }}"  aria-required="true"/>
-                    
-                     @if ($errors->has('current_stock'))
-                        <span id="current_stock-error" class="error text-danger" for="input-current_stock">Current Stock is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                  <label class="col-sm-2 col-form-label">{{ __('Min Qty*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('min_qty') ? ' has-danger' : '' }}">
-                    <input class="form-control{{ $errors->has('min_qty') ? ' is-invalid' : '' }}"  name="min_qty" id="input-min_qty" type="text" placeholder="{{ __(' Minimum Qty') }}"   value="{{ $product->min_qty }}"  aria-required="true"/>
-                    
-                     @if ($errors->has('min_qty'))
-                        <span id="min_qty-error" class="error text-danger" for="input-min_qty">Minimum Qty is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                
-                  </div>
-                  
-
-                  <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
-                      Advance Features
-                </h4>
-
-
-                <div class='row'>
-                 
-
-
-                  <label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>
-                  <div class="col-sm-4">
-                    <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
-                    <select  class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status"   >
-                            <option value='{{ $product->status }}'>{{ $product->status }}</option>
-                            <option value='1' {{ ('1'==$product->status)?'selected':''}}> Activate </option>  
-                            <option value='0' {{ ('0'==$product->status)?'selected':''}}> Deactivate</option>
-                       </select>  @if ($errors->has('status'))
-                        <span id="status-error" class="error text-danger" for="input-status"> Status</span>
-                      @endif
-                    </div>
-                  </div>
-                 
-                  </div>
-
-
-                  <div class='row'>
-                      
-                          <label class="col-sm-2 col-form-label">{{ __('Short Details*') }}</label>
-                  <div class="col-sm-10">
-                    <div class="form-group{{ $errors->has('short_details') ? ' has-danger' : '' }}">
-                    <input class="form-control{{ $errors->has('short_details') ? ' is-invalid' : '' }}"  name="short_details" id="input-short_details" type="text" placeholder="{{ __(' Short Details') }}"   value="    {{ $product->short_details }}"  aria-required="true"/>
-                    
-                     @if ($errors->has('short_details'))
-                        <span id="short_details-error" class="error text-danger" for="input-short_details">Short Details is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-                  
-                  <label class="col-sm-2 col-form-label">{{ __('Product Details & Features*')  }}</label>
-                  <div class="col-sm-10 col-md-10">
-                    <div class="form-group{{ $errors->has('description') ? ' has-danger' : '' }}">
-                    <textarea class="form-control{{ $errors->has('description') ? ' is-invalid' : '' }}"  name="description" id="input-description" type="description" value="{{ old('description') }}" placeholder="{{ __('Product Description') }}"  />
-                    {{ $product->description }}
-                      </textarea>
-                      <script>
-                        CKEDITOR.replace( 'input-description' );
-                      </script>
-                           @if ($errors->has('description'))
-                        <span id="description-error" class="error text-danger" for="input-description">Product Description is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                </div>
-
-                  <br>
-
-                <div class="row"  id="file-content" >
-                          <label class="col-sm-2 col-form-label">{{ __('Upload  Image*')}}</label>
-                          <div class="col-sm-10">
-                   
-
-
-                          <input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg"  name='myImage' id="myImage" class="form-control"  title="Upload image" class="add-input" onChange="displayImage1(this)" > 
-                          <br>
-                          <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;'/>
-                                <br>
-                                        
-                             </div>
-                             <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                             <br>
-                           </div>
-                             <h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#fb1010;border-radius:5px;margin:17px 0px;'>
-                      Meta Title & Description
-                </h4>
-                 <div class="row"  >
-                <label class="col-sm-2 col-form-label">{{ __('Meta Title*') }}</label>
-                  <div class="col-sm-10">
-                    <div class="form-group{{ $errors->has('meta_title') ? ' has-danger' : '' }}">
-                    <input class="form-control{{ $errors->has('meta_title') ? ' is-invalid' : '' }}"  name="meta_title" id="input-meta_title" type="text" placeholder="{{ __(' Meta Title') }}"   value="    {{ $product->meta_title }}"  aria-required="true"/>
-                    
-                     @if ($errors->has('meta_title'))
-                        <span id="meta_title-error" class="error text-danger" for="input-meta_title">Meta Title is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-                  
-                  <label class="col-sm-2 col-form-label">{{ __('Meta Description*')  }}</label>
-                  <div class="col-sm-10 col-md-10">
-                    <div class="form-group{{ $errors->has('meta_description') ? ' has-danger' : '' }}">
-                    <textarea class="form-control{{ $errors->has('meta_description') ? ' is-invalid' : '' }}"  name="meta_description" id="input-meta_description" type="meta_description" value="{{ old('meta_description') }}" placeholder="{{ __('Meta Description') }}"  />
-                    {{ $product->meta_description }}
-                      </textarea>
-                      <script>
-                        CKEDITOR.replace( 'input-meta_description' );
-                      </script>
-                           @if ($errors->has('meta_description'))
-                        <span id="meta_description-error" class="error text-danger" for="input-meta_description">Meta Description is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-
-                </div>
-                             <div class="submit-section">
-										<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+							<div class="service-fields mb-3">
+								<div class="row">
+									<label class="col-sm-2 col-form-label">{{ __('Select Category *')  }}</label>
+									<div class="col-sm-6 col-md-4">
+										<div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('category_id') ? ' is-invalid' : '' }}category" name='category_id' id="categoryList">
+												<option value=''>Select Category</option>
+												@foreach($categories as $c)
+												<option value='{{ $c->id}}' {{ ($c->id==$product->category_id)?'selected':''}}> {{ $c->name}} </option>
+												@endforeach
+											</select>
+											@if ($errors->has('category_id'))
+											<span id="category_id-error" class="error text-danger" for="categoryList">Category is Empty!</span>
+											@endif
+										</div>
 									</div>
 
-              </div>
-            
-            </div>
+									<label class="col-sm-2 col-form-label">{{ __('Select Subcategory *')  }}</label>
+									<div class="col-sm-6 col-md-4">
+										<div class="form-group{{ $errors->has('subcategory_id') ? ' has-danger' : '' }}">
+											<select id="subcategoryList" class="custom-select {{ $errors->has('subcategory_id') ? ' is-invalid' : '' }}subcategory" name='subcategory_id'>
+												<option value=''>Select Subcategory</option>
+											</select>
+											@if ($errors->has('subcategory_id'))
+											<span id="subcategory_id-error" class="error text-danger" for="subcategoryList">Please Select Subcategory!</span>
+											@endif
+										</div>
+									</div>
 
-        </div>
-	          </form>
-								<!-- /Add Blog -->
+
+
+
+									<label class="col-sm-2 col-form-label">{{ __('Product Name*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __(' Name') }}" value="{{ $product->name }}" aria-required="true" />
+											@if ($errors->has('name'))
+											<span id="name-error" class="error text-danger" for="input-name">Name is Empty!</span>
+											@endif
+										</div>
+									</div>
+								</div>
+
+
+
+								<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
+									Price & Discount
+								</h4>
+
+
+								<div class="row">
+									<label class="col-sm-2 col-form-label">{{ __('Purchase Price*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('purchase_price') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('purchase_price') ? ' is-invalid' : '' }}" name="purchase_price" id="input-purchase_price" type="number" placeholder="{{ __(' Purchase Price') }}" value="{{ $product->purchase_price }}" aria-required="true" />
+											@if ($errors->has('purchase_price'))
+											<span id="purchase_price-error" class="error text-danger" for="input-purchase_price">Purchase Price is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+
+									<label class="col-sm-2 col-form-label">{{ __('Selling Price*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('selling_price') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('selling_price') ? ' is-invalid' : '' }}" name="selling_price" id="input-selling_price" type="number" placeholder="{{ __(' Selling Price') }}" value="{{ $product->selling_price }}" aria-required="true" />
+											@if ($errors->has('selling_price'))
+											<span id="selling_price-error" class="error text-danger" for="input-selling_price">Selling Price is Empty!</span>
+											@endif
+											<span id="err_selling_price" style="color:red;font-size:12px;"></span>
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Purchase Bitcoin*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('purchase_bitcoin') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('purchase_bitcoin') ? ' is-invalid' : '' }}" readonly name="purchase_bitcoin" id="input-purchase_bitcoin" type="number" placeholder="{{ __(' Purchase Bitcoin') }}" value="{{ $product->purchase_bitcoin }}" style='background-color:#fafafa;' aria-required="true" />
+											@if ($errors->has('purchase_bitcoin'))
+											<span id="purchase_bitcoin-error" class="error text-danger" for="input-purchase_bitcoin">Purchase Bitcoin is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Selling Bitcoin*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('selling_bitcoin') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('selling_bitcoin') ? ' is-invalid' : '' }}" readonly name="selling_bitcoin" id="input-selling_bitcoin" type="number" placeholder="{{ __(' Selling Bitcoin') }}" value="{{ $product->selling_bitcoin }}" style='background-color:#fafafa;' aria-required="true" />
+											@if ($errors->has('selling_bitcoin'))
+											<span id="selling_bitcoin-error" class="error text-danger" for="input-selling_bitcoin">Selling Bitcoin is Empty!</span>
+											@endif
+											<span id="err_selling_bitcoin" style="color:red;font-size:12px;"></span>
+										</div>
+									</div>
+
+
+									<label class="col-sm-2 col-form-label">{{ __('Discount % *') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('discount') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('discount') ? ' is-invalid' : '' }}" readonly name="discount" id="input-discount" type="number" placeholder="{{ __(' Discount %') }}" value="{{ $product->discount }}" style='background-color:#fafafa;' aria-required="true" />
+											@if ($errors->has('discount'))
+											<span id="discount-error" class="error text-danger" for="input-discount">Discount is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Saving Price*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('saving') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('saving') ? ' is-invalid' : '' }}" readonly name="saving" id="input-saving" type="number" placeholder="{{ __(' Saving Price') }}" style='background-color:#fafafa;' value="{{ $product->saving }}" aria-required="true" />
+											@if ($errors->has('saving'))
+											<span id="saving-error" class="error text-danger" for="input-saving">Saving Price is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Tax Types*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('tax_type') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('tax_type') ? ' is-invalid' : '' }}" name='tax_type' id="input-tax_type">
+												<option value='{{ $product->tax_type }}'>{{ $product->tax_type }}</option>
+												<option value='GST' {{ ('GST'==old('tax_type'))?'selected':''}}> GST </option>
+
+											</select> @if ($errors->has('tax_type'))
+											<span id="tax_type-error" class="error text-danger" for="input-tax_type">Tax Types is Empty!</span>
+											@endif
+										</div>
+									</div>
+									<label class="col-sm-2 col-form-label">{{ __('Tax %*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('tax') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('tax') ? ' is-invalid' : '' }}" name="tax" id="input-tax" type="number" placeholder="{{ __(' Tax %') }}" value="{{ $product->tax }}" aria-required="true" />
+											@if ($errors->has('tax'))
+											<span id="tax-error" class="error text-danger" for="input-tax">Tax is Empty!</span>
+											@endif
+										</div>
+									</div>
+									<label class="col-sm-2 col-form-label">{{ __('Tax Price*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('tax_price') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('tax_price') ? ' is-invalid' : '' }}" readonly name="tax_price" id="input-tax_price" type="number" placeholder="{{ __(' Tax Price') }}" style='background-color:#fafafa;' value="{{ $product->tax_price }}" aria-required="true" />
+											@if ($errors->has('tax_price'))
+											<span id="tax_price-error" class="error text-danger" for="input-tax_price">Tax Price is Empty!</span>
+											@endif
+										</div>
+									</div>
+								</div>
+
+								<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
+									Stock & Quantity
+								</h4>
+
+								<div class='row'>
+
+									<label class="col-sm-2 col-form-label">{{ __('Weight*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('weight') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" id="input-weight" type="text" placeholder="{{ __(' Weight') }}" value="{{ $product->weight }}" aria-required="true" />
+
+											@if ($errors->has('weight'))
+											<span id="weight-error" class="error text-danger" for="input-weight">Weight is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+
+									<label class="col-sm-2 col-form-label">{{ __('Weight Unit*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('unit') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('unit') ? ' is-invalid' : '' }}" name='unit' id="input-unit">
+												<option value='{{ $product->unit }}'>{{ $product->unit }}</option>
+												<option value='kg' {{ ('kg'==$product->unit)?'selected':''}}> Kg </option>
+												<option value='ltr' {{ ('ltr'==$product->unit)?'selected':''}}> Ltr</option>
+												<option value='gm' {{ ('gm'==$product->unit)?'selected':''}}> gm</option>
+												<option value='ml' {{ ('ml'==$product->unit)?'selected':''}}> ml</option>
+												<option value='piece' {{ ('piece'==$product->unit)?'selected':''}}> Piece</option>
+											</select> @if ($errors->has('unit'))
+											<span id="unit-error" class="error text-danger" for="input-unit">Unit is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Current Stock*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('current_stock') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('current_stock') ? ' is-invalid' : '' }}" name="current_stock" id="input-current_stock" type="number" placeholder="{{ __(' Current Stock') }}" value="{{ $product->current_stock }}" aria-required="true" />
+
+											@if ($errors->has('current_stock'))
+											<span id="current_stock-error" class="error text-danger" for="input-current_stock">Current Stock is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+								</div>
+
+
+								<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
+									Advance Features
+								</h4>
+
+
+								<div class='row'>
+
+
 
 
 								</div>
+
+
+								<div class='row'>
+
+									<label class="col-sm-2 col-form-label">{{ __('Short Details*') }}</label>
+									<div class="col-sm-10">
+										<div class="form-group{{ $errors->has('short_details') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('short_details') ? ' is-invalid' : '' }}" name="short_details" id="input-short_details" type="text" placeholder="{{ __(' Short Details') }}" value="    {{ $product->short_details }}" aria-required="true" />
+
+											@if ($errors->has('short_details'))
+											<span id="short_details-error" class="error text-danger" for="input-short_details">Short Details is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Product Details & Features*')  }}</label>
+									<div class="col-sm-10 col-md-10">
+										<div class="form-group{{ $errors->has('details') ? ' has-danger' : '' }}">
+											<textarea class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}" name="details" id="input-details" type="details" value="{{ old('details') }}" placeholder="{{ __('Product Details') }}" />
+											{{ $product->details }}
+											</textarea>
+											<script>
+												CKEDITOR.replace('input-details');
+											</script>
+											@if ($errors->has('details'))
+											<span id="details-error" class="error text-danger" for="input-details">Product Details is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+
+
+								</div>
+
+								<br>
+
+								<div class="row" id="file-content">
+									<label class="col-sm-2 col-form-label">{{ __('Upload  Image*')}}</label>
+									<div class="col-sm-10">
+
+
+
+										<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+										<br>
+										<img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+										<br>
+
+
+										<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+									</div>
+									<label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status">
+												<option value='{{ $product->status }}'>Select Status</option>
+												<option value='1' {{ ('1'==$product->status)?'selected':''}}> Active </option>
+												<option value='0' {{ ('0'==$product->status)?'selected':''}}> Inactive</option>
+											</select> @if ($errors->has('status'))
+											<span id="status-error" class="error text-danger" for="input-status"> Status</span>
+											@endif
+										</div>
+									</div>
+
+									<label class="col-sm-2 col-form-label">{{ __('Show on Website*') }}</label>
+									<div class="col-sm-4">
+										<div class="form-group{{ $errors->has('is_show') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('is_show') ? ' is-invalid' : '' }}" name='is_show' id="input-is_show">
+												<option value='{{ $product->is_show }}'>Wants to Show on Website?</option>
+												<option value='1' {{ ('1'==$product->is_show)?'selected':''}}> Yes </option>
+												<option value='0' {{ ('0'==$product->is_show)?'selected':''}}> No</option>
+											</select> @if ($errors->has('is_show'))
+											<span id="is_show-error" class="error text-danger" for="input-is_show"> Show on Website</span>
+											@endif
+										</div>
+									</div>
+
+									<div class="submit-section">
+										<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+									</div>
+
+
+
+								</div>
+
 							</div>
-						</div>			
+
 					</div>
-					
-				</div>			
+					</form>
+					<!-- /Add Blog -->
+
+
+				</div>
 			</div>
-			<!-- /Page Wrapper -->
-    <!-- /Main Wrapper -->
+		</div>
+	</div>
 
-    <script>
-          $(document).ready(function(){
-           
-            $("#input-price").keyup(function(){
-              var mrp=$("#input-mrp").val();
-            
-              if(mrp==null || mrp=='')
-              {
-                document.getElementById("err_mrp").innerHTML = "Please enter the mrp to calculate discount!";
-              }
-              else{
-              var price=$("#input-price").val();
-              var saving=mrp-price;
-              var discount=((saving/mrp)*100).toFixed(1);
-              $('input[name=\'saving\']').val(saving);
-              $('input[name=\'discount\']').val(discount);
-              }
-            });
-          });
-</script>
-
+</div>
+</div>
+<!-- /Page Wrapper -->
+<!-- /Main Wrapper -->
 
 <script>
-          $(document).ready(function(){
-           
-            $("#input-tax").keyup(function(){
-              var price=$("#input-price").val();
-            
-              if(price==null || price=='')
-              {
-                document.getElementById("err_price").innerHTML = "Please enter the Price to calculate Tax Price!";
-              }
-              else{
-              var tax=$("#input-tax").val();
-            
-              var tax_price=(price*(tax/100)).toFixed(1);
-              $('input[name=\'tax_price\']').val(tax_price);
-             
-              }
-            });
-          });
+	//Bitcoin
+	$(document).ready(function() {
+
+		$("#input-selling_price").keyup(function() {
+			var purchase_price = $("#input-purchase_price").val();
+
+			if (purchase_price == null || purchase_price == '') {
+				document.getElementById("err_purchase_price").innerHTML = "Please enter the Purchase Price to calculate discount!";
+			} else {
+				var selling_price = $("#input-selling_price").val();
+				var purchase_bitcoin = purchase_price * 0.000000239;
+				var selling_bitcoin = selling_price * 0.000000239;
+				$('input[name=\'purchase_bitcoin\']').val(purchase_bitcoin);
+				$('input[name=\'selling_bitcoin\']').val(selling_bitcoin);
+			}
+		});
+	});
+	$(document).ready(function() {
+
+		$("#input-selling_price").keyup(function() {
+			var purchase_price = $("#input-purchase_price").val();
+
+			if (purchase_price == null || purchase_price == '') {
+				document.getElementById("err_purchase_price").innerHTML = "Please enter the Purchase Price to calculate discount!";
+			} else {
+				var selling_price = $("#input-selling_price").val();
+				var saving = selling_price - purchase_price;
+				var discount = ((selling_price / purchase_price)).toFixed(1);
+				$('input[name=\'saving\']').val(saving);
+				$('input[name=\'discount\']').val(discount);
+			}
+		});
+	});
+	$(document).ready(function() {
+
+		$("#input-tax").keyup(function() {
+			var selling_price = $("#input-selling_price").val();
+
+			if (selling_price == null || selling_price == '') {
+				document.getElementById("err_selling_price").innerHTML = "Please enter the Selling Price to calculate Tax Price!";
+			} else {
+				var tax = $("#input-tax").val();
+
+				var tax_price = (selling_price * (tax / 100)).toFixed(1);
+				$('input[name=\'tax_price\']').val(tax_price);
+
+			}
+		});
+	});
+
+	(function($) {
+		"use strict";
+		$.fn.openSelect = function() {
+			return this.each(function(idx, domEl) {
+				if (document.createEvent) {
+					var event = document.createEvent("MouseEvents");
+					event.initMouseEvent("mousedown", true, true, window, 0, 0, 0, 0, 0, false, false, false, false, 0, null);
+					domEl.dispatchEvent(event);
+				} else if (element.fireEvent) {
+					domEl.fireEvent("onmousedown");
+				}
+			});
+		}
+	}(jQuery));
+	
+
+
+	let subCategories = <?php echo (json_encode($subcategories)) ?>;
+	$('#subcategoryList').click();
+	let selectedSubCategoryId = parseInt(<?php echo $product->subcategory_id ?>);
+	subCategoryDOM(<?php echo $product->category_id ?>, selectedSubCategoryId)
+	$('#categoryList').on('change', function() {
+		subCategoryDOM($(this).val(), selectedSubCategoryId)
+	});
+
+	function subCategoryDOM (catId, subCatId){
+		let currentCategorySubCategory = subCategories.filter(v => v.category_id == catId);
+		let optionDom = '';
+		currentCategorySubCategory.map((v) => {
+			optionDom += `<option value='${v.id}' selected=${selectedSubCategoryId == v.id}>${v.name}</option>`;
+			return true
+		})
+		$("#subcategoryList").html(optionDom) //enable subcategory select
+		$("#subcategoryList").attr('disabled', false); //enable subcategory select
+	}
 </script>

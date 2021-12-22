@@ -117,6 +117,31 @@ Route::group(['middleware' => ['auth', 'admin']], function() {
     Route::post('side-slider/update/{id}',  [SideSliderController::class,'update'])->name('side.slider.update');
     Route::post('side-slider/destroy', [SideSliderController::class, 'destroy'])->name('side.slider.destroy');
 
+    //Category
+    Route::get('categories', 'CategoryController@index')->name('categories.list');
+    Route::get('categories/create', 'CategoryController@create')->name('categories.create');
+    Route::post('categories/create', 'CategoryController@save')->name('categories.create');
+    Route::get('categories/update/{id}', 'CategoryController@edit')->name('categories.update');
+    Route::post('categories/update/{id}', 'CategoryController@update')->name('categories.update');
+    Route::post('categories/destroy', 'CategoryController@destroy')->name('categories.destroy');
+
+
+    //SubCategories
+    Route::get('subcategory', 'SubcategoryController@index')->name('subcategories.list');
+    Route::get('subcategory/create', 'SubcategoryController@create')->name('subcategories.create');
+    Route::post('subcategory/create', 'SubcategoryController@save')->name('subcategories.create');
+    Route::get('subcategory/update/{id}', 'SubcategoryController@edit')->name('subcategories.update');
+    Route::post('subcategory/update/{id}', 'SubcategoryController@update')->name('subcategories.update');
+    Route::post('subcategory/destroy', 'SubcategoryController@destroy')->name('subcategories.destroy');
+
+
+    //Brand
+    Route::get('brands', 'BrandController@index')->name('brands.list');
+    Route::get('brands/create', 'BrandController@create')->name('brands.create');
+    Route::post('brands/create', 'BrandController@save')->name('brands.create');
+    Route::get('brands/update/{id}', 'BrandController@edit')->name('brands.update');
+    Route::post('brands/update/{id}', 'BrandController@update')->name('brands.update');
+    Route::post('brands/destroy', 'BrandController@destroy')->name('brands.destroy');
 
     //Home Page Footer Banner
     Route::get('banner',[HomePageBannerController::class, 'index'])->name('home.banner.list');

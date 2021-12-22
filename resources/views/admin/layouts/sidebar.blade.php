@@ -129,12 +129,12 @@
                             <a href="{{ route('admin.dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a>
                         </li>
                         @endif
-                         @if(auth()->user()->user_type=='admin')
+                         @if(auth()->user()->user_type=='seller')
                             <li class="item{{ $activePage == 'Navbar' ? ' active' : '' }}">
                                 <a href="{{ route('navbar.list')}}"><i class="fa fa-bars" aria-hidden="true"></i> <span>{{ __('Navbar') }}   </a>
                             </li>
                             @endif
-                             @if(auth()->user()->user_type=='admin')
+                             @if(auth()->user()->user_type=='seller')
                            <li class="submenu">
                             <a href="#"><i class="fa fa-sliders" aria-hidden="true"></i> <span> Home Slider/Banner </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
@@ -146,19 +146,37 @@
 
                            
 
-                            @if(auth()->user()->user_type=='admin')
+                            @if(auth()->user()->user_type=='seller')
                             <li class="item{{ $activePage == 'AllSlider' ? ' active' : '' }}">
                                 <a href="{{ route('all.slider.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('All Banner') }}   </a>
                             </li>
                             @endif
 
                             @if(auth()->user()->user_type=='admin')
+                            <li class="item{{ $activePage == 'Category' ? ' active' : '' }}">
+                                <a href="{{ route('categories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Categories') }}   </a>
+                            </li>
+                            @endif
+
+                            @if(auth()->user()->user_type=='admin')
+                            <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
+                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
+                            </li>
+                            @endif
+
+                            @if(auth()->user()->user_type=='admin')
+                            <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
+                                <a href="{{ route('brands.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Brand') }}   </a>
+                            </li>
+                            @endif
+
+                            @if(auth()->user()->user_type=='seller')
                             <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
                                 <a href="{{ route('customer.list')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>{{ __('Customer') }}   </a>
                             </li>
                             @endif
                             
-                             @if(auth()->user()->user_type=='admin')
+                             @if(auth()->user()->user_type=='seller')
                             <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
                                 <a href="{{ route('pincode.list')}}"><i class="fa fa-map-pin" aria-hidden="true"></i> <span>{{ __('Pincode') }}   </a>
                             </li>
@@ -171,7 +189,7 @@
                            
                                 <li><a href="{{ route('products.list')}}">Product List</a></li>
                                 <li><a href="{{ route('products.create')}}">Add Product</a></li>
-                                <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li>
+                                <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
                             
                           
                             </ul>
@@ -182,7 +200,7 @@
                         auth()->user()->user_type=='hospital'  || auth()->user()->user_type=='diagnostic' ||
                         auth()->user()->user_type=='blood_bank' || auth()->user()->user_type=='doctor' || auth()->user()->user_type=='patient') */?>
                         
-                        @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
+                        @if(auth()->user()->user_type=='seller')
                         
                         <li class="submenu">
                             <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span> Orders </span> <span class="menu-arrow"></span></a>
@@ -230,8 +248,8 @@
                                 <li><a href="{{ route('web.info')}}"> Website Info </a></li>
                                 <!-- <li><a href="{{ route('home.slide.list')}}"> Slide </a></li> -->
                                <!--  <li><a href="{{ route('about.list')}}"> About</a></li> -->
-                                <li><a href="{{ route('policy.list')}}"> Privacy Policy</a></li>
-                                 <li><a href="{{ route('return-refund.list')}}"> Return & Refund Policy</a></li>
+                                <!-- <li><a href="{{ route('policy.list')}}"> Privacy Policy</a></li>
+                                 <li><a href="{{ route('return-refund.list')}}"> Return & Refund Policy</a></li> -->
                                   <!--  <li><a href="{{ route('home.notification.list')}}"> Home Notifications</a></li> -->
                                
                             </ul>
