@@ -178,7 +178,7 @@
                                     @if(auth()->user()->user_type=='admin')
                                     <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
                                         <a href="{{ route('customer.list')}}"><span>{{ __('Customer') }}   </a>
-                                    </li>
+                                    </li> 
                                     @endif
                                     @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
                                     <li><a href="{{ route('products.create')}}">Profile</a></li>

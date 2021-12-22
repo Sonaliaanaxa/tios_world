@@ -93,7 +93,7 @@
                                                 <div class="form-group col-md-12">
                                                 	<label for="about">About Business</label>
                                                 	<div class="form-group">
-                                                    	<textarea id="about" class="form-control" name="about_business"></textarea>
+                                                    	<textarea id="about" class="form-control" name="about_business"></textarea> 
                                                     </div>
                                                 </div>
 

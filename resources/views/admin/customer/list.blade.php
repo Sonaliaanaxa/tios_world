@@ -38,7 +38,7 @@
                                     <table class="datatable table table-hover table-center mb-0">
                                     <thead class=" text-default" style='color:whitesmoke;'>
                                             <tr>
-                                            <th>
+                                            <th> 
                          
                                                 @sortablelink('id',__('S No')) 
                                             </th>
