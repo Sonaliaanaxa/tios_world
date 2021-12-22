@@ -86,7 +86,10 @@ class CustomerController extends Controller
             $user->email = $request->email;
             $user->phone = $request->phone;
             $user->user_type = 'customer';
-            $user->img = $image_name;
+            $user->business_title = $request->business_title;
+            $user->tag_line = $request->tag_line;
+            $user->about_business = $request->about_business;
+            $user->image = $image_name;
             $user->save();
 
            

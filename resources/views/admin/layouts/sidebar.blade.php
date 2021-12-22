@@ -158,23 +158,33 @@
                             </li>
                             @endif
 
+                            {{--
                             @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
                                 <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
                             </li>
                             @endif
+                            --}}
 
                             @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
                                 <a href="{{ route('brands.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Brand') }}   </a>
                             </li>
                             @endif
-
-                            @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
-                                <a href="{{ route('customer.list')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>{{ __('Customer') }}   </a>
+                            
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Manage user </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    @if(auth()->user()->user_type=='admin')
+                                    <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
+                                        <a href="{{ route('customer.list')}}"><span>{{ __('Customer') }}   </a>
+                                    </li>
+                                    @endif
+                                    @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
+                                    <li><a href="{{ route('products.create')}}">Profile</a></li>
+                                    @endif
+                                </ul>
                             </li>
-                            @endif
                             
                              @if(auth()->user()->user_type=='seller')
                             <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
@@ -184,17 +194,17 @@
                         
                             @if(auth()->user()->user_type=='admin' || auth()->user()->user_type == 'seller')
                            <li class="submenu">
-                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Product </span> <span class="menu-arrow"></span></a>
-                            <ul style="display: none;">
-                           
-                                <li><a href="{{ route('products.list')}}">Product List</a></li>
-                                <li><a href="{{ route('products.create')}}">Add Product</a></li>
-                                <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
-                            
-                          
-                            </ul>
-                        </li>
-                        @endif
+                                <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Product </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                               
+                                    <li><a href="{{ route('products.list')}}">Product List</a></li>
+                                    <li><a href="{{ route('products.create')}}">Add Product</a></li>
+                                    <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
+                                
+                              
+                                </ul>
+                            </li>
+                            @endif
                         
                          <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
                         auth()->user()->user_type=='hospital'  || auth()->user()->user_type=='diagnostic' ||
