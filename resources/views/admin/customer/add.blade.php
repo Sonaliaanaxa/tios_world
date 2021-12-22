@@ -50,6 +50,13 @@
                                                     @endif
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group col-md-6">
+	                                                <label for="category">Passsword</label>
+	                                                <div class="password">
+	                                                    <input class="form-control" name="password" id="password" type="password">
+	                                                </div>
+	                                            </div>
                                             
                                             	<div class="form-group col-md-6">
 	                                                <label for="category">Mobile</label>
@@ -96,6 +103,21 @@
                                                     	<textarea id="about" class="form-control" name="about_business"></textarea> 
                                                     </div>
                                                 </div>
+
+
+
+
+                                                <div class="form-group col-md-6">
+                                                <label for="category">Role</label>
+                        <div class="form-group">
+                        	<select  class="custom-select" name='user_type' id="input-user_type"   >
+                                <option value=''>Select the  Role </option>
+                                <option value='seller'> Seller </option> 
+                                <option value='customer'>  Customer </option> 
+                               <option value='admin'>  Admin </option> 
+                          	</select>  
+                        </div>
+                      </div>
 
 
 
