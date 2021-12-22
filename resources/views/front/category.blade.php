@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="cart-image">
-                    <img src="{{asset('assets/img/cart-1.png" alt="cart">
+                    <img src="{{asset('assets/img/cart-1.png')}}" alt="cart">
                 </div>
             </div>
             <div class="col-md-6">
@@ -29,8 +29,9 @@
                         <p>530g (Rs 0.9/g)</p>
                     </div>
                     <div class="cart-btn">
-                        <span><a href="view-cart.html">add to <span class="it-style">cart</span></a></span>
-                        <span><a href="wishlist.html" class="float-right"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                        <span><a href="#">add to <span class="it-style">cart</span></a></span>
+                        <span><a href="" class="float-right">
+                                <img src="{{asset('assets/img/Instagram5.png')}}" alt=""></a></span>
                     </div>
                 </div>
             </div>
