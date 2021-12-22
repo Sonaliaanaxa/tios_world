@@ -178,6 +178,7 @@
             <!--carousel start-->
             <div class="col-md-12 my-5">
                 <div class="owl-carousel carousel-main">
+                    @foreach($products as $product)
                     <div class="sample-card">
                         <div class="sample-logo">
                             <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
@@ -186,7 +187,7 @@
                             <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
                         </div>
                         <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
+                            <h4>{{$product->name}}</h4>
                             <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
                         </div>
                         <div class="sample-footer">
@@ -196,114 +197,8 @@
                             </div>
                         </div>
                     </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="{{route('wishlist')}}"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 <span class="old-price ">Rs. 80</span> 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="{{route('wishlist')}}"><i class="fa fa-heart-o"></i></a></span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                  
                 </div>
             </div>
         </div>
