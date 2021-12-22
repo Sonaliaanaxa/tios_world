@@ -170,7 +170,7 @@
                             </li>
                             @endif
 
-                            @if(auth()->user()->user_type=='seller')
+                            @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
                                 <a href="{{ route('customer.list')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>{{ __('Customer') }}   </a>
                             </li>
