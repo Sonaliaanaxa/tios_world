@@ -248,7 +248,7 @@
                             <ul style="display: none;">
 
                                
-                                <li><a href="#">Products</a></li>
+                                <li><a href="{{ route('trial-products.list')}}">Products</a></li>
 
                                 <!-- <li><a href="{{ route('products.create')}}">Add Product</a></li> -->
                                 <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
@@ -261,7 +261,7 @@
                         <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
                         
                          <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
->>>>>>> 61da9725224cf96b020c5c48d865f708217910e2
+
                         auth()->user()->user_type=='hospital'  || auth()->user()->user_type=='diagnostic' ||
                         auth()->user()->user_type=='blood_bank' || auth()->user()->user_type=='doctor' || auth()->user()->user_type=='patient') */ ?>
 

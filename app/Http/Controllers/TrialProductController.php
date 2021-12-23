@@ -5,6 +5,10 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\TrialProduct;
 
+use App\Category;
+use Illuminate\Support\Str;
+use App\Models\Subcategory;
+
 class TrialProductController extends Controller
 {
     public function __construct()
@@ -18,8 +22,8 @@ class TrialProductController extends Controller
         $subtitle = "Trial Products";
         $activePage = "Trial Products";
         $pCount = TrialProduct::select('*')->count();
-        $products = TrialProduct::select('trial_products.*', 'trial_categories.name as category_name')
-            ->join('trial_categories', 'trial_products.category_id', 'trial_categories.id')
+        $products = TrialProduct::select('trial_products.*', 'categories.name as category_name')
+            ->join('categories', 'trial_products.category_id', 'categories.id')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
         return view('admin.trial-products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
@@ -28,15 +32,15 @@ class TrialProductController extends Controller
 
     public function create()
     {
-        $title = "Create New Products";
-        $subtitle = "Products";
-        $activePage = "Products";
+        $title = "Create New Trail Products";
+        $subtitle = "Trail Products";
+        $activePage = "Trail Products";
 
-        $categories = TrialProduct::get();
+        $categories =Category::get();
         $category_id = $categories[0]->id ?? '';
         $subcategories = json_decode(json_encode(Subcategory::get()), true);
 
-        return view('admin.products.add', compact('title', 'activePage', 'subtitle', 'categories','subcategories'));
+        return view('admin.trial-products.add', compact('title', 'activePage', 'subtitle', 'categories','subcategories'));
     }
 
 
@@ -47,18 +51,15 @@ class TrialProductController extends Controller
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
             'name' => 'required',
+            'slug'=>'required',
             'purchase_price' => 'required',
             'selling_price' => 'required',
-            'discount' => 'required',
-            'saving' => 'required',
-            'tax_type' => 'required',
-            'tax' => 'required',
-            'tax_price' => 'required',
+            'quantity'=>'required',
+            'tios_points'=>'required',
             'weight' => 'required',
-            'unit' => 'required',
-            'current_stock' => 'required',
-            'short_details' => 'required',
+
             'details' => 'required',
+            'extra_details' => 'required',
             'status' => 'required'
 
         ]);
@@ -84,41 +85,34 @@ class TrialProductController extends Controller
             'slug' => Str::slug($request->name),
             'purchase_price' => $request->purchase_price,
             'selling_price' => $request->selling_price,
-            'discount' => $request->discount,
-            'saving' => $request->saving,
-            'tax_type' => $request->tax_type,
-            'tax' => $request->tax,
-            'tax_price' => $request->tax_price,
-            'weight' => $request->weight,
-            'unit' => $request->unit,
-            'current_stock'=> $request->current_stock,
-            'short_details' => $request->short_details,
+            'quantity'=>$request->quantity,
+            'tios_points'=>$request->tios_points,
+            'weight'=>$request->weight,
             'details' => $request->details,
+            'extra_details' => $request->extra_details,
             'status' => $request->status,
-            'is_show' => $request->is_show,
-            'user_id' => Auth::user()->id,
+
             'upload_image' =>  $image_name
         ];
-        $result = Product::create($data);
+        $result = TrialProduct::create($data);
         // dd($data);
-        return redirect(route('products.list'))->with('success', 'Products Successfully Added!');
+        return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Added!');
     }
 
     public function edit(Request $request, $id)
     {
-        $title = "Update Products";
-        $subtitle = "Products";
-        $activePage = "Products";
-
+        $title = "Update Trail Products";
+        $subtitle = " Trail Products";
+        $activePage = " Trail  Products";
         $categories = Category::get();
         $subcategories = Subcategory::get();
 
-        $product = Product::select('products.*', 'categories.name as category_name')
-            ->where('products.id', $id)
-            ->join('categories', 'products.category_id', 'categories.id')
+      $product =TrialProduct::select('trial_products.*', 'categories.name as category_name')
+            ->where('trial_products.id', $id)
+            ->join('categories', 'trial_products.category_id', 'categories.id')
 
             ->first();
-        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id','subcategories', 'categories'));
+        return view('admin.trial-products.edit', compact('title', 'product','categories', 'activePage', 'subtitle', 'id','subcategories', 'categories'));
     }
 
 
@@ -131,16 +125,11 @@ class TrialProductController extends Controller
             'name' => 'required',
             'purchase_price' => 'required',
             'selling_price' => 'required',
-            'discount' => 'required',
-            'saving' => 'required',
-            'tax_type' => 'required',
-            'tax' => 'required',
-            'tax_price' => 'required',
+            'quantity' => 'required',
+            'tios_points' => 'required',
             'weight' => 'required',
-            'unit' => 'required',
-            'current_stock' => 'required',
-            'short_details' => 'required',
-            'details' => 'required',
+           'details' => 'required',
+            'extra_details' => 'required',
             'status' => 'required'
 
         ]);
@@ -153,7 +142,7 @@ class TrialProductController extends Controller
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
                 $image_name = 'product_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/products');
+                $destinationPath = public_path('/uploads/trail_products');
                 $file->move($destinationPath, $image_name);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
@@ -166,19 +155,12 @@ class TrialProductController extends Controller
                 'slug' => Str::slug($request->name),
                 'purchase_price' => $request->purchase_price,
                 'selling_price' => $request->selling_price,
-                'discount' => $request->discount,
-                'saving' => $request->saving,
-                'tax_type' => $request->tax_type,
-                'tax' => $request->tax,
-                'tax_price' => $request->tax_price,
-                'weight' => $request->weight,
-                'unit' => $request->unit,
-                'current_stock'=> $request->current_stock,
-                'short_details' => $request->short_details,
-                'details' => $request->details,
+              'weight' => $request->weight,
+               'quantity' => $request->quantity,
+               'tios_points'=>$request->tios_points,
+                 'details' => $request->details,
+                'extra_details' => $request->extra_details,
                 'status' => $request->status,
-                'is_show' => $request->is_show,
-                'user_id' => Auth::user()->id,
                 'upload_image' =>  $image_name,
                 'updated_at' => date('Y-m-d H:i:s')
             ];
@@ -190,39 +172,32 @@ class TrialProductController extends Controller
             'slug' => Str::slug($request->name),
             'purchase_price' => $request->purchase_price,
             'selling_price' => $request->selling_price,
-            'discount' => $request->discount,
-            'saving' => $request->saving,
-            'tax_type' => $request->tax_type,
-            'tax' => $request->tax,
-            'tax_price' => $request->tax_price,
             'weight' => $request->weight,
-            'unit' => $request->unit,
-            'current_stock'=> $request->current_stock,
-            'short_details' => $request->short_details,
+            'quantity' => $request->quantity,
+            'tios_points'=>$request->tios_points,
             'details' => $request->details,
+            'extra_details' => $request->extra_details,
             'status' => $request->status,
-            'is_show' => $request->is_show,
-            'user_id' => Auth::user()->id,
             'updated_at' => date('Y-m-d H:i:s')
             ];
         }
-     
-
-        $result = Product::where('id', $id)->update($data);
-        return redirect(route('products.list'))->with('success', 'Products Successfully Updated!');
+    
+// dd($data);
+        $result = TrialProduct::where('id', $id)->update($data);
+        return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Updated!');
     }
 
     public function view(Request $request, $id)
     {
-        $title = "View Products";
-        $subtitle = "Products";
-        $activePage = "Products";
-        $product = Product::select('products.*', 'categories.name as category_name')
-            ->where('products.id', $id)
-            ->join('categories', 'products.category_id', 'categories.id')
+        $title = "View Trail Products";
+        $subtitle = "Trail Products";
+        $activePage = "Trail Products";
+        $product = TrialProduct::select('trail_products.*', 'categories.name as category_name')
+            ->where('trail_products.id', $id)
+            ->join('categories', 'trail_products.category_id', 'categories.id')
 
             ->first();
-        return view('admin.products.view', compact('title', 'product', 'activePage', 'subtitle', 'id'));
+        return view('admin.trail-products.view', compact('title', 'product', 'activePage', 'subtitle', 'id'));
     }
 
 
@@ -230,9 +205,9 @@ class TrialProductController extends Controller
     public function destroy(Request $request)
     {
         $id = $request->id;
-        $delete = Product::where('id', $id)->delete();
+        $delete =TrialProduct::where('id', $id)->delete();
             if ($delete) {
-                return back()->with('error', 'Products Successfully Deleted!');
+                return back()->with('error', 'Trail Products Successfully Deleted!');
             } else {
                 return back()->with('error', 'Error Occured!');
             }
