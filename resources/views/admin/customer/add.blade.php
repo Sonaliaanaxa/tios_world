@@ -50,6 +50,13 @@
                                                     @endif
                                                     </div>
                                                 </div>
+
+                                                <div class="form-group col-md-6">
+	                                                <label for="category">Passsword</label>
+	                                                <div class="password">
+	                                                    <input class="form-control" name="password" id="password" type="password">
+	                                                </div>
+	                                            </div>
                                             
                                             	<div class="form-group col-md-6">
 	                                                <label for="category">Mobile</label>
@@ -62,15 +69,63 @@
 	                                            </div>
                                    
                                            
-	                                            {{--
-						                      	<div class="form-group col-md-10"  id="file-content" >
+	                                            
+						                      	<div class="form-group col-md-6"  id="file-content" >
 						                          <label class=" col-form-label">{{ __('Upload  Image*')}}</label>
 						                          <div class="col-sm-10">
 						                            <input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg"  name='myImage' id="myImage" class="form-control"  title="Upload image" class="add-input" onChange="displayImage1(this)" >             
 						                          </div>
 						                          <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 						                        </div>
-						                        --}}
+
+
+						                        <div class="col-12">
+						                        	<h5>About Your Business</h5>
+						                        </div>
+
+						                        <div class="form-group col-md-6">
+                                                	<label for="title">Business Title</label>
+                                                	<div class="form-group">
+                                                    	<input id="title" class="form-control" name="business_title"  type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                	<label for="tagline">Tag Line</label>
+                                                	<div class="form-group">
+                                                    	<input id="tagline" class="form-control" name="tag_line"  type="text">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                	<label for="about">About Business</label>
+                                                	<div class="form-group">
+                                                    	<textarea id="about" class="form-control" name="about_business"></textarea> 
+                                                    </div>
+                                                </div>
+
+
+
+
+                                                <div class="form-group col-md-6">
+                                                <label for="category">Role</label>
+                        <div class="form-group">
+                        	<select  class="custom-select" name='user_type' id="input-user_type"   >
+                                <option value=''>Select the  Role </option>
+                                <option value='seller'> Seller </option> 
+                                <option value='customer'>  Customer </option> 
+                               <option value='admin'>  Admin </option> 
+                          	</select>  
+                        </div>
+                      </div>
+
+
+
+
+
+
+
+
 
                             </div>
                                 </div>

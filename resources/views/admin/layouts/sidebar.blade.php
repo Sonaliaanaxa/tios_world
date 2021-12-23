@@ -161,12 +161,27 @@
                             </li>
                             @endif
 
+<<
+                            {{--
+                            @if(auth()->user()->user_type=='admin')
+                            <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
+                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
+                            </li>
+                            @endif
+                            --}}
+=======
+                            <!-- @if(auth()->user()->user_type=='admin')
+                            <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
+                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
+                            </li>
+                            @endif -->
+
 
                         @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
                                 <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategory') }}   </a>
                             </li>
-                            @endif
+                              @endif      
 
                         @if(auth()->user()->user_type=='admin')
                         <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
@@ -189,6 +204,45 @@
                         @if(auth()->user()->user_type=='admin')
                         <li class="submenu">
                             <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Other Products </span> <span class="menu-arrow"></span></a>
+=======
+                            
+                            <li class="submenu">
+                                <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Manage user </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                                    @if(auth()->user()->user_type=='admin')
+                                    <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
+                                        <a href="{{ route('customer.list')}}"><span>{{ __('Customer') }}   </a>
+                                    </li> 
+                                    @endif
+                                    @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
+                                    <li><a href="{{ route('products.create')}}">Profile</a></li>
+                                    @endif
+                                </ul>
+                            </li>
+                            
+                             @if(auth()->user()->user_type=='seller')
+                            <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
+                                <a href="{{ route('pincode.list')}}"><i class="fa fa-map-pin" aria-hidden="true"></i> <span>{{ __('Pincode') }}   </a>
+                            </li>
+                            @endif
+                        
+                            @if(auth()->user()->user_type=='admin' || auth()->user()->user_type == 'seller')
+                           <li class="submenu">
+<<<<<<< HEAD
+                                <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Product </span> <span class="menu-arrow"></span></a>
+                                <ul style="display: none;">
+                               
+                                    <li><a href="{{ route('products.list')}}">Product List</a></li>
+                                    <li><a href="{{ route('products.create')}}">Add Product</a></li>
+                                    <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
+                                
+                              
+                                </ul>
+                            </li>
+                            @endif
+=======
+                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Product </span> <span class="menu-arrow"></span></a>
+>>>>>>> 61da9725224cf96b020c5c48d865f708217910e2
                             <ul style="display: none;">
                                 <li><a href="{{ route('products.list')}}">Products</a></li>
 
@@ -199,6 +253,7 @@
                             </ul>
                         </li>
                         @endif
+<<<<<<< HEAD
 
 
                         @if(auth()->user()->user_type=='admin')
@@ -218,6 +273,11 @@
                         @endif
 
                         <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
+=======
+>>>>>>> 647e4049fc9e3b9d5b57df9ce77de7e92138a286
+                        
+                         <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
+>>>>>>> 61da9725224cf96b020c5c48d865f708217910e2
                         auth()->user()->user_type=='hospital'  || auth()->user()->user_type=='diagnostic' ||
                         auth()->user()->user_type=='blood_bank' || auth()->user()->user_type=='doctor' || auth()->user()->user_type=='patient') */ ?>
 

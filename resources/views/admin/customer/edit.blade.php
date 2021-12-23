@@ -51,6 +51,13 @@
                                                     </div>
                                                 </div>
 
+                                                <div class="form-group col-md-6">
+	                                                <label for="category">Passsword</label>
+	                                                <div class="password">
+	                                                    <input class="form-control" name="password" id="password" type="password">
+	                                                </div>
+	                                            </div>
+
 
                                                 <div class="form-group col-md-6">
 	                                                <label for="category">Mobile</label>
@@ -61,10 +68,44 @@
 	                                                    @endif
 	                                                    </div>
 	                                            </div>
+
+
+	                                            <div class="form-group col-md-6"  id="file-content" >
+						                          <label class=" col-form-label">{{ __('Upload  Image*')}}</label>
+						                          <div class="col-sm-10">
+						                            <input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg"  name='myImage' id="myImage" class="form-control"  title="Upload image" class="add-input" onChange="displayImage1(this)" >             
+						                          </div>
+						                          <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+						                        </div>
+
+
+						                        <div class="col-12">
+						                        	<h5>About Your Business</h5>
+						                        </div>
+
+						                        <div class="form-group col-md-6">
+                                                	<label for="title">Business Title</label>
+                                                	<div class="form-group">
+                                                    	<input id="title" class="form-control" name="business_title"  type="text" value="{{ $customer->business_title}}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-6">
+                                                	<label for="tagline">Tag Line</label>
+                                                	<div class="form-group">
+                                                    	<input id="tagline" class="form-control" name="tag_line"  type="text" value="{{ $customer->tag_line}}">
+                                                    </div>
+                                                </div>
+
+                                                <div class="form-group col-md-12">
+                                                	<label for="about">About Business</label>
+                                                	<div class="form-group">
+                                                    	<textarea id="about" class="form-control" name="about_business">{{ $customer->about_business}}</textarea> 
+                                                    </div>
+                                                </div>
                                             
                             
-                                    
-{{--                                            <div class="form-group col-md-6">
+                                          <div class="form-group col-md-6">
                                                 <label for="category">Role</label>
                         <div class="form-group{{ $errors->has('user_type') ? ' has-danger' : '' }}">
                         <select  class="custom-select {{ $errors->has('user_type') ? ' is-invalid' : '' }}" name='user_type' id="input-user_type"   >
@@ -78,24 +119,7 @@
                         </div>
                       </div>
 
-                      <div class="row"  id="file-content" >
-                          <label class="col-sm-2 col-form-label">{{ __('Upload  Image*')}}</label>
-                          <div class="col-sm-10">
-             
-                          <div class="profile-img">
-                                                        
-                                                        <img src="{{ asset('uploads/profile_img') }}/{{ $customer->img }}" style='height:130px;width:130px;border-radius:5%;' />
-                                                    </div>
-                                                    <br>
 
-                            <input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg"  name='myImage' id="myImage" class="form-control"  title="Upload image" class="add-input" onChange="displayImage1(this)" > 
-                              
-                                        
-                          </div>
-                          <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                </div>
-
-                --}}
                              </div>
 
 										</div>

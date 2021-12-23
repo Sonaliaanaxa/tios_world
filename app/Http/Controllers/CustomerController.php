@@ -85,8 +85,12 @@ class CustomerController extends Controller
             $user->name = $request->name;
             $user->email = $request->email;
             $user->phone = $request->phone;
-            $user->user_type = 'customer';
-            $user->img = $image_name;
+            $user->password = Hash::make($request->password);
+            $user->user_type = $request->user_type;
+            $user->business_title = $request->business_title;
+            $user->tag_line = $request->tag_line;
+            $user->about_business = $request->about_business ;
+            $user->image = $image_name;
             $user->save();
 
            
@@ -119,9 +123,7 @@ class CustomerController extends Controller
       $this->validate(request(), [
         'name' => 'required|min:3',
           'email' => 'required|email',
-          'user_type'=>'required'  
-          
-        ]);    
+      ]);    
         
               
         $image_name='';
@@ -140,31 +142,34 @@ class CustomerController extends Controller
                 {
                     return redirect()->back()->with('error','Invalid file attached! Please updload the image!');
                 }
-           
-     
-  
-  
-        $data=[
-            'name' => $request->name,
-            'email' => $request->email,
-           
-            'user_type'=>$request->user_type,
-            'img' =>  $image_name,
-      'updated_at'=>date('Y-m-d H:i:s')
-    
-  ]; 
-}else
-{
-    $data=[
-        'name' => $request->name,
-        'email' => $request->email,
-       
-        'user_type'=>$request->user_type,
-        'updated_at'=>date('Y-m-d H:i:s')
-    ];
-}
-  $result=User::where('id',$id)->update($data);
-      return redirect(route('customer.list'))->with('success','Customer Details Successfully Updated!');
+            
+            $data=[
+                'name' => $request->name,
+                'email' => $request->email,
+                'user_type'=>$request->user_type,
+                'img' =>  $image_name,
+                'updated_at'=>date('Y-m-d H:i:s'),
+                // 'password' => Hash::make($request->password),
+                'business_title' => $request->business_title,
+                'tag_line' => $request->tag_line,
+                'about_business' => $request->about_business,
+            ]; 
+        }else{
+            $data=[
+                'name' => $request->name,
+                'email' => $request->email,
+                'user_type'=>$request->user_type,
+                'updated_at'=>date('Y-m-d H:i:s'),
+                // 'password' => Hash::make($request->password),
+                'business_title' => $request->business_title,
+                'tag_line' => $request->tag_line,
+                'about_business' => $request->about_business,
+            ];
+        }
+
+        $result=User::where('id',$id)->update($data);
+        return redirect(route('customer.list'))->with('success','Customer Details Successfully Updated!');
+
     }
    
     

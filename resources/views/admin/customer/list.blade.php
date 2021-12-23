@@ -38,21 +38,21 @@
                                     <table class="datatable table table-hover table-center mb-0">
                                     <thead class=" text-default" style='color:whitesmoke;'>
                                             <tr>
-                                            <th>
+                                            <th> 
                          
                                                 @sortablelink('id',__('S No')) 
                                             </th>
                                             <th>
-                                            @sortablelink('img',__('Image'))  
+                                                @sortablelink('img',__('Image'))  
                                             </th>
                                             <th>
-                                            @sortablelink('name',__('Name'))  
+                                                @sortablelink('name',__('Name'))  
                                             </th>
                                             <th>
-                                            @sortablelink('email',__('Contact'))  
+                                                @sortablelink('email',__('Contact'))  
                                             </th>
                                             <th>
-                                            @sortablelink('user_type',__('Role'))  
+                                                @sortablelink('user_type',__('Role'))  
                                             </th>
                                        
                                                 <!-- <th>
