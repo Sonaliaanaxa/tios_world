@@ -1,7 +1,6 @@
 @include('front.layouts.header')
 @include('front.layouts.flash-msg')
 
-
 <!--hero banner-->
 <section class="banner">
 </section>
