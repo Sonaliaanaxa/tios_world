@@ -32,10 +32,10 @@ class CustomerController extends Controller
   
     public function index()
     {
-        $title = "All Customer";
+        $title = "All Seller";
       $subtitle="customer";
-      $activePage = "customer";
-      $role='customer';
+      $activePage = "Seller";
+      $role='seller';
       $dCount=User::where('user_type',$role)->count();
       $customer=User::where('user_type',$role)
          ->orderBy('id','DESC')
@@ -47,9 +47,9 @@ class CustomerController extends Controller
   
     public function create()
     {
-        $title = "Create New Customer";
+        $title = "Create New Seller";
         $subtitle="Customer";
-        $activePage = "Customer"; 
+        $activePage = "Seller"; 
         return view('admin.customer.add',compact('title','activePage','subtitle'));
     }
   
@@ -101,13 +101,11 @@ class CustomerController extends Controller
    
     public function edit(Request $request, $id)
     {
-      $title = "Update Employee";
+      $title = "Update Seller";
       $subtitle="allEmployee";
-      $activePage = "Employee";
+      $activePage = "Seller";
       $email=auth()->user()->email;
-     
-     
-      
+    
       $customer=User::where('id',$id)->first();
         return view('admin.customer.edit',compact('title','customer','subtitle','activePage'));
     }
@@ -116,9 +114,9 @@ class CustomerController extends Controller
     public function update(Request $request, $id)
     {
   
-      $title = "Update Employee";
+      $title = "Update Seller";
       $subtitle="allEmployee";
-      $activePage = "Employee";
+      $activePage = "Seller";
   
       $this->validate(request(), [
         'name' => 'required|min:3',
@@ -180,7 +178,7 @@ class CustomerController extends Controller
           $delete = User::where('id', $id)->delete();
           if ($delete){
       
-                return ['success' => 1, 'Customer Successfully Deleted!'];
+                return ['success' => 1, 'Seller Successfully Deleted!'];
                 
               }
               else

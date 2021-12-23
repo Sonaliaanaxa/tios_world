@@ -46,7 +46,7 @@
 											@endif
 										</div>
 									</div>
-<!-- 
+									<!-- 
 									<label class="col-sm-2 col-form-label">{{ __('Select Subcategory *')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('subcategory_id') ? ' has-danger' : '' }}">
@@ -71,9 +71,9 @@
 											@endif
 										</div>
 									</div>
-							
 
-								<label class="col-sm-2 col-form-label">{{ __('Product Slug')  }}</label>
+
+									<label class="col-sm-2 col-form-label">{{ __('Product Slug')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
 											<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
@@ -115,7 +115,7 @@
 										</div>
 									</div>
 
-								
+
 
 									<label class="col-sm-2 col-form-label">{{ __('Discount % *') }}</label>
 									<div class="col-sm-4">
@@ -394,7 +394,7 @@
 			});
 		}
 	}(jQuery));
-	
+
 
 
 	let subCategories = <?php echo (json_encode($subcategories)) ?>;
@@ -405,7 +405,7 @@
 		subCategoryDOM($(this).val(), selectedSubCategoryId)
 	});
 
-	function subCategoryDOM (catId, subCatId){
+	function subCategoryDOM(catId, subCatId) {
 		let currentCategorySubCategory = subCategories.filter(v => v.category_id == catId);
 		let optionDom = '';
 		currentCategorySubCategory.map((v) => {

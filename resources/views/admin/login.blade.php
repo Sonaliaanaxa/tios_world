@@ -157,7 +157,7 @@ label {
                     <i class="fa fa-key" aria-hidden="true"></i>
                 </div>
                 <div class="col-lg-12 login-title">
-                    ADMIN PANEL
+                    LOGIN PANEL
                 </div>
                   @include('admin.layouts.flash_msg')
                 <div class="col-lg-12 login-form">

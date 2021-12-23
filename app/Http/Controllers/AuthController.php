@@ -198,6 +198,10 @@ class AuthController extends Controller
  
              return redirect(route('admin.dashboard'))->with('success', 'Welcome');
            }
+           elseif(auth()->user()->status=='1' && auth()->user()->user_type=='seller')
+           {
+             return redirect(route('seller.dashboard'))->with('success', 'Welcome');
+           }
            else
            {
             Auth::logout();

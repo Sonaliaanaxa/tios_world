@@ -483,16 +483,16 @@ button.bg-danger:hover {
     border-color: #ee5a39!important;
 }
 .btn-primary {
-	background-color: #ee5a39;
-    border: 1px solid #ee5a39;
+	background-color: #3f3127;
+    border: 1px solid #3f3127;
 }
 .btn-primary:hover,
 .btn-primary:focus,
 .btn-primary.active,
 .btn-primary:active,
 .open > .dropdown-toggle.btn-primary {
-	background-color: #9bd45e;
-	border: 1px solid #9bd45e;
+	background-color: #819c7d;
+	border: 1px solid #819c7d;
 }
 .nav-pills .nav-link.active, .nav-pills .show>.nav-link {
     color: #fff;
@@ -533,8 +533,8 @@ button.bg-danger:hover {
 	box-shadow: unset;
 }
 .btn-success {
-	background-color: #7bb13c;
-	border: 1px solid #7bb13c
+	background-color: #819c7d;
+	border: 1px solid #819c7d;
 }
 .btn-success:hover,
 .btn-success:focus,
@@ -1056,7 +1056,7 @@ button.bg-danger:hover {
 	border-bottom-color: #ddd;
 }
 .nav-tabs.nav-justified.nav-tabs-solid > li > a {
-	border-color: transparent;
+	border-color: #3f3127;
 }
 .nav-tabs.nav-tabs-solid > li > a {
 	color: #333;
@@ -1064,8 +1064,8 @@ button.bg-danger:hover {
 .nav-tabs.nav-tabs-solid > li > a.active,
 .nav-tabs.nav-tabs-solid > li > a.active:hover,
 .nav-tabs.nav-tabs-solid > li > a.active:focus {
-	background-color: #00d0f1;
-	border-color: #00d0f1;
+	background-color: #819c7d;
+	border-color: #819c7d;
 	color: #fff;
 }
 .nav-tabs.nav-tabs-solid.nav-tabs-rounded {
@@ -1717,7 +1717,7 @@ html.menu-opened body {
     color: #fff;
 }
 .sidebar-menu li.active a {
-    background-color: #ee5a39;
+    background-color: #3f3127;
     color: #fff;
 }
 .menu-title {

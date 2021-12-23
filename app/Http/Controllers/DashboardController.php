@@ -52,94 +52,18 @@ class DashboardController extends Controller
         return view('admin.dashboard.admin',compact('title','activePage','subtitle'));
     
     }
-    public function doctor()
-    {
-     
-      
+
+    public function seller()
+    { 
       $title = "Dashboard";
-      $subtitle="users_list";
+      $subtitle="Dashboard";
       $activePage = "Dashboard";
       $month=date('F');
       $year=date('Y');
-      $user_id = Auth::user()->id;
-      $data = DB::table('book_appoint')->where('doctorId',$user_id)->count();
 
-      $subscription=SubscriptionPayment::where('u_id',$user_id)
-                                ->where('payment_status','completed')
-                                ->where('status','active')->orderBy('id', 'desc')
-                                ->first();
-
-        return view('admin.dashboard.doctor',compact('title','activePage','subtitle','data','subscription'));
+        return view('admin.dashboard.seller',compact('title','activePage','subtitle'));
     
     }
-    public function blood_bank()
-    {
-      $title = "Dashboard";
-      $subtitle="users_list";
-      $activePage = "Dashboard";
-      $month=date('F');
-      $year=date('Y');
-   
-      
-        return view('admin.dashboard.blood_bank',compact('title','activePage','subtitle'));
-    
-    }
-    public function diagonostics()
-    {
-      $title = "Dashboard";
-      $subtitle="users_list";
-      $activePage = "Dashboard";
-      $month=date('F');
-      $year=date('Y');
-   
-            $user_id = Auth::user()->id;
-      $data = DB::table('book_appoint')->where('doctorId',$user_id)->count();
-
-        return view('admin.dashboard.diagonostics',compact('title','activePage','subtitle','data'));
-    
-    }
-    public function hospital()
-    {
-      $title = "Dashboard";
-      $subtitle="users_list";
-      $activePage = "Dashboard";
-      $month=date('F');
-      $year=date('Y');
-   
-            $user_id = Auth::user()->id;
-      $data = DB::table('book_appoint')->where('doctorId',$user_id)->count();
-
-        return view('admin.dashboard.hospital',compact('title','activePage','subtitle','data'));
-    
-    }
-    public function pharmacy()
-    {
-      $title = "Dashboard";
-      $subtitle="users_list";
-      $activePage = "Dashboard";
-      $month=date('F');
-      $year=date('Y');
-   
-      
-        return view('admin.dashboard.pharmacy',compact('title','activePage','subtitle'));
-    
-    }
-
-    public function patient()
-    {
-      $title = "Dashboard";
-      $subtitle="users_list";
-      $activePage = "Dashboard";
-      $month=date('F');
-      $year=date('Y');
-   
-                  $user_id = Auth::user()->id;
-      $data = DB::table('book_appoint')->where('patientId',$user_id)->count();
-
-        return view('admin.dashboard.patient',compact('title','activePage','subtitle','data'));
-    
-    }
-   
   
   
 }

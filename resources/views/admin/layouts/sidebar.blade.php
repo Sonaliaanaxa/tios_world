@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0">
-    <title>{{ $title ?? "Thehygieneherbs - Dashboard"}} </title>
+    <title>{{ $title ?? "Tios World - Dashboard"}} </title>
 
     <!-- Favicon -->
     <link rel="shortcut icon" type="image/x-icon" href="{{ asset('assets\front\img\logo\logo.png') }}">
@@ -127,17 +127,21 @@
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
 
-                        @if(auth()->user()->user_type=='admin'|| auth()->user()->user_type=='seller')
+                        @if(auth()->user()->user_type=='admin')
                         <li class="item{{ $activePage == 'Dashboard' ? ' active' : '' }}">
                             <a href="{{ route('admin.dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a>
                         </li>
+                        @else
+                        <li class="item{{ $activePage == 'Dashboard' ? ' active' : '' }}">
+                            <a href="{{ route('seller.dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a>
+                        </li>
                         @endif
-                        @if(auth()->user()->user_type=='seller')
+                        <!-- @if(auth()->user()->user_type=='seller')
                         <li class="item{{ $activePage == 'Navbar' ? ' active' : '' }}">
                             <a href="{{ route('navbar.list')}}"><i class="fa fa-bars" aria-hidden="true"></i> <span>{{ __('Navbar') }} </a>
                         </li>
-                        @endif
-                        @if(auth()->user()->user_type=='seller')
+                        @endif -->
+                        @if(auth()->user()->user_type=='store')
                         <li class="submenu">
                             <a href="#"><i class="fa fa-sliders" aria-hidden="true"></i> <span> Home Slider/Banner </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
@@ -149,38 +153,24 @@
 
 
 
-                        @if(auth()->user()->user_type=='seller')
+                        @if(auth()->user()->user_type=='store')
                         <li class="item{{ $activePage == 'AllSlider' ? ' active' : '' }}">
                             <a href="{{ route('all.slider.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('All Banner') }} </a>
                         </li>
                         @endif
 
                         @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Category' ? ' active' : '' }}">
-                                <a href="{{ route('categories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Category') }}   </a>
-                            </li>
-                            @endif
-
-
-                            {{--
-                            @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
-                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
-                            </li>
-                            @endif
-                            --}}
-                            <!-- @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
-                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
-                            </li>
-                            @endif -->
+                        <li class="item{{ $activePage == 'Category' ? ' active' : '' }}">
+                            <a href="{{ route('categories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Category') }} </a>
+                        </li>
+                        @endif
 
 
                         @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
-                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategory') }}   </a>
-                            </li>
-                              @endif      
+                        <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
+                            <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategory') }} </a>
+                        </li>
+                        @endif
 
                         @if(auth()->user()->user_type=='admin')
                         <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
@@ -188,84 +178,66 @@
                         </li>
                         @endif
 
-                        @if(auth()->user()->user_type=='admin')
-                        <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
-                            <a href="{{ route('customer.list')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>{{ __('Customer') }} </a>
-                        </li>
-                        @endif
+                       
 
-                        @if(auth()->user()->user_type=='seller')
-                        <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
-                            <a href="{{ route('pincode.list')}}"><i class="fa fa-map-pin" aria-hidden="true"></i> <span>{{ __('Pincode') }} </a>
-                        </li>
-                        @endif
-
-                        @if(auth()->user()->user_type=='admin')
-                        
-                            <li class="submenu">
-                                <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Manage user </span> <span class="menu-arrow"></span></a>
-                                <ul style="display: none;">
-                                    @if(auth()->user()->user_type=='admin')
-                                    <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
-                                        <a href="{{ route('customer.list')}}"><span>{{ __('Customer') }}   </a>
-                                    </li> 
-                                    @endif
-                                    @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
-                                    <li><a href="{{ route('products.create')}}">Profile</a></li>
-                                    @endif
-                                </ul>
-                            </li>
-                            
-                             @if(auth()->user()->user_type=='seller')
-                            <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
-                                <a href="{{ route('pincode.list')}}"><i class="fa fa-map-pin" aria-hidden="true"></i> <span>{{ __('Pincode') }}   </a>
-                            </li>
-                            @endif
-                        
-                          
-                        </li>
-                        @endif
-                         
                         @if(auth()->user()->user_type=='admin')
                         <li class="submenu">
-                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Other Products </span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fa fa-user" aria-hidden="true"></i> <span> Manage Seller </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
+                                @if(auth()->user()->user_type=='admin')
+                                <li class="item{{ $activePage == 'Seller' ? ' active' : '' }}">
+                                    <a href="{{ route('customer.list')}}"><span>{{ __('All Seller') }} </a>
+                                </li>
+                                @endif
+                            </ul>
+                        </li>
+                        </li>
+                        @endif
 
-                               
+                        @if(auth()->user()->user_type=='admin')
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-bars" aria-hidden="true"></i> <span> Collections </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                                <li class="item{{ $activePage == 'Collections' ? ' active' : '' }}">
+                                    <a href="{{ route('collections.list')}}">Collections</a>
+                                </li>
+                                <li class="item{{ $activePage == 'ProductCollections' ? ' active' : '' }}">
+                                    <a href="{{ route('product-collections.list')}}">Product Collections</a>
+                                </li>
+
+                            </ul>
+                        </li>
+                        @endif
+
+
+
+                        @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> <span> Other Products </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                            @if(auth()->user()->user_type=='admin')
                                 <li><a href="{{ route('products.list')}}">Products</a></li>
-
-                                <!-- <li><a href="{{ route('products.create')}}">Add Product</a></li> -->
-                                <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
-
-
+                                @else
+                                <li><a href="{{ route('seller-products.list')}}">Products</a></li>
+                                @endif
                             </ul>
                         </li>
                         @endif
 
-                        @if(auth()->user()->user_type=='admin')
+                        @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
                         <li class="submenu">
-                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Trial Products </span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> <span> Trial Products </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-
-                               
+                            @if(auth()->user()->user_type=='admin')
                                 <li><a href="#">Products</a></li>
-
-                                <!-- <li><a href="{{ route('products.create')}}">Add Product</a></li> -->
-                                <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
-
-
+                                @else
+                                <li><a href="#">Products</a></li>
+                                @endif
                             </ul>
                         </li>
                         @endif
 
-                        <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
-                        
-                         <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
->>>>>>> 61da9725224cf96b020c5c48d865f708217910e2
-                        auth()->user()->user_type=='hospital'  || auth()->user()->user_type=='diagnostic' ||
-                        auth()->user()->user_type=='blood_bank' || auth()->user()->user_type=='doctor' || auth()->user()->user_type=='patient') */ ?>
-
-                        @if(auth()->user()->user_type=='seller')
+                        @if(auth()->user()->user_type=='store')
 
                         <li class="submenu">
                             <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span> Orders </span> <span class="menu-arrow"></span></a>
@@ -287,7 +259,7 @@
                         </li>
                         @endif
 
-                        @if(auth()->user()->user_type=='seller' || auth()->user()->user_type=='')
+                        @if(auth()->user()->user_type=='')
                         <li class="submenu">
                             <a href="#"><i class="fa fa-money" aria-hidden="true"></i> <span>Product Payments </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
@@ -306,7 +278,7 @@
                         @endif
 
 
-                        @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='editor')
+                        @if(auth()->user()->user_type=='admin' )
                         <li class="submenu">
                             <a href="#"><i class="fa fa-cogs"></i> <span> Website Setting </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">

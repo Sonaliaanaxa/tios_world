@@ -1,119 +1,119 @@
 @include("admin.layouts.sidebar")
-    <!-- Page Wrapper --> 
-    <div class="page-wrapper">
-            <div class="content container-fluid">
+<!-- Page Wrapper -->
+<div class="page-wrapper">
+    <div class="content container-fluid">
 
-                <!-- Page Header -->
-                <div class="page-header">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h3 class="page-title">{{ __($title) }}
-                            <a href="{{route('customer.create')}}"  class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
-                            </h3>
-                         
-                            <ul class="breadcrumb">
-                                <li class="breadcrumb-item">Total Customers -  {{ $dCount}}</li>
-                               
-                            </ul>
-                        </div>
-                    </div>
+        <!-- Page Header -->
+        <div class="page-header">
+            <div class="row">
+                <div class="col-sm-12">
+                    <h3 class="page-title">{{ __($title) }}
+                        <a href="{{route('customer.create')}}" class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
+                    </h3>
+
+                    <ul class="breadcrumb">
+                        <li class="breadcrumb-item">Total Sellers - {{ $dCount}}</li>
+
+                    </ul>
                 </div>
-                <!-- /Page Header -->
-                @include('admin.layouts.flash_msg')
-                <div class="row">
-              
-                  
-              <div class="col-sm-3">
+            </div>
+        </div>
+        <!-- /Page Header -->
+        @include('admin.layouts.flash_msg')
+        <div class="row">
+
+
+            <div class="col-sm-3">
                 <div class="form-group">
-                  <input class="form-control" id="myInput" onkeyup="myFunction()"  type="text" placeholder="{{ __('Search..') }}"  aria-required="true"/>
+                    <input class="form-control" id="myInput" onkeyup="myFunction()" type="text" placeholder="{{ __('Search..') }}" aria-required="true" />
                 </div>
-              
+
             </div>
-            </div>
-                <div class="row">
-                    <div class="col-sm-12">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="table-responsive">
-                                    <table class="datatable table table-hover table-center mb-0">
-                                    <thead class=" text-default" style='color:whitesmoke;'>
-                                            <tr>
-                                            <th> 
-                         
-                                                @sortablelink('id',__('S No')) 
-                                            </th>
-                                            <th>
-                                                @sortablelink('img',__('Image'))  
-                                            </th>
-                                            <th>
-                                                @sortablelink('name',__('Name'))  
-                                            </th>
-                                            <th>
-                                                @sortablelink('email',__('Contact'))  
-                                            </th>
-                                            <th>
-                                                @sortablelink('user_type',__('Role'))  
-                                            </th>
-                                       
-                                                <!-- <th>
+        </div>
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="card">
+                    <div class="card-body">
+                        <div class="table-responsive">
+                            <table class="datatable table table-hover table-center mb-0">
+                                <thead class=" text-default" style='color:whitesmoke;'>
+                                    <tr>
+                                        <th>
+
+                                            @sortablelink('id',__('S No'))
+                                        </th>
+                                        <th>
+                                            @sortablelink('img',__('Image'))
+                                        </th>
+                                        <th>
+                                            @sortablelink('name',__('Name'))
+                                        </th>
+                                        <th>
+                                            @sortablelink('email',__('Contact'))
+                                        </th>
+                                        <th>
+                                            @sortablelink('user_type',__('Role'))
+                                        </th>
+
+                                        <!-- <th>
                                                 @sortablelink('approve',__('Approval')) 
                                                 
                                                 </th> -->
-                                           
-                                                <th>
-                                                @sortablelink('created_at',__('Created At'))  
-                                                
-                                                </th>
-                                                
-                                                <th>
-                     @sortablelink('action',__('Action'))  
-                     
-                     </th>
-                                               
-                                               
 
-                                            </tr>
-                                        </thead>
-                                        <tbody id="myTable"> 
-                                        <?php $i=0; ?>
-                                        @foreach($customer as $r)
-                                        <?php $i++; ?>
-                                            
-                                            <tr>
+                                        <th>
+                                            @sortablelink('created_at',__('Created At'))
 
-                                            <td>
+                                        </th>
+
+                                        <th>
+                                            @sortablelink('action',__('Action'))
+
+                                        </th>
+
+
+
+                                    </tr>
+                                </thead>
+                                <tbody id="myTable">
+                                    <?php $i = 0; ?>
+                                    @foreach($customer as $r)
+                                    <?php $i++; ?>
+
+                                    <tr>
+
+                                        <td>
                                             <?php echo $i; ?>
-                                            </td>
-                                          
-                                                <td>
-                                                 
-                                                    @if($r->img)
-                                                        <a href="{{ asset('/uploads/profile_img') }}/{{ $r->img }}" ><img  src="{{ asset('/uploads/profile_img') }}/{{ $r->img }}" alt="User Image" style="height:90px;width:90px;"></a>
-                                                        @else
-                                                        <p class='text-center' style='margin-right: 12px;padding-top:8px;height:40px;width:40px;border-radius:50%; background-color:#0099cc;color:white;font-size:21px;'>
-                                                        {{ substr($r->name,0,1) }}
-                                                        </p>
-                                                        @endif
-                                                       
-                                               
-                                                </td>
-                                                <td>
-                            {{ $r->name }}
-                          </td>
-                                                </td>
-                                            
-                                            <td>
-                                            
+                                        </td>
+
+                                        <td>
+
+                                            @if($r->image)
+                                            <a href="{{ asset('/uploads/profile_img') }}/{{ $r->image }}"><img src="{{ asset('/uploads/profile_img') }}/{{ $r->image }}" alt="User Image" style="height:90px;width:90px;"></a>
+                                            @else
+                                            <p class='text-center' style='margin-right: 12px;padding-top:8px;height:40px;width:40px;border-radius:50%; background-color:#0099cc;color:white;font-size:21px;'>
+                                                {{ substr($r->name,0,1) }}
+                                            </p>
+                                            @endif
+
+
+                                        </td>
+                                        <td>
+                                            {{ $r->name }}
+                                        </td>
+                                        </td>
+
+                                        <td>
+
                                             <i class='fa fa-envelope'> </i> {{ $r->email }}<br>
                                             <i class='fa fa-phone'> </i> {{ $r->phone }}
-                                            </td>
-                           
-                            <td>
-                          {{ $r->user_type }}
-                          </td>
-                     
+                                        </td>
 
-                          <!-- <td>
+                                        <td>
+                                            {{ $r->user_type }}
+                                        </td>
+
+
+                                        <!-- <td>
                                
                                <select id="{{ $r->id}}" style='width:112px;'  class="custom-select approve" name='approve'   >
                              
@@ -125,114 +125,115 @@
                                </select> 
                           </td>
                       -->
-                   
-       
-                                             
-                          <td>
-                          {{ $r->created_at->format('Y-m-d') }}
-                          </td>
-                            
-                        
-                          <td>
-						    <!-- <a href="{{route('my.user.update.password',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
+
+
+
+                                        <td>
+                                        {{ $r->created_at->format('d F, Y') }}
+                                        </td>
+
+
+                                        <td>
+                                            <!-- <a href="{{route('my.user.update.password',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                          <i class="fa fa-key"></i></a> -->
-                          
-                         
-                 
-                           <a href="{{route('customer.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
-                         <i class="fa fa-edit"></i></a>
-                   
-                         <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-customer' title="Delete" data-id="{{$r->id}}">
-                         <i class="fa fa-trash"></i>
-                         </a>
-                          </td>
-                                               
-                                             
-                                            </tr>
-                                        
-                                            @endforeach
-                                        </tbody>
-                                    </table>
-                                </div>
-                            </div>
+
+
+
+                                            <a href="{{route('customer.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
+                                                <i class="fa fa-edit"></i></a>
+
+                                            <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-customer' title="Delete" data-id="{{$r->id}}">
+                                                <i class="fa fa-trash"></i>
+                                            </a>
+                                        </td>
+
+
+                                    </tr>
+
+                                    @endforeach
+                                </tbody>
+                            </table>
                         </div>
-                        {!! $customer->appends(request()->except('page'))->render() !!}
                     </div>
                 </div>
-
+                {!! $customer->appends(request()->except('page'))->render() !!}
             </div>
         </div>
-        <!-- /Page Wrapper -->
 
     </div>
-    <!-- /Main Wrapper -->
+</div>
+<!-- /Page Wrapper -->
 
-    
-  <script>
-        $(document).ready(function() {
-            $('.delete-customer').on('click', function (e) {
-                if (!confirm("Are you sure to Delete?")) {
-                    e.preventDefault();
-                    return false;
-                }
+</div>
+<!-- /Main Wrapper -->
 
-                var id = $(this).data('id');
-              
-                $.ajax({
-                    type: 'POST',
-                    url:"{{route('customer.destroy')}}",
-                    data: {id: id, _token: '{{ csrf_token() }}'},
-                    success: function (data) {
-                        if (data.success == 1) {
+
+<script>
+    $(document).ready(function() {
+        $('.delete-customer').on('click', function(e) {
+            if (!confirm("Are you sure to Delete?")) {
+                e.preventDefault();
+                return false;
+            }
+
+            var id = $(this).data('id');
+
+            $.ajax({
+                type: 'POST',
+                url: "{{route('customer.destroy')}}",
+                data: {
+                    id: id,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    if (data.success == 1) {
                         //    selector.closest('tr').hide('slow');
-                             swal("Success!", "Customer Successfully Deleted!", "success");
-                             
-                        }
+                        swal("Success!", "Customer Successfully Deleted!", "success");
 
-                       location.reload();
-                       
                     }
-                });
-            }); });
 
+                    location.reload();
+
+                }
+            });
+        });
+    });
 </script>
 
 <script>
-        $(document).ready(function() {
-$('.approve').on('change', function() {
+    $(document).ready(function() {
+        $('.approve').on('change', function() {
 
-var id = $(this).attr('id');
-var approve =  $(this).val();
+            var id = $(this).attr('id');
+            var approve = $(this).val();
 
 
-if (!confirm("Confirm if you want to update approve status?")) {
-    e.preventDefault();
-    return false;
-}
+            if (!confirm("Confirm if you want to update approve status?")) {
+                e.preventDefault();
+                return false;
+            }
 
-$.ajax({
-    type: 'POST',
-    url:"{{ route('user.approve.update') }}",
-    data: {id: id,approve:approve,_token: '{{ csrf_token() }}'},
-    success: function (data) {
-        if (data.success == 1) {
-            
-            swal("Success!", "Approve Status Successfully Updated!", "success");
-        }
-        else{
-            
-            swal("Error!", "Error Occurred!", "waring");
-      }
-      //  location.reload();
-      
-    }
-});
-});
+            $.ajax({
+                type: 'POST',
+                url: "{{ route('user.approve.update') }}",
+                data: {
+                    id: id,
+                    approve: approve,
+                    _token: '{{ csrf_token() }}'
+                },
+                success: function(data) {
+                    if (data.success == 1) {
 
-});
+                        swal("Success!", "Approve Status Successfully Updated!", "success");
+                    } else {
+
+                        swal("Error!", "Error Occurred!", "waring");
+                    }
+                    //  location.reload();
+
+                }
+            });
+        });
+
+    });
 </script>
-
-
-
-
-

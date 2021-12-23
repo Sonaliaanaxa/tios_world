@@ -30,6 +30,20 @@ class ProductController extends Controller
         return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
     }
 
+    public function indexSeller()
+    {
+        $title = "Products";
+        $subtitle = "Products";
+        $activePage = "Products";
+        $pCount = Product::select('*')->where('user_id', Auth::user()->id)->count();
+        $products = Product::select('products.*', 'categories.name as category_name')
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->where('products.user_id', Auth::user()->id)
+            ->orderBy('id', 'DESC')
+            ->sortable()->paginate(30);
+        return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
+    }
+
 
     public function create()
     {
@@ -41,14 +55,14 @@ class ProductController extends Controller
         $category_id = $categories[0]->id ?? '';
         $subcategories = json_decode(json_encode(Subcategory::get()), true);
 
-        return view('admin.products.add', compact('title', 'activePage', 'subtitle', 'categories','subcategories'));
+        return view('admin.products.add', compact('title', 'activePage', 'subtitle', 'categories', 'subcategories'));
     }
 
 
     public function save(Request $request)
     {
         $this->validate(request(), [
-            
+
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
             'name' => 'required',
@@ -67,7 +81,7 @@ class ProductController extends Controller
             'status' => 'required'
 
         ]);
-    
+
         $image_name = '';
 
         if ($request->hasFile('myImage')) {
@@ -96,7 +110,7 @@ class ProductController extends Controller
             'tax_price' => $request->tax_price,
             'weight' => $request->weight,
             'unit' => $request->unit,
-            'current_stock'=> $request->current_stock,
+            'current_stock' => $request->current_stock,
             'short_details' => $request->short_details,
             'details' => $request->details,
             'status' => $request->status,
@@ -106,7 +120,12 @@ class ProductController extends Controller
         ];
         $result = Product::create($data);
         // dd($data);
-        return redirect(route('products.list'))->with('success', 'Products Successfully Added!');
+        if (Auth::user()->user_type == 'admin') {
+            return redirect(route('products.list'))->with('success', 'Products Successfully Added!');
+        }
+        else{
+            return redirect(route('seller-products.list'))->with('success', 'Products Successfully Added!');
+        }
     }
 
     public function edit(Request $request, $id)
@@ -123,13 +142,13 @@ class ProductController extends Controller
             ->join('categories', 'products.category_id', 'categories.id')
 
             ->first();
-        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id','subcategories', 'categories'));
+        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id', 'subcategories', 'categories'));
     }
 
 
     public function update(Request $request, $id)
     {
-        
+
         $this->validate(request(), [
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
@@ -150,7 +169,7 @@ class ProductController extends Controller
 
         ]);
 
-    
+
         $image_name = '';
 
         if ($request->hasFile('myImage')) {
@@ -178,7 +197,7 @@ class ProductController extends Controller
                 'tax_price' => $request->tax_price,
                 'weight' => $request->weight,
                 'unit' => $request->unit,
-                'current_stock'=> $request->current_stock,
+                'current_stock' => $request->current_stock,
                 'short_details' => $request->short_details,
                 'details' => $request->details,
                 'status' => $request->status,
@@ -189,32 +208,37 @@ class ProductController extends Controller
             ];
         } else {
             $data = [
-            'category_id' => $request->category_id,
-            'subcategory_id' => $request->subcategory_id,
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'purchase_price' => $request->purchase_price,
-            'selling_price' => $request->selling_price,
-            'discount' => $request->discount,
-            'saving' => $request->saving,
-            'tax_type' => $request->tax_type,
-            'tax' => $request->tax,
-            'tax_price' => $request->tax_price,
-            'weight' => $request->weight,
-            'unit' => $request->unit,
-            'current_stock'=> $request->current_stock,
-            'short_details' => $request->short_details,
-            'details' => $request->details,
-            'status' => $request->status,
-            'is_show' => $request->is_show,
-            'user_id' => Auth::user()->id,
-            'updated_at' => date('Y-m-d H:i:s')
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->subcategory_id,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'purchase_price' => $request->purchase_price,
+                'selling_price' => $request->selling_price,
+                'discount' => $request->discount,
+                'saving' => $request->saving,
+                'tax_type' => $request->tax_type,
+                'tax' => $request->tax,
+                'tax_price' => $request->tax_price,
+                'weight' => $request->weight,
+                'unit' => $request->unit,
+                'current_stock' => $request->current_stock,
+                'short_details' => $request->short_details,
+                'details' => $request->details,
+                'status' => $request->status,
+                'is_show' => $request->is_show,
+                'user_id' => Auth::user()->id,
+                'updated_at' => date('Y-m-d H:i:s')
             ];
         }
-     
+
 
         $result = Product::where('id', $id)->update($data);
-        return redirect(route('products.list'))->with('success', 'Products Successfully Updated!');
+        if (Auth::user()->user_type == 'admin'){
+            return redirect(route('products.list'))->with('success', 'Products Successfully Updated!');
+        }
+        else{
+            return redirect(route('seller-products.list'))->with('success', 'Products Successfully Updated!');
+        }
     }
 
     public function view(Request $request, $id)
@@ -236,10 +260,10 @@ class ProductController extends Controller
     {
         $id = $request->id;
         $delete = Product::where('id', $id)->delete();
-            if ($delete) {
-                return back()->with('error', 'Products Successfully Deleted!');
-            } else {
-                return back()->with('error', 'Error Occured!');
-            }
+        if ($delete) {
+            return back()->with('error', 'Products Successfully Deleted!');
+        } else {
+            return back()->with('error', 'Error Occured!');
+        }
     }
 }

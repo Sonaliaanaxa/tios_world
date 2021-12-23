@@ -50,4 +50,45 @@ class UserController extends Controller
   User::where('phone',$phone)->update($data);
   return redirect()->back()->with('success', 'User Information Successfully Updated!');
   }     
+
+  function myProfile(){
+    $title = "My Profile";
+    $subtitle="Profile";
+    $activePage = "Profile";
+    $email=auth()->user()->email;
+    $user_type=auth()->user()->user_type;
+    
+    $user=User::where('user_type',$user_type)->where('email',$email)->first();
+      return view('admin.profile.edit',compact('title','user','subtitle','activePage'));
+  }
+
+  public function saveBasicMyProfile(Request $request)
+  {
+
+    $email=auth()->user()->email;
+    $user_type=auth()->user()->user_type;
+
+  $this->validate(request(), [
+      'name' => 'required|min:3',
+      'phone'=>'required',
+      'business_title'=>'required',
+      'tag_line' => 'required',
+      'about_business' => 'required',
+   
+  ]);
+
+  $data=[
+      'name' => $request->name,
+      'phone' => $request->phone,
+      'business_title' => $request->business_title,
+      'tag_line' => $request->tag_line,
+      'about_business' => $request->about_business,
+      'email' => $request->email,
+      'updated_at'=>date('Y-m-d H:i:s')
+ 
+  ]; 
+  User::where('email',$email)->update($data);
+ 
+  return redirect()->back()->with('success', 'Basic Information Successfully Updated!');
+  }
 }
