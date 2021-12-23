@@ -51,11 +51,41 @@ class SubcategoryController extends Controller
             'status' => 'required'
         ]);    
         
-    
+        $image_name = '';
+
+        if ($request->hasFile('myImage')) {
+            $file = $request->file('myImage');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+
+                $image_name = 'categories_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/categories');
+                $file->move($destinationPath, $image_name);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        $banner_name = '';
+
+        if ($request->hasFile('myBanner')) {
+            $file = $request->file('myBanner');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+
+                $banner_name = 'banner_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/subcategory-banner');
+                $file->move($destinationPath, $banner_name);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
         $data=[
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => $request->slug,
+            'img' =>  $image_name,
+            'banner' => $banner_name,
             'status' => $request->status,
         ];
 
@@ -83,6 +113,38 @@ class SubcategoryController extends Controller
             'status' => 'required'
           
         ]);   
+
+        $id = $request->id;
+        $data1['banner'] = '';
+
+        if ($request->hasFile('myBanner')) {
+            $file = $request->file('myBanner');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
+                $data1['banner'] = 'banner_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/subcategory-banner');
+                $file->move($destinationPath, $data1['banner']);
+                Category::where('id', $id)->update($data1);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        $id = $request->id;
+        $data2['img'] = '';
+
+        if ($request->hasFile('myImage')) {
+            $file = $request->file('myImage');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+                $data2['img'] = 'categories_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/categories');
+                $file->move($destinationPath,  $data2['img']);
+                Category::where('id', $id)->update($data2);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
   
         $data=[
             'category_id' => $request->category_id,

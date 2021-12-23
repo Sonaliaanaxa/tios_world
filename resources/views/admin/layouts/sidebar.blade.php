@@ -22,27 +22,26 @@
 
     <!-- Main CSS -->
     <link rel="stylesheet" href="{{ asset('material/admin/css/style.css') }}">
-<style>
+    <style>
+        .user-menu.nav>li>a>i {
 
-.user-menu.nav > li > a > i {
-    
-    color: black;
-}
-.user-menu.nav > li > a {
-    color: black !important;
-    }
- 
-</style>
+            color: black;
+        }
+
+        .user-menu.nav>li>a {
+            color: black !important;
+        }
+    </style>
 
 </head>
 
 <body class="{{ $class ?? '' }}">
-         @auth()
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
-                @csrf
-            </form>
-     
-        @endauth 
+    @auth()
+    <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+        @csrf
+    </form>
+
+    @endauth
 
     <!-- Main Wrapper -->
     <div class="main-wrapper">
@@ -52,8 +51,8 @@
 
             <!-- Logo -->
             <div class="header-left">
-                <a href="{{ route('home')}}"class="logo">
-                   <img src="{{ asset('uploads/logo') }}/{{ getWeb()->logo }}"  alt="Logo" style="height:100px;width:150px;">
+                <a href="{{ route('home')}}" class="logo">
+                    <img src="{{ asset('uploads/logo') }}/{{ getWeb()->logo }}" alt="Logo" style="height:100px;width:150px;">
                 </a>
                 <a href="{{ route('home')}}" class="logo logo-small">
                     <img src="{{ asset('uploads/logo') }}/{{ getWeb()->logo }}" alt="Logo" width="30" height="30">
@@ -80,33 +79,37 @@
 
             <!-- Header Right Menu -->
             <ul class="nav user-menu">
-        <!-- Order -->
-        <li class="nav-item dropdown noti-dropdown">
-                    <a href="{{ route('home')}}" class="dropdown-toggle nav-link" >
-                        <i class="fa fa-home text-primary"></i> 
+                <!-- Order -->
+                <li class="nav-item dropdown noti-dropdown">
+                    <a href="{{ route('home')}}" class="dropdown-toggle nav-link">
+                        <i class="fa fa-home text-primary"></i>
                     </a>
-                    </li>
-               
-                 
+                </li>
+
+
 
                 <!-- User Menu -->
                 <li class="nav-item dropdown has-arrow">
                     <a href="#" class="dropdown-toggle nav-link" data-toggle="dropdown">
-      
-                        <span class="user-img"><h6>Hello <?php  $ar=explode(" ",auth()->user()->name); echo $ar[0];  ?>!</h6></span>
+
+                        <span class="user-img">
+                            <h6>Hello <?php $ar = explode(" ", auth()->user()->name);
+                                        echo $ar[0];  ?>!</h6>
+                        </span>
                     </a>
                     <div class="dropdown-menu">
                         <div class="user-header">
-                           
+
                             <div class="user-text">
-                            <h6>Hello <?php  $ar=explode(" ",auth()->user()->name); echo $ar[0];  ?>!</h6>
-                            @if(auth()->user()->user_type=='admin')
+                                <h6>Hello <?php $ar = explode(" ", auth()->user()->name);
+                                            echo $ar[0];  ?>!</h6>
+                                @if(auth()->user()->user_type=='admin')
                                 <p class="text-muted mb-0">Administrator</p>
                                 @endif
                             </div>
                         </div>
                         <a class="dropdown-item" href="{{ route('my.profile.view')}}">My Profile</a>
-                 
+
                         <a class="dropdown-item" href="{{ route('logout')}}">Logout</a>
                     </div>
                 </li>
@@ -118,145 +121,163 @@
         </div>
         <!-- /Header -->
 
-               <!-- Sidebar -->
+        <!-- Sidebar -->
         <div class="sidebar" id="sidebar">
             <div class="sidebar-inner slimscroll">
                 <div id="sidebar-menu" class="sidebar-menu">
                     <ul>
 
-                    @if(auth()->user()->user_type=='admin'|| auth()->user()->user_type=='seller')
+                        @if(auth()->user()->user_type=='admin'|| auth()->user()->user_type=='seller')
                         <li class="item{{ $activePage == 'Dashboard' ? ' active' : '' }}">
                             <a href="{{ route('admin.dashboard')}}"><i class="fa fa-home" aria-hidden="true"></i><span>Dashboard</span></a>
                         </li>
                         @endif
-                         @if(auth()->user()->user_type=='seller')
-                            <li class="item{{ $activePage == 'Navbar' ? ' active' : '' }}">
-                                <a href="{{ route('navbar.list')}}"><i class="fa fa-bars" aria-hidden="true"></i> <span>{{ __('Navbar') }}   </a>
-                            </li>
-                            @endif
-                             @if(auth()->user()->user_type=='seller')
-                           <li class="submenu">
+                        @if(auth()->user()->user_type=='seller')
+                        <li class="item{{ $activePage == 'Navbar' ? ' active' : '' }}">
+                            <a href="{{ route('navbar.list')}}"><i class="fa fa-bars" aria-hidden="true"></i> <span>{{ __('Navbar') }} </a>
+                        </li>
+                        @endif
+                        @if(auth()->user()->user_type=='seller')
+                        <li class="submenu">
                             <a href="#"><i class="fa fa-sliders" aria-hidden="true"></i> <span> Home Slider/Banner </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="{{ route('home.slide.list')}}">Home Slider</a></li>
-                                 <li><a href="{{ route('home.banner.list')}}">Home Page Banner</a></li>
+                                <li><a href="{{ route('home.banner.list')}}">Home Page Banner</a></li>
                             </ul>
                         </li>
                         @endif
 
-                           
 
-                            @if(auth()->user()->user_type=='seller')
-                            <li class="item{{ $activePage == 'AllSlider' ? ' active' : '' }}">
-                                <a href="{{ route('all.slider.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('All Banner') }}   </a>
-                            </li>
-                            @endif
 
-                            @if(auth()->user()->user_type=='admin')
+                        @if(auth()->user()->user_type=='seller')
+                        <li class="item{{ $activePage == 'AllSlider' ? ' active' : '' }}">
+                            <a href="{{ route('all.slider.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('All Banner') }} </a>
+                        </li>
+                        @endif
+
+                        @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Category' ? ' active' : '' }}">
-                                <a href="{{ route('categories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Categories') }}   </a>
+                                <a href="{{ route('categories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Category') }}   </a>
                             </li>
                             @endif
 
-                            <!-- @if(auth()->user()->user_type=='admin')
+
+                        @if(auth()->user()->user_type=='admin')
                             <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
-                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategories') }}   </a>
-                            </li>
-                            @endif -->
-
-                            @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
-                                <a href="{{ route('brands.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Brand') }}   </a>
+                                <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategory') }}   </a>
                             </li>
                             @endif
 
-                            @if(auth()->user()->user_type=='admin')
-                            <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
-                                <a href="{{ route('customer.list')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>{{ __('Customer') }}   </a>
-                            </li>
-                            @endif
-                            
-                             @if(auth()->user()->user_type=='seller')
-                            <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
-                                <a href="{{ route('pincode.list')}}"><i class="fa fa-map-pin" aria-hidden="true"></i> <span>{{ __('Pincode') }}   </a>
-                            </li>
-                            @endif
-                        
-                            @if(auth()->user()->user_type=='admin' || auth()->user()->user_type == 'seller')
-                           <li class="submenu">
-                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Product </span> <span class="menu-arrow"></span></a>
+                        @if(auth()->user()->user_type=='admin')
+                        <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
+                            <a href="{{ route('brands.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Brand') }} </a>
+                        </li>
+                        @endif
+
+                        @if(auth()->user()->user_type=='admin')
+                        <li class="item{{ $activePage == 'Customer' ? ' active' : '' }}">
+                            <a href="{{ route('customer.list')}}"><i class="fa fa-users" aria-hidden="true"></i> <span>{{ __('Customer') }} </a>
+                        </li>
+                        @endif
+
+                        @if(auth()->user()->user_type=='seller')
+                        <li class="item{{ $activePage == 'Pincode' ? ' active' : '' }}">
+                            <a href="{{ route('pincode.list')}}"><i class="fa fa-map-pin" aria-hidden="true"></i> <span>{{ __('Pincode') }} </a>
+                        </li>
+                        @endif
+
+                        @if(auth()->user()->user_type=='admin')
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Other Products </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                           
-                                <li><a href="{{ route('products.list')}}">Product List</a></li>
+                                <li><a href="{{ route('products.list')}}">Products</a></li>
+
                                 <!-- <li><a href="{{ route('products.create')}}">Add Product</a></li> -->
                                 <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
-                            
-                          
+
+
                             </ul>
                         </li>
                         @endif
-                        
-                         <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
+
+
+                        @if(auth()->user()->user_type=='admin')
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-medkit" aria-hidden="true"></i> <span> Trial Products </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+
+                               
+                                <li><a href="#">Products</a></li>
+
+                                <!-- <li><a href="{{ route('products.create')}}">Add Product</a></li> -->
+                                <!-- <li><a href="{{ route('delivery-charges.create')}}">Add Delivery Charges</a></li> -->
+
+
+                            </ul>
+                        </li>
+                        @endif
+
+                        <?php /*if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='pharmacy' ||
                         auth()->user()->user_type=='hospital'  || auth()->user()->user_type=='diagnostic' ||
-                        auth()->user()->user_type=='blood_bank' || auth()->user()->user_type=='doctor' || auth()->user()->user_type=='patient') */?>
-                        
+                        auth()->user()->user_type=='blood_bank' || auth()->user()->user_type=='doctor' || auth()->user()->user_type=='patient') */ ?>
+
                         @if(auth()->user()->user_type=='seller')
-                        
+
                         <li class="submenu">
                             <a href="#"><i class="fa fa-shopping-cart" aria-hidden="true"></i> <span> Orders </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-        
-                            @if(auth()->user()->user_type=='admin')
-                            <li><a href="{{ route('orders.list')}}">All Orders</a></li>
+
+                                @if(auth()->user()->user_type=='admin')
+                                <li><a href="{{ route('orders.list')}}">All Orders</a></li>
                                 <li><a href="{{ route('orders.pending')}}">Pending Orders</a></li>
-                              
+
                                 <li><a href="{{ route('orders.shipped')}}">Shipped Orders</a></li>
                                 <li><a href="{{ route('orders.delivered')}}">Delivered Orders</a></li>
                                 <!-- <li><a href="{{ route('orders.cancelled')}}">Cancelled Orders</a></li> -->
-                           
+
                                 @endif
-                                
+
                                 <!-- <li><a href="{{ route('my.orders.his.list')}}">Orders History</a></li> -->
-                                  
+
                             </ul>
                         </li>
-                   @endif
-                        
+                        @endif
+
                         @if(auth()->user()->user_type=='seller' || auth()->user()->user_type=='')
                         <li class="submenu">
                             <a href="#"><i class="fa fa-money" aria-hidden="true"></i> <span>Product Payments </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
-                            @if(auth()->user()->user_type=='admin')
+                                @if(auth()->user()->user_type=='admin')
                                 <li><a href="">New Payments </a></li>
                                 <li><a href="">All Payments </a></li>
                                 <li><a href="">1 Month Payments </a></li>
                                 <li><a href=""> 1 Year Payments </a></li>
                                 @endif
                                 @if(auth()->user()->user_type=='seller')
-                               
-                             <li><a href="{{ route('seller.payments.list')}}">All Payments </a></li>
-                             @endif
+
+                                <li><a href="{{ route('seller.payments.list')}}">All Payments </a></li>
+                                @endif
                             </ul>
                         </li>
                         @endif
-                    
-                      
+
+
                         @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='editor')
                         <li class="submenu">
                             <a href="#"><i class="fa fa-cogs"></i> <span> Website Setting </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="{{ route('web.info')}}"> Website Info </a></li>
                                 <!-- <li><a href="{{ route('home.slide.list')}}"> Slide </a></li> -->
-                               <!--  <li><a href="{{ route('about.list')}}"> About</a></li> -->
+                                <!--  <li><a href="{{ route('about.list')}}"> About</a></li> -->
                                 <!-- <li><a href="{{ route('policy.list')}}"> Privacy Policy</a></li>
                                  <li><a href="{{ route('return-refund.list')}}"> Return & Refund Policy</a></li> -->
-                                  <!--  <li><a href="{{ route('home.notification.list')}}"> Home Notifications</a></li> -->
-                               
+                                <!--  <li><a href="{{ route('home.notification.list')}}"> Home Notifications</a></li> -->
+
                             </ul>
                         </li>
                         @endif
 
-                       <!--  <li class="submenu">
+                        <!--  <li class="submenu">
                             <a href="#"><i class="fe fe-document"></i> <span> Authentication </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li><a href="{{ route('my.profile.view')}}"> My Profile </a></li>
@@ -265,61 +286,55 @@
                         </li>
                    
              -->
-                       
+
                     </ul>
                 </div>
             </div>
         </div>
         <!-- /Sidebar -->
-    <!-- jQuery -->
-    <script src="{{ asset('material/admin') }}/js/jquery-3.2.1.min.js"></script>
+        <!-- jQuery -->
+        <script src="{{ asset('material/admin') }}/js/jquery-3.2.1.min.js"></script>
 
-    <!-- Bootstrap Core JS -->
-    <script src="{{ asset('material/admin') }}/js/popper.min.js"></script>
-    <script src="{{ asset('material/admin') }}/js/bootstrap.min.js"></script>
+        <!-- Bootstrap Core JS -->
+        <script src="{{ asset('material/admin') }}/js/popper.min.js"></script>
+        <script src="{{ asset('material/admin') }}/js/bootstrap.min.js"></script>
 
-    <!-- Slimscroll JS -->
-    <script src="{{ asset('material/admin') }}/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+        <!-- Slimscroll JS -->
+        <script src="{{ asset('material/admin') }}/plugins/slimscroll/jquery.slimscroll.min.js"></script>
 
-    <script src="{{ asset('material/admin') }}/plugins/raphael/raphael.min.js"></script>
-    <script src="{{ asset('material/admin') }}/plugins/morris/morris.min.js"></script>
-    <script src="{{ asset('material/admin') }}/js/chart.morris.js"></script>
+        <script src="{{ asset('material/admin') }}/plugins/raphael/raphael.min.js"></script>
+        <script src="{{ asset('material/admin') }}/plugins/morris/morris.min.js"></script>
+        <script src="{{ asset('material/admin') }}/js/chart.morris.js"></script>
 
-    <!-- Custom JS -->
-    <script src="{{ asset('material/admin') }}/js/script.js"></script>
+        <!-- Custom JS -->
+        <script src="{{ asset('material/admin') }}/js/script.js"></script>
         @stack('js')
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
-<script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
         <script>
-        $(document).ready(function(){
-            $("#myInput").on("keyup", function() {
-                var value = $(this).val().toLowerCase();
-                $("#myTable tr").filter(function() {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            $(document).ready(function() {
+                $("#myInput").on("keyup", function() {
+                    var value = $(this).val().toLowerCase();
+                    $("#myTable tr").filter(function() {
+                        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+                    });
                 });
             });
+        </script>
+        <script>
+            $(function() {
+                $(".select2").select2({});
+
+            });
+            $(function() {
+                $(".select3").select2({});
+            });
+            $(function() {
+                $(".select1").select2({});
+
+
             });
         </script>
-        <script >
-         
-         $(function()
-         {
-          $(".select2").select2({ });
-        
-         });
-         $(function()
-         {
-            $(".select3").select2({ });
-         });
-         $(function()
-         {
-          $(".select1").select2({ 
-          });
-          
-        
-         });
-        
- </script>
 </body>
 
 </html>

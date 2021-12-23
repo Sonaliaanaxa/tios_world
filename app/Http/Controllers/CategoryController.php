@@ -40,30 +40,17 @@ class CategoryController extends Controller
     public function save(Request $request)
     {
         $this->validate(request(), [
-            'name' => 'required'
-
+            'name' => 'required',
+            'slug' => 'required|unique:categories',
         ]);
 
-
-        $image_name = '';
-
-        if ($request->hasFile('myImage')) {
-            $file = $request->file('myImage');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
-
-                $image_name = 'categories_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/categories');
-                $file->move($destinationPath, $image_name);
-            } else {
-                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
-            }
-        }
+        
 
         $data = [
             'name' => $request->name,
             'user_id' => Auth::user()->id,
-            'img' =>  $image_name
+            'slug' => $request->slug,
+           
         ];
 
         $result = Category::create($data);
@@ -83,37 +70,18 @@ class CategoryController extends Controller
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
-            'name' => 'required'
+            'name' => 'required',
+            'slug' => 'required',
 
         ]);
+       
+        $data = [
+            'name' => $request->name,
+            'slug' => $request->slug,
+            'user_id' => Auth::user()->id,
+            'updated_at' => date('Y-m-d H:i:s')
+        ];
 
-        $image_name = '';
-
-        if ($request->hasFile('myImage')) {
-            $file = $request->file('myImage');
-            $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
-
-                $image_name = 'categories_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/categories');
-                $file->move($destinationPath, $image_name);
-            } else {
-                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
-            }
-            
-            $data = [
-                'name' => $request->name,
-                'user_id' => Auth::user()->id,   
-                'img' =>  $image_name,
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
-        } else {
-            $data = [
-                'name' => $request->name,
-                'user_id' => Auth::user()->id,
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
-        }
 
         $result = Category::where('id', $id)->update($data);
         return redirect(route('categories.list'))->with('success', 'Category Successfully Updated!');

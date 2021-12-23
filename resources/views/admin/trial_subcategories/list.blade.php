@@ -15,7 +15,7 @@
                     </ul>
                 </div>
                 <div class="col-sm-5 col">
-                    <a href="{{route('subcategories.create')}}" class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
+                    <a href="{{route('trial-subcategories.create')}}" class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
                 </div>
             </div>
         </div>
@@ -44,12 +44,7 @@
 
                                             @sortablelink('id',__('S No'))
                                         </th>
-                                        <th>
-                                            @sortablelink('banner',__('Banner'))
-                                        </th>
-                                        <th>
-                                            @sortablelink('img',__('Image'))
-                                        </th> 
+                                        
                                         <th>
                                             @sortablelink('name',__('Category'))
                                         </th>
@@ -79,25 +74,6 @@
                                         <td>
                                             <?php echo $i; ?>
                                         </td>
-                                        <td> 
-                               @if($r->banner)
-                                 <a href="{{ asset('/uploads/subcategory-banner') }}/{{ $r->banner }}" target='_blank'> <img src="{{ asset('/uploads/subcategory-banner') }}/{{ $r->banner }}" style='height:50px;width:50px;border-radius:5%;'/></a>
-                                @else
-                                <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
-                                {{ substr($r->name,0,1) }}
-                                </p>
-                                @endif 
-                           </td>
-
-                           <td>
-                               @if($r->img)
-                                 <a href="{{ asset('/uploads/categories') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('/uploads/categories') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>
-                                @else
-                                <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
-                                {{ substr($r->name,0,1) }}
-                                </p>
-                                @endif 
-                           </td>
                                         <td>
                                         {{$r->category_name}}
                                         </td>
@@ -123,10 +99,10 @@
 
                                         <td>
 
-                                            <a href="{{route('subcategories.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
+                                            <a href="{{route('trial-subcategories.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                                                 <i class="fa fa-edit"></i></a>
 
-                                            <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-subcategories' title="Delete" data-id="{{$r->id}}">
+                                            <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-trial-subcategories' title="Delete" data-id="{{$r->id}}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -156,7 +132,7 @@
 
 <script>
     $(document).ready(function() {
-        $('.delete-subcategories').on('click', function(e) {
+        $('.delete-trial-subcategories').on('click', function(e) {
             if (!confirm("Are you sure to Delete?")) {
                 e.preventDefault();
                 return false;
@@ -166,7 +142,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{route('subcategories.destroy')}}",
+                url: "{{route('trial-subcategories.destroy')}}",
                 data: {
                     id: id,
                     _token: '{{ csrf_token() }}'

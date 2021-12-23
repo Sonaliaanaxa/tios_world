@@ -17,6 +17,7 @@ use App\Http\Controllers\CartController;
 use App\Http\Controllers\OrderPlaceController;
 use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\DeliveryChargesController;
+use App\Http\Controllers\TrialProductController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -145,6 +146,32 @@ Route::group(['middleware' => ['auth', 'admin']], function() {
     Route::post('subcategory/update/{id}', 'SubcategoryController@update')->name('subcategories.update');
     Route::post('subcategory/destroy', 'SubcategoryController@destroy')->name('subcategories.destroy');
 
+    //Trial Category
+    Route::get('trial-categories', 'TrialCategoryController@index')->name('trial-categories.list');
+    Route::get('trial-categories/create', 'TrialCategoryController@create')->name('trial-categories.create');
+    Route::post('trial-categories/create', 'TrialCategoryController@save')->name('trial-categories.create');
+    Route::get('trial-categories/update/{id}', 'TrialCategoryController@edit')->name('trial-categories.update');
+    Route::post('trial-categories/update/{id}', 'TrialCategoryController@update')->name('trial-categories.update');
+    Route::post('trial-categories/destroy', 'TrialCategoryController@destroy')->name('trial-categories.destroy');
+
+
+    //Trial SubCategories
+    Route::get('trial-subcategory', 'TrialSubcategoryController@index')->name('trial-subcategories.list');
+    Route::get('trial-subcategory/create', 'TrialSubcategoryController@create')->name('trial-subcategories.create');
+    Route::post('trial-subcategory/create', 'TrialSubcategoryController@save')->name('trial-subcategories.create');
+    Route::get('trial-subcategory/update/{id}', 'TrialSubcategoryController@edit')->name('trial-subcategories.update');
+    Route::post('trial-subcategory/update/{id}', 'TrialSubcategoryController@update')->name('trial-subcategories.update');
+    Route::post('trial-subcategory/destroy', 'TrialSubcategoryController@destroy')->name('trial-subcategories.destroy');
+
+
+     //Trial Product List
+     Route::get('trial-products-list', [TrialProductController::class, 'index'])->name('trial-products.list');
+     Route::get('trial-products/create', [TrialProductController::class,'create'])->name('trial-products.create');
+     Route::post('trial-products/create', [TrialProductController::class, 'save'])->name('trial-products.create');
+     Route::get('trial-products/update/{id}', [TrialProductController::class,'edit'])->name('trial-products.update');
+     Route::post('trial-products/update/{id}', [TrialProductController::class,'update'])->name('trial-products.update');
+     Route::post('trial-products/destroy', [TrialProductController::class,'destroy'])->name('trial-products.destroy');
+     Route::get('trial-products/view/{id}',[TrialProductController::class, 'view'])->name('trial-products.view');
 
     //Brand
     Route::get('brands', 'BrandController@index')->name('brands.list');

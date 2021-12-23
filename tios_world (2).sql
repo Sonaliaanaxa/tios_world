@@ -223,17 +223,21 @@ INSERT INTO `business_partners` (`id`, `name`, `img`, `link`, `BusinessPartnerNo
 DROP TABLE IF EXISTS `categories`;
 CREATE TABLE `categories` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
   `name` varchar(200) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `img` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
-  `productNo` int(11) DEFAULT NULL,
+  `slug` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` datetime NOT NULL DEFAULT current_timestamp(),
   `updated_at` datetime NOT NULL DEFAULT current_timestamp(),
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `categories` (`id`, `name`, `img`, `productNo`, `created_at`, `updated_at`) VALUES
-(24,	'First Category1',	'categories_1640103618.png',	NULL,	'2021-12-21 16:20:18',	'2021-12-21 16:21:30'),
-(25,	'First Category',	'categories_1640103618.png',	NULL,	'2021-12-21 16:20:18',	'2021-12-21 16:21:30');
+INSERT INTO `categories` (`id`, `user_id`, `name`, `slug`, `created_at`, `updated_at`) VALUES
+(24,	1,	'First Category1',	'',	'2021-12-21 16:20:18',	'2021-12-22 08:15:21'),
+(25,	1,	'First Category',	'',	'2021-12-21 16:20:18',	'2021-12-22 08:15:09'),
+(26,	1,	'New Category',	'',	'2021-12-22 07:07:11',	'2021-12-22 07:17:04'),
+(27,	1,	'Second Category1',	'',	'2021-12-22 07:16:03',	'2021-12-23 06:03:48'),
+(28,	1,	'new',	'new-cat',	'2021-12-22 12:32:42',	'2021-12-23 06:04:41'),
+(29,	1,	'aaa',	'newww',	'2021-12-23 05:56:33',	'2021-12-23 06:01:24');
 
 DROP TABLE IF EXISTS `comments`;
 CREATE TABLE `comments` (
@@ -797,38 +801,44 @@ DROP TABLE IF EXISTS `products`;
 CREATE TABLE `products` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `category_id` int(11) NOT NULL,
-  `subcategory_id` int(11) NOT NULL,
+  `subcategory_id` int(11) DEFAULT NULL,
   `name` varchar(25) NOT NULL,
   `thumb_id` varchar(10) DEFAULT NULL,
   `min_qty` varchar(255) DEFAULT NULL,
   `current_stock` varchar(100) DEFAULT NULL,
-  `description` varchar(40) DEFAULT NULL,
+  `details` varchar(255) DEFAULT NULL,
   `tax_type` varchar(100) NOT NULL,
   `tax` double NOT NULL DEFAULT 0,
   `tax_price` double NOT NULL,
-  `price` varchar(100) NOT NULL,
+  `selling_price` varchar(100) NOT NULL,
   `purchase_price` varchar(100) DEFAULT NULL,
   `variation` varchar(100) DEFAULT NULL,
   `attributes` varchar(40) DEFAULT NULL,
-  `product_details_featured` varchar(40) NOT NULL,
+  `product_details_featured` varchar(40) DEFAULT NULL,
   `published` varchar(40) DEFAULT NULL,
   `unit` varchar(40) DEFAULT NULL,
-  `discount` varchar(100) NOT NULL,
+  `saving` varchar(255) DEFAULT NULL,
+  `discount` varchar(100) DEFAULT NULL,
+  `weight` varchar(100) DEFAULT NULL,
   `no_of_seller` varchar(10) DEFAULT NULL,
+  `short_details` varchar(255) DEFAULT NULL,
   `inventory_type` enum('packet','unit') DEFAULT NULL,
   `meta_title` varchar(40) DEFAULT NULL,
   `meta_description` varchar(100) DEFAULT NULL,
   `slug` varchar(100) DEFAULT NULL,
-  `stock` enum('1','0') NOT NULL DEFAULT '1',
-  `upload image` varchar(500) NOT NULL,
-  `user_id` int(200) NOT NULL,
+  `stock` enum('1','0') DEFAULT '1',
+  `upload_image` varchar(500) DEFAULT NULL,
+  `user_id` int(11) NOT NULL,
   `status` enum('1','0') NOT NULL,
   `view` int(11) DEFAULT NULL,
+  `is_show` enum('1','0') DEFAULT NULL,
   `created_at` datetime DEFAULT NULL,
   `updated_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 ROW_FORMAT=COMPACT;
 
+INSERT INTO `products` (`id`, `category_id`, `subcategory_id`, `name`, `thumb_id`, `min_qty`, `current_stock`, `details`, `tax_type`, `tax`, `tax_price`, `selling_price`, `purchase_price`, `variation`, `attributes`, `product_details_featured`, `published`, `unit`, `saving`, `discount`, `weight`, `no_of_seller`, `short_details`, `inventory_type`, `meta_title`, `meta_description`, `slug`, `stock`, `upload_image`, `user_id`, `status`, `view`, `is_show`, `created_at`, `updated_at`) VALUES
+(1,	24,	NULL,	'Toothbrush',	NULL,	NULL,	'500',	'<p>qwertyrew</p>',	'GST',	18,	18,	'100',	'100',	NULL,	NULL,	NULL,	NULL,	'kg',	'0',	'1.0',	'1',	NULL,	'aaa',	NULL,	NULL,	NULL,	'toothbrush',	'1',	'product_1640158354.png',	1,	'1',	NULL,	'1',	'2021-12-22 07:32:34',	'2021-12-22 07:32:34');
 
 DROP TABLE IF EXISTS `queries`;
 CREATE TABLE `queries` (
@@ -988,15 +998,18 @@ CREATE TABLE `subcategories` (
   `category_id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `slug` varchar(255) NOT NULL,
+  `img` varchar(255) NOT NULL,
+  `banner` varchar(255) NOT NULL,
   `status` enum('1','0') NOT NULL DEFAULT '1',
   `created_at` datetime NOT NULL,
   `updated_at` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
-INSERT INTO `subcategories` (`id`, `category_id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
-(1,	24,	'New Subcat',	'new-subcat',	'1',	'2021-12-21 16:35:13',	'2021-12-21 16:35:13'),
-(2,	24,	'New Subcat1',	'new-subcat1',	'1',	'2021-12-21 16:35:13',	'2021-12-21 16:35:13');
+INSERT INTO `subcategories` (`id`, `category_id`, `name`, `slug`, `img`, `banner`, `status`, `created_at`, `updated_at`) VALUES
+(1,	24,	'New Subcat',	'new-subcat',	'',	'',	'1',	'2021-12-21 16:35:13',	'2021-12-21 16:35:13'),
+(2,	1,	'Trial Subcategory11',	'trial-subcat',	'',	'',	'1',	'2021-12-21 16:35:13',	'2021-12-22 12:25:14'),
+(3,	28,	'aaaaa',	'aaa',	'categories_1640240406.png',	'banner_1640240406.png',	'1',	'2021-12-23 06:20:06',	'2021-12-23 06:24:41');
 
 DROP TABLE IF EXISTS `subscription_payments`;
 CREATE TABLE `subscription_payments` (
@@ -1075,6 +1088,61 @@ INSERT INTO `subscription_plans` (`id`, `buspart_id`, `plan_name`, `price`, `tax
 (10,	2,	'Plan 21',	6780,	8,	542.4,	7322.4,	'₹',	'6',	'<p>Plan21 for 3 month</p>',	'1',	'subscriptionplans_1623925161.jpg',	'2021-06-17 10:19:21',	'2021-06-17 10:22:18'),
 (11,	6,	'Doctor Appointment',	300,	18,	54,	354,	'₹',	'1',	'<p>Patients can book Doctor&#39;s Appointment through this package.</p>',	'1',	'subscriptionplans_1626599858.jpg',	'2021-07-18 09:17:38',	'2021-07-18 09:17:38');
 
+DROP TABLE IF EXISTS `trial_categories`;
+CREATE TABLE `trial_categories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `img` varchar(255) NOT NULL,
+  `banner` varchar(255) NOT NULL,
+  `status` enum('1','0') NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `trial_categories` (`id`, `user_id`, `name`, `img`, `banner`, `status`, `created_at`, `updated_at`) VALUES
+(1,	1,	'Trial Category1',	'categories_1640174227.png',	'banner_1640179070.png',	'1',	'2021-12-22 11:57:07',	'2021-12-22 13:17:50'),
+(2,	1,	'New trial',	'categories_1640178847.png',	'banner_1640178847.png',	'1',	'2021-12-22 13:14:07',	'2021-12-22 13:14:07');
+
+DROP TABLE IF EXISTS `trial_products`;
+CREATE TABLE `trial_products` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `subcategory_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `upload_image` varchar(255) NOT NULL,
+  `purchase_price` decimal(10,2) NOT NULL,
+  `selling_price` decimal(10,2) NOT NULL,
+  `quantity` varchar(255) NOT NULL,
+  `tios_points` varchar(255) NOT NULL,
+  `weight` varchar(255) NOT NULL,
+  `details` longtext NOT NULL,
+  `extra_details` longtext NOT NULL,
+  `status` enum('1','0') NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  `trial_category_id` int(11) NOT NULL,
+  `trial_subcategory_id` int(11) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+DROP TABLE IF EXISTS `trial_subcategories`;
+CREATE TABLE `trial_subcategories` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `category_id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL,
+  `slug` varchar(255) NOT NULL,
+  `status` enum('1','0') NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+INSERT INTO `trial_subcategories` (`id`, `category_id`, `name`, `slug`, `status`, `created_at`, `updated_at`) VALUES
+(2,	1,	'Trial Subcategory',	'trial-subcat',	'1',	'2021-12-22 12:22:43',	'2021-12-22 12:25:54');
+
 DROP TABLE IF EXISTS `users`;
 CREATE TABLE `users` (
   `id` int(20) unsigned NOT NULL AUTO_INCREMENT,
@@ -1085,13 +1153,17 @@ CREATE TABLE `users` (
   `status` enum('1','0') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT '1',
   `user_type` enum('admin','customer','seller') COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'customer',
   `mobile_otp` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `business_title` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `tag_line` varchar(500) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `about_business` longtext COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
-INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `status`, `user_type`, `mobile_otp`, `created_at`, `updated_at`) VALUES
-(1,	'Admin - Hygiene',	'admin@gmail.com',	'$2y$10$q.gv0ltVFwHb..Se/Myrhe793C/bWMV0DN7ZFLbIi6fFm7IdLIMJS',	'',	'1',	'admin',	'0',	NULL,	'2021-06-02 16:19:25');
+INSERT INTO `users` (`id`, `name`, `email`, `password`, `phone`, `status`, `user_type`, `mobile_otp`, `business_title`, `tag_line`, `about_business`, `image`, `created_at`, `updated_at`) VALUES
+(1,	'Admin - Hygiene',	'admin@gmail.com',	'$2y$10$q.gv0ltVFwHb..Se/Myrhe793C/bWMV0DN7ZFLbIi6fFm7IdLIMJS',	'',	'1',	'admin',	'0',	NULL,	NULL,	NULL,	NULL,	NULL,	'2021-06-02 16:19:25');
 
 DROP TABLE IF EXISTS `webs`;
 CREATE TABLE `webs` (
@@ -1121,4 +1193,4 @@ CREATE TABLE `webs` (
 INSERT INTO `webs` (`id`, `name`, `url`, `logo`, `mobile`, `email`, `email2`, `mobile2`, `address`, `fb`, `whatsapp`, `youtube`, `instagram`, `twitter`, `linkedin`, `skype`, `gst`, `cin`, `created_at`, `updated_at`) VALUES
 (1,	'Thehygieneherbs',	'www.tiosworld.com',	'logo_1640089339.png',	'9999999999',	'contact@tiosworld.com',	'contact@tiosworld.com',	'9999999999',	'Noida',	'https://www.facebook.com/tiosworld',	9999999999,	'https://www.youtube.com/c/tiosworld',	'http://www.instagram,com/tiosworld',	'https://twitter.com/tiosworld',	'http://www.linkedin.com/company/tiosworld',	'tiosworld',	'sbsbb BHs',	'08765xbx bxb n',	'2020-06-28 07:39:21',	'2021-12-21 16:22:29');
 
--- 2021-12-22 03:25:47
+-- 2021-12-23 06:26:36

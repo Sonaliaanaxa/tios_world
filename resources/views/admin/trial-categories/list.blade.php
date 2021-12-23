@@ -10,12 +10,12 @@
                         <div class="col-sm-7 col-auto">
                             <h3 class="page-title">{{ __($title) }}</h3>
                             <ul class="breadcrumb">
-                                <li class="breadcrumb-item">Total Categories -  {{ $cCount}}</li>
+                                <li class="breadcrumb-item">Total Trial Categories -  {{ $cCount}}</li>
                                 
                             </ul>
                         </div>
                         <div class="col-sm-5 col">
-                        <a href="{{route('categories.create')}}"  class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
+                        <a href="{{route('trial-categories.create')}}"  class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
                         </div>
                     </div>
                 </div>
@@ -45,12 +45,15 @@
                          @sortablelink('id',__('S No')) 
                      </th>
                      <th>
-                     @sortablelink('banner',__('Category'))  
+                     @sortablelink('banner',__('Banner'))  
                      
                      </th>
                      <th>
-                     @sortablelink('img',__('Slug'))  
+                     @sortablelink('img',__('Image'))  
                      
+                     </th>
+                      <th>
+                      @sortablelink('name',__('Trial Category'))  
                      </th>
                      
                      <th>
@@ -59,7 +62,7 @@
                      </th>
                      <th>
                      @sortablelink('action',__('Action'))  
-                    
+                     
                      </th>
                    
                                             </tr>
@@ -72,19 +75,28 @@
                         <td>
                         <?php echo $i; ?>
                           </td>
-                        
-                        
-
-                          
+                          <td> 
+                               @if($r->banner)
+                                 <a href="{{ asset('/uploads/category-banner') }}/{{ $r->banner }}" target='_blank'> <img src="{{ asset('/uploads/category-banner') }}/{{ $r->banner }}" style='height:50px;width:50px;border-radius:5%;'/></a>
+                                @else
+                                <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
+                                {{ substr($r->name,0,1) }}
+                                </p>
+                                @endif 
+                           </td>
+                          <td>   
+                               @if($r->img)
+                                 <a href="{{ asset('/uploads/trial-categories') }}/{{ $r->img }}" target='_blank'> <img src="{{ asset('/uploads/trial-categories') }}/{{ $r->img }}" style='height:50px;width:50px;border-radius:5%;'/></a>
+                                @else
+                                <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
+                                {{ substr($r->name,0,1) }}
+                                </p>
+                                @endif 
+                           </td>
                              <td>
                               <b>
                               <a> {{$r->name}}</a> 
                                </b>
-                                 
-                             </td>
-
-                             <td>
-                             {{$r->slug}}
                                  
                              </td>
                         
@@ -97,10 +109,10 @@
                          
                           <td>
                           
-                           <a href="{{route('categories.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
+                           <a href="{{route('trial-categories.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                          <i class="fa fa-edit"></i></a>
 
-                         <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-categories' title="Delete" data-id="{{$r->id}}">
+                         <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-trial-categories' title="Delete" data-id="{{$r->id}}">
                          <i class="fa fa-trash"></i>
                          </a>
                           </td>
@@ -130,7 +142,7 @@
 
   <script>
         $(document).ready(function() {
-            $('.delete-categories').on('click', function (e) {
+            $('.delete-trial-categories').on('click', function (e) {
                 if (!confirm("Are you sure to Delete?")) {
                     e.preventDefault();
                     return false;
@@ -140,7 +152,7 @@
               
                 $.ajax({
                     type: 'POST',
-                    url:"{{route('categories.destroy')}}",
+                    url:"{{route('trial-categories.destroy')}}",
                     data: {id: id, _token: '{{ csrf_token() }}'},
                     success: function (data) {
                         if (data.success == 1) {
