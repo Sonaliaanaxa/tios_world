@@ -109,7 +109,7 @@ input:-webkit-autofill:focus {
 	height: calc(1.5em + 1rem + 2px);
 }
 a {
-	color: #ff2020;
+	color: #3f3127;
 }
 input,
 button,
@@ -1713,7 +1713,7 @@ html.menu-opened body {
     color: #fff;
 }
 .sidebar-menu > ul > li.active > a:hover {
-    background-color: #ee5a39;
+    background-color: #81978a;
     color: #fff;
 }
 .sidebar-menu li.active a {

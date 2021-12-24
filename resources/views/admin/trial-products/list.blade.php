@@ -76,7 +76,7 @@
                                         <td>
 
                                             @if($r->upload_image)
-                                            <a href="{{ asset('/uploads/trail_products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/trail_products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
+                                            <a href="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/trail_products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
                                             @else
                                             <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
                                                 {{ substr($r->name,0,1) }}
@@ -147,7 +147,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{route('products.destroy')}}",
+                url: "{{route('trial-products.destroy')}}",
                 data: {
                     id: id,
                     _token: '{{ csrf_token() }}'
@@ -155,7 +155,7 @@
                 success: function(data) {
                     if (data.success == 1) {
                         //    selector.closest('tr').hide('slow');
-                        swal("Success!", "Product Successfully Deleted!", "success");
+                        swal("Success!", "Trial Products Successfully Deleted!", "success");
 
                     }
 

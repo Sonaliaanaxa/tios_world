@@ -66,7 +66,7 @@
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
 											<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
-												<input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Product Name') }}" value="{{ old('name') }}" aria-required="true" />
+												<input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Product Name') }}" value="{{ $product->name }}" aria-required="true" />
 												@if ($errors->has('name'))
 												<span id="name-error" class="error text-danger" for="input-name">Name is Empty!</span>
 												@endif
@@ -79,7 +79,7 @@
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
 											<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
-												<input class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="input-slug" type="text" placeholder="{{ __('Product Slug') }}" value="{{ old('Slug') }}" aria-required="true" />
+												<input class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="input-slug" type="text" placeholder="{{ __('Product Slug') }}" value="{{$product->slug }}" aria-required="true" />
 												@if ($errors->has('slug'))
 												<span id="slug-error" class="error text-danger" for="input-slug">Slug is Empty!</span>
 												@endif
@@ -100,7 +100,7 @@
 									<label class="col-sm-2 col-form-label">{{ __('Purchase Price*') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('purchase_price') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('purchase_price') ? ' is-invalid' : '' }}" name="purchase_price" id="input-purchase_price" type="number" placeholder="{{ __(' Purchase Price') }}" value="{{ old('Purchase Price') }}" aria-required="true" />
+											<input class="form-control{{ $errors->has('purchase_price') ? ' is-invalid' : '' }}" name="purchase_price" id="input-purchase_price" type="number" placeholder="{{ __(' Purchase Price') }}" value="{{ $product->purchase_price }}" aria-required="true" />
 											@if ($errors->has('purchase_price'))
 											<span id="purchase_price-error" class="error text-danger" for="input-purchase_price">Purchase Price is Empty!</span>
 											@endif
@@ -112,7 +112,7 @@
 									<label class="col-sm-2 col-form-label">{{ __('Selling Price*') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('selling_price') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('selling_price') ? ' is-invalid' : '' }}" name="selling_price" id="input-selling_price" type="number" placeholder="{{ __(' Selling Price') }}" value="{{ old('Selling Price ') }}" aria-required="true" />
+											<input class="form-control{{ $errors->has('selling_price') ? ' is-invalid' : '' }}" name="selling_price" id="input-selling_price" type="number" placeholder="{{ __(' Selling Price') }}" value="{{ $product->selling_price }}" aria-required="true" />
 											@if ($errors->has('selling_price'))
 											<span id="selling_price-error" class="error text-danger" for="input-selling_price">Selling Price is Empty!</span>
 											@endif
@@ -126,7 +126,7 @@
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('quantity') ? ' has-danger' : '' }}">
 											<input class="form-control{{ $errors->has('quantity') ? ' is-invalid' : '' }}"  
-											id="input-quantity" type="number" placeholder="{{ __(' Quantity ') }}" value="{{ old('quantity') }}"  name="quantity" aria-required="true" />
+											id="input-quantity" type="number" placeholder="{{ __(' Quantity ') }}" value="{{  $product->quantity }}"  name="quantity" aria-required="true" />
 											@if ($errors->has('quantity'))
 											<span id="quantity-error" class="error text-danger" for="input-quantity">Quantity is Empty!</span>
 											@endif
@@ -136,7 +136,7 @@
                               	<label class="col-sm-2 col-form-label">{{ __('Tios Point*') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('tios_points') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('tios_points') ? ' is-invalid' : '' }}"  id="input-tios_points" name="tios_points" type="number" placeholder="{{ __(' Tios Point') }}" style='background-color:#fafafa;' value="{{ old('tios_points') }}" aria-required="true" />
+											<input class="form-control{{ $errors->has('tios_points') ? ' is-invalid' : '' }}"  id="input-tios_points" name="tios_points" type="number" placeholder="{{ __(' Tios Point') }}" style='background-color:#fafafa;' value="{{  $product->tios_points }}" aria-required="true" />
 											@if ($errors->has('tios_points'))
 											<span id="tios_points-error" class="error text-danger" for="input-tios_points">Tax Price is Empty!</span>
 											@endif
@@ -154,7 +154,7 @@
 									<label class="col-sm-2 col-form-label">{{ __('Weight*') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('weight') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" id="input-weight" type="text" placeholder="{{ __(' Weight') }}" value="{{ old('weight') }}" aria-required="true" />
+											<input class="form-control{{ $errors->has('weight') ? ' is-invalid' : '' }}" name="weight" id="input-weight" type="text" placeholder="{{ __(' Weight') }}" value="{{  $product->weight }}" aria-required="true" />
 
 											@if ($errors->has('weight'))
 											<span id="weight-error" class="error text-danger" for="input-weight">Weight is Empty!</span>
@@ -177,7 +177,7 @@
 								<label class="col-sm-2 col-form-label">{{ __(' Details*') }}</label>
 								<div class="col-sm-10">
 									<div class="form-group{{ $errors->has('details') ? ' has-danger' : '' }}">
-										<input class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}" name="details" id="input-details" type="text" placeholder="{{ __(' Short Details') }}" value="{{ old('details') }}" aria-required="true" />
+										<input class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}" name="details" id="input-details" type="text" placeholder="{{ __('Details') }}" value="{{  $product->details }}" aria-required="true" />
 
 										@if ($errors->has('details'))
 										<span id="details-error" class="error text-danger" for="input-details"> Details is Empty!</span>
@@ -188,7 +188,7 @@
 								<label class="col-sm-2 col-form-label">{{ __('Trail Product Details & Features*')  }}</label>
 								<div class="col-sm-10 col-md-10">
 									<div class="form-group{{ $errors->has('extra_details') ? ' has-danger' : '' }}">
-										<textarea class="form-control{{ $errors->has('extra_details') ? ' is-invalid' : '' }}" name="extra_details" id="input-extra_details" type="extra_details" value="{{ old('extra_details') }}" placeholder="{{ __('Trail Product Extra Details') }}" />
+										<textarea class="form-control{{ $errors->has('extra_details') ? ' is-invalid' : '' }}" name="extra_details" id="input-extra_details" type="extra_details" value="{{ $product->extra_details }}" placeholder="{{ __('Trail Product Extra Details') }}" />
 										{{ old('extra_details') }}
 										</textarea>
 										<script>
@@ -207,10 +207,17 @@
 							<div class="row" id="file-content">
 								<label class="col-sm-2 col-form-label">{{ __('Upload  Image*')}}</label>
 								<div class="col-sm-10">
+
+
+
 									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
-								
-								<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-							</div>
+									<br>
+									<img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<br>
+
+
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
 
 							<br>								
 							<label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>

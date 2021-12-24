@@ -4,9 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TrialProduct;
+
 use App\Category;
 use Illuminate\Support\Str;
 use App\Models\Subcategory;
+use Illuminate\Support\Facades\Auth;
 
 class TrialProductController extends Controller
 {
@@ -14,6 +16,7 @@ class TrialProductController extends Controller
     {
         $this->middleware('auth');
     }
+
     public function index()
     {
         $title = "Trial Products";
@@ -22,6 +25,20 @@ class TrialProductController extends Controller
         $pCount = TrialProduct::select('*')->count();
         $products = TrialProduct::select('trial_products.*', 'categories.name as category_name')
             ->join('categories', 'trial_products.category_id', 'categories.id')
+            ->orderBy('id', 'DESC')
+            ->sortable()->paginate(30);
+        return view('admin.trial-products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
+    }
+
+    public function indexSeller()
+    {
+        $title = "Trial Products";
+        $subtitle = "Trial Products";
+        $activePage = "Trial Products";
+        $pCount = TrialProduct::select('*')->where('trial_products.user_id',Auth::user()->id)->count();
+        $products = TrialProduct::select('trial_products.*', 'categories.name as category_name')
+            ->join('categories', 'trial_products.category_id', 'categories.id')
+            ->where('trial_products.user_id',Auth::user()->id)
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
         return view('admin.trial-products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
@@ -55,6 +72,7 @@ class TrialProductController extends Controller
             'quantity'=>'required',
             'tios_points'=>'required',
             'weight' => 'required',
+
             'details' => 'required',
             'extra_details' => 'required',
             'status' => 'required'
@@ -67,7 +85,7 @@ class TrialProductController extends Controller
             $file = $request->file('myImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
-                $image_name = 'product_' . time() . '.' . $extension;
+                $image_name = 'trail_product_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/trail_products');
                 $file->move($destinationPath, $image_name);
             } else {
@@ -88,14 +106,19 @@ class TrialProductController extends Controller
             'details' => $request->details,
             'extra_details' => $request->extra_details,
             'status' => $request->status,
-
+            'user_id' => Auth::user()->id,
             'upload_image' =>  $image_name
         ];
         $result = TrialProduct::create($data);
         // dd($data);
-        return redirect(route('trial-products.list'))->with('success', 'Trail Products Successfully Added!');
+        if(Auth::user()->user_type=='admin'){
+            return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Added!');
+        }
+        else{
+            return redirect(route('seller-trial-products.list'))->with('success', 'Trail Products Successfully Added!');
+        }
     }
-
+ 
     public function edit(Request $request, $id)
     {
         $title = "Update Trail Products";
@@ -138,7 +161,7 @@ class TrialProductController extends Controller
             $file = $request->file('myImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
-                $image_name = 'product_' . time() . '.' . $extension;
+                $image_name = 'trail_product_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/trail_products');
                 $file->move($destinationPath, $image_name);
             } else {
@@ -157,6 +180,7 @@ class TrialProductController extends Controller
                'tios_points'=>$request->tios_points,
                  'details' => $request->details,
                 'extra_details' => $request->extra_details,
+                'user_id' => Auth::user()->id,
                 'status' => $request->status,
                 'upload_image' =>  $image_name,
                 'updated_at' => date('Y-m-d H:i:s')
@@ -181,7 +205,7 @@ class TrialProductController extends Controller
     
 // dd($data);
         $result = TrialProduct::where('id', $id)->update($data);
-        return redirect(route('trial-products.list'))->with('success', 'Trail Products Successfully Updated!');
+        return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Updated!');
     }
 
     public function view(Request $request, $id)
@@ -191,10 +215,10 @@ class TrialProductController extends Controller
         $activePage = "Trail Products";
         $product = TrialProduct::select('trail_products.*', 'categories.name as category_name')
             ->where('trail_products.id', $id)
-            ->join('categories', 'trail_products.category_id', 'categories.id')
+            ->join('categories', 'trial_products.category_id', 'categories.id')
 
             ->first();
-        return view('admin.trail-products.view', compact('title', 'product', 'activePage', 'subtitle', 'id'));
+        return view('admin.trial-products.view', compact('title', 'product', 'activePage', 'subtitle', 'id'));
     }
 
 

@@ -231,7 +231,7 @@
                             @if(auth()->user()->user_type=='admin')
                                 <li><a href="{{route('trial-products.list')}}">Products</a></li>
                                 @else
-                                <li><a href="#">Products</a></li>
+                                <li><a href="{{route('seller-trial-products.list')}}">Products</a></li>
                                 @endif
                             </ul>
                         </li>

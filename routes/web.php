@@ -285,6 +285,15 @@ Route::group(['prefix' => 'mydashboard'], function () {
         Route::post('products/update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::post('products/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::get('products/view/{id}', [ProductController::class, 'view'])->name('products.view');
+
+        //Trial Products
+        Route::get('seller-trial-products-list', [TrialProductController::class, 'indexSeller'])->name('seller-trial-products.list');
+        Route::get('trial-products/create', [TrialProductController::class, 'create'])->name('trial-products.create');
+        Route::post('trial-products/create', [TrialProductController::class, 'save'])->name('trial-products.create');
+        Route::get('trial-products/update/{id}', [TrialProductController::class, 'edit'])->name('trial-products.update');
+        Route::post('trial-products/update/{id}', [TrialProductController::class, 'update'])->name('trial-products.update');
+        Route::post('trial-products/destroy', [TrialProductController::class, 'destroy'])->name('trial-products.destroy');
+        Route::get('trial-products/view/{id}', [TrialProductController::class, 'view'])->name('trial-products.view');
     });
 });
 
