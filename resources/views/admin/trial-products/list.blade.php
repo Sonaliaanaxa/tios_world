@@ -76,7 +76,7 @@
                                         <td>
 
                                             @if($r->upload_image)
-                                            <a href="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/trail_products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
+                                            <a href="{{ asset('/uploads/trail_products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/trail_products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
                                             @else
                                             <p class='text-center' style='padding-top:15px;height:55px;width:55px;border-radius:50%; background-color:#0099cc;color:white;font-size:26px;'>
                                                 {{ substr($r->name,0,1) }}

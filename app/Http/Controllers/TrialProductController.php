@@ -71,7 +71,7 @@ class TrialProductController extends Controller
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
                 $image_name = 'product_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/products');
+                $destinationPath = public_path('/uploads/trail_products');
                 $file->move($destinationPath, $image_name);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');

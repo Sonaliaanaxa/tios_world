@@ -229,7 +229,7 @@
                             <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> <span> Trial Products </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                             @if(auth()->user()->user_type=='admin')
-                                <li><a href="#">Products</a></li>
+                                <li><a href="{{route('trial-products.list')}}">Products</a></li>
                                 @else
                                 <li><a href="#">Products</a></li>
                                 @endif
