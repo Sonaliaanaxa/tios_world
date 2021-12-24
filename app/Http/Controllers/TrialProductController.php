@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TrialProduct;
-
 use App\Category;
 use Illuminate\Support\Str;
 use App\Models\Subcategory;
@@ -15,7 +14,6 @@ class TrialProductController extends Controller
     {
         $this->middleware('auth');
     }
-
     public function index()
     {
         $title = "Trial Products";
@@ -57,7 +55,6 @@ class TrialProductController extends Controller
             'quantity'=>'required',
             'tios_points'=>'required',
             'weight' => 'required',
-
             'details' => 'required',
             'extra_details' => 'required',
             'status' => 'required'
@@ -96,7 +93,7 @@ class TrialProductController extends Controller
         ];
         $result = TrialProduct::create($data);
         // dd($data);
-        return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Added!');
+        return redirect(route('trial-products.list'))->with('success', 'Trail Products Successfully Added!');
     }
 
     public function edit(Request $request, $id)
@@ -184,7 +181,7 @@ class TrialProductController extends Controller
     
 // dd($data);
         $result = TrialProduct::where('id', $id)->update($data);
-        return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Updated!');
+        return redirect(route('trial-products.list'))->with('success', 'Trail Products Successfully Updated!');
     }
 
     public function view(Request $request, $id)
