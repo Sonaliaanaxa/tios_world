@@ -33,12 +33,27 @@
 							<div class="service-fields mb-3">
 								<div class="row">
 
-									<div class="form-group col-md-6">
+								<div class="form-group col-md-6">
 										<label for="category">Collection Name</label>
 										<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
 											<input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Collection Name') }}" value="{{ old('name') }}" aria-required="true" />
 											@if ($errors->has('name'))
 											<span id="name-error" class="error text-danger" for="input-name">Name is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+									<div class="col-sm-6 col-md-6">
+										<label class="category">{{ __('Select Products *')  }}</label>
+										<div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}category" name='product_id[]' id="input-product_id" multiple>
+												<option value=''>Select Products</option>
+												@foreach($products as $d)
+												<option value='{{ $d->id}}' {{ ($d->id==old('product_id'))?'selected':''}}> {{ $d->name}} </option>
+												@endforeach
+											</select>
+											@if ($errors->has('product_id'))
+											<span id="product_id-error" class="error text-danger" for="input-product_id">Product is Empty!</span>
 											@endif
 										</div>
 									</div>

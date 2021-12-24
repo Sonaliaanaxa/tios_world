@@ -13,9 +13,11 @@
 
                     </ul>
                 </div>
+                @if(Auth::user()->user_type=='seller')
                 <div class="col-sm-5 col">
                     <a href="{{route('products.create')}}" class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
                 </div>
+                @endif
             </div>
         </div>
         @include('admin.layouts.flash_msg')
@@ -52,14 +54,15 @@
                                         </th>
 
                                         <th>
+                                            @sortablelink('seller_name',__('Seller Name'))
+                                        </th>
+
+                                        <th>
                                             @sortablelink('category_id',__('Category'))
                                         </th>
                                         <th>
                                             @sortablelink('price',__('Price & Discount'))
                                         </th>
-                                       
-
-
 
                                         <th>
                                             @sortablelink('stock',__('Current Stock'))
@@ -88,7 +91,6 @@
                                             <?php echo $i; ?>
                                         </td>
                                         <td>
-
                                             @if($r->upload_image)
                                             <a href="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
                                             @else
@@ -100,10 +102,13 @@
                                         <td>
                                             {{ $r->name }}
                                         </td>
+                                        <td>
+                                            {{ $r->user->name }}
+                                        </td>
 
                                         <td>
                                             <strong>Category:</strong> {{ $r->category_name }}<br>
-                                            <!-- <strong>Subcategory:</strong> {{ $r->subcategory_name }} -->
+                                            <strong>Subcategory:</strong> {{ $r->subcategory_name }}
                                         </td>
                                         <td>
                                             <span style='color:#1d77fb;font-size:12px;'>Purchase Price - &#8377 {{ $r->purchase_price }}</span>

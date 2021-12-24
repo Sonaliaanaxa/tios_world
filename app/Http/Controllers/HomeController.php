@@ -18,8 +18,7 @@ use App\Order;
 use App\OrderDetail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
-use App\Models\DeliveryCharge;
-use Razorpay\Api\Api;
+use App\Models\TrialProduct;
 use Exception;
 use Mail;
 use Illuminate\Support\Facades\Auth;
@@ -32,14 +31,18 @@ class HomeController extends Controller
         $title = "Tios World";
         $categories = Category::get();
         $products = Product::get();
-        return view('front.index', compact('title', 'products','categories'));
+        return view('front.index', compact('title', 'products', 'categories'));
     }
 
     public function category()
     {
         $title = "Tios World";
-        $products = Product::get();
-        return view('front.category', compact('title', 'products'));
+        $trialProducts = TrialProduct::select('trial_products.*', 'subcategories.img as logo', 'subcategories.banner as banner')
+            ->join('subcategories', 'trial_products.subcategory_id', 'subcategories.id')
+            ->get();
+        $products = Product::first();
+      
+        return view('front.category', compact('title', 'trialProducts','products'));
     }
 
     public function brand()

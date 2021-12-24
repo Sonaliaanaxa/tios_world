@@ -24,7 +24,7 @@
 				<div class="card">
 					<div class="card-body custom-edit-service">
 
-						
+
 						<!-- Add Blog -->
 						<form method='post' action="{{ route('product-collections.create') }}" enctype="multipart/form-data">
 							@csrf

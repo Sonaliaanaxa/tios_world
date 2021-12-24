@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Collection;
+use App\Product;
 
 class CollectionController extends Controller
 {
@@ -28,7 +29,8 @@ class CollectionController extends Controller
         $title = "Create New Collections";
         $subtitle = "Collections";
         $activePage = "Collections";
-        return view('admin.collections.add', compact('title', 'activePage', 'subtitle'));
+        $products = Product::where('status', '1')->get();
+        return view('admin.collections.add', compact('title', 'activePage', 'subtitle','products'));
     }
 
     public function save(Request $request)
@@ -53,13 +55,15 @@ class CollectionController extends Controller
             }
         }
 
-        $data = [
-            'name' => $request->name,
-            'status' => $request->status,
-            'img' =>  $image_name
-        ];
+        $collections = new Collection();
+        $collections->name = $request->name;
+        $collections->status = $request->status;
+        $data                   = array();
+        $data       = $request->product_id;
+        $collections->product_id        = json_encode($data);
+        $collections->img = $image_name;
+        $collections->save();
 
-        $result = Collection::create($data);
         return redirect(route('collections.list'))->with('success', 'Collection Successfully Added!');
     }
 
@@ -69,20 +73,19 @@ class CollectionController extends Controller
         $subtitle = "Collection";
         $activePage = "Collections";
         $collection = Collection::where('id', $id)->first();
-        return view('admin.collections.edit', compact('title', 'collection', 'activePage', 'subtitle', 'id'));
+        $products = Product::where('status', '1')->get();
+        return view('admin.collections.edit', compact('title', 'collection', 'activePage', 'subtitle', 'id','products'));
     }
-
 
     public function update(Request $request, $id)
     {
         $this->validate(request(), [
             'name' => 'required',
+            'product_id' => 'required',
             'status' => 'required'
 
         ]);
-
         $image_name = '';
-
         if ($request->hasFile('myImage')) {
             $file = $request->file('myImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
@@ -97,6 +100,7 @@ class CollectionController extends Controller
 
             $data = [
                 'name' => $request->name,
+                'product_id' => $request->product_id,
                 'status' => $request->status,
                 'img' =>  $image_name,
                 'updated_at' => date('Y-m-d H:i:s')
@@ -104,11 +108,11 @@ class CollectionController extends Controller
         } else {
             $data = [
                 'name' => $request->name,
+                'product_id' => $request->product_id,
                 'status' => $request->status,
                 'updated_at' => date('Y-m-d H:i:s')
             ];
         }
-
         $result = Collection::where('id', $id)->update($data);
         return redirect(route('collections.list'))->with('success', 'Collection Successfully Updated!');
     }

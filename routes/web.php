@@ -20,6 +20,7 @@ use App\Http\Controllers\OrderPlaceController;
 use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\DeliveryChargesController;
 use App\Http\Controllers\TrialProductController;
+use App\Http\Controllers\WarehouseController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -294,6 +295,14 @@ Route::group(['prefix' => 'mydashboard'], function () {
         Route::post('trial-products/update/{id}', [TrialProductController::class, 'update'])->name('trial-products.update');
         Route::post('trial-products/destroy', [TrialProductController::class, 'destroy'])->name('trial-products.destroy');
         Route::get('trial-products/view/{id}', [TrialProductController::class, 'view'])->name('trial-products.view');
+
+         //Warehouse
+         Route::get('warehouse-list', [WarehouseController::class, 'index'])->name('warehouse.list');
+         Route::get('warehouse/create', [WarehouseController::class, 'create'])->name('warehouse.create');
+         Route::post('warehouse/create', [WarehouseController::class, 'save'])->name('warehouse.create');
+         Route::get('warehouse/update/{id}', [WarehouseController::class, 'edit'])->name('warehouse.update');
+         Route::post('warehouse/update/{id}', [WarehouseController::class, 'update'])->name('warehouse.update');
+         Route::post('warehouse/destroy', [WarehouseController::class, 'destroy'])->name('warehouse.destroy');
     });
 });
 

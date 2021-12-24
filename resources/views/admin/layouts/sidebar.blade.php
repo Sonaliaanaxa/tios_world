@@ -151,8 +151,6 @@
                         </li>
                         @endif
 
-
-
                         @if(auth()->user()->user_type=='store')
                         <li class="item{{ $activePage == 'AllSlider' ? ' active' : '' }}">
                             <a href="{{ route('all.slider.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('All Banner') }} </a>
@@ -172,11 +170,11 @@
                         </li>
                         @endif
 
-                        @if(auth()->user()->user_type=='admin')
+                        <!-- @if(auth()->user()->user_type=='admin')
                         <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
                             <a href="{{ route('brands.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Brand') }} </a>
                         </li>
-                        @endif
+                        @endif -->
 
                        
 
@@ -201,9 +199,7 @@
                                 <li class="item{{ $activePage == 'Collections' ? ' active' : '' }}">
                                     <a href="{{ route('collections.list')}}">Collections</a>
                                 </li>
-                                <li class="item{{ $activePage == 'ProductCollections' ? ' active' : '' }}">
-                                    <a href="{{ route('product-collections.list')}}">Product Collections</a>
-                                </li>
+                              
 
                             </ul>
                         </li>
@@ -232,6 +228,17 @@
                                 <li><a href="{{route('trial-products.list')}}">Products</a></li>
                                 @else
                                 <li><a href="{{route('seller-trial-products.list')}}">Products</a></li>
+                                @endif
+                            </ul>
+                        </li>
+                        @endif
+
+                        @if(auth()->user()->user_type=='seller')
+                        <li class="submenu">
+                            <a href="#"><i class="fe fe-document" aria-hidden="true"></i> <span> Warehouses </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                            @if(auth()->user()->user_type=='seller')
+                                <li><a href="{{route('warehouse.list')}}">Warehouse List</a></li>
                                 @endif
                             </ul>
                         </li>

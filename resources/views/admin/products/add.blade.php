@@ -120,7 +120,7 @@
 
 									</div>
 
-									
+
 									<label class="col-sm-2 col-form-label">{{ __('Discount % *') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('discount') ? ' has-danger' : '' }}">
@@ -237,8 +237,6 @@
 							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
 								Advance Features
 							</h4>
-							<div class='row'>
-							</div>
 
 							<div class='row'>
 								<label class="col-sm-2 col-form-label">{{ __('Short Details*') }}</label>
@@ -269,57 +267,85 @@
 
 							</div>
 
+							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
+								Origin Details
+							</h4>
+
+							<div class='row'>
+								<label class="col-sm-2 col-form-label">{{ __('Origin Details*')  }}</label>
+								<div class="col-sm-10 col-md-10">
+									<div class="form-group{{ $errors->has('origin_details') ? ' has-danger' : '' }}">
+										<textarea class="form-control{{ $errors->has('origin_details') ? ' is-invalid' : '' }}" name="origin_details" id="input-origin_details" type="origin_details" value="{{ old('origin_details') }}" placeholder="{{ __('Origin Details') }}" />
+										{{ old('origin_details') }}
+										</textarea>
+										<script>
+											CKEDITOR.replace('input-origin_details');
+										</script>
+										@if ($errors->has('origin_details'))
+										<span id="origin_details-error" class="error text-danger" for="input-origin_details">Origin Details is Empty!</span>
+										@endif
+									</div>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('Upload Map*')}}</label>
+								<div class="col-sm-10">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myMap' id="myMap" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+							</div>
 							<br>
+							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
+								Upload Images
+							</h4>
 
 							<div class="row" id="file-content">
 								<label class="col-sm-2 col-form-label">{{ __('Upload  Image*')}}</label>
 								<div class="col-sm-10">
 									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
-								
-								<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-							</div>
 
-							<br>								
-							<label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>
-							<div class="col-sm-4">
-								<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
-									<select class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status">
-										<option value=''>Select the status of product</option>
-										<option value='1' {{ ('1'==old('status'))?'selected':''}}> Active </option>
-										<option value='0' {{ ('0'==old('status'))?'selected':''}}> Inctive</option>
-									</select> @if ($errors->has('status'))
-									<span id="status-error" class="error text-danger" for="input-status"> Status</span>
-									@endif
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+
+								<br>
+								<label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>
+								<div class="col-sm-4">
+									<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
+										<select class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status">
+											<option value=''>Select the status of product</option>
+											<option value='1' {{ ('1'==old('status'))?'selected':''}}> Active </option>
+											<option value='0' {{ ('0'==old('status'))?'selected':''}}> Inctive</option>
+										</select> @if ($errors->has('status'))
+										<span id="status-error" class="error text-danger" for="input-status"> Status</span>
+										@endif
+									</div>
+								</div>
+
+								<label class="col-sm-2 col-form-label">{{ __('Show on Website*') }}</label>
+								<div class="col-sm-4">
+									<div class="form-group{{ $errors->has('is_show') ? ' has-danger' : '' }}">
+										<select class="custom-select {{ $errors->has('is_show') ? ' is-invalid' : '' }}" name='is_show' id="input-is_show">
+											<option value=''>Wants to Show on Website?</option>
+											<option value='1' {{ ('1'==old('is_show'))?'selected':''}}> Yes </option>
+											<option value='0' {{ ('0'==old('is_show'))?'selected':''}}> No</option>
+										</select> @if ($errors->has('is_show'))
+										<span id="is_show-error" class="error text-danger" for="input-is_show">Select Website Show </span>
+										@endif
+									</div>
 								</div>
 							</div>
-
-							<label class="col-sm-2 col-form-label">{{ __('Show on Website*') }}</label>
-							<div class="col-sm-4">
-								<div class="form-group{{ $errors->has('is_show') ? ' has-danger' : '' }}">
-									<select class="custom-select {{ $errors->has('is_show') ? ' is-invalid' : '' }}" name='is_show' id="input-is_show">
-										<option value=''>Wants to Show on Website?</option>
-										<option value='1' {{ ('1'==old('is_show'))?'selected':''}}> Yes </option>
-										<option value='0' {{ ('0'==old('is_show'))?'selected':''}}> No</option>
-									</select> @if ($errors->has('is_show'))
-									<span id="is_show-error" class="error text-danger" for="input-is_show">Select Website Show </span>
-									@endif
-								</div>
+							<div class="submit-section">
+								<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
 							</div>
-					</div>
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
-					</div>
-					<br>
-					</form>
-					<!-- /Add Blog -->
+							<br>
+						</form>
+						<!-- /Add Blog -->
 
 
+					</div>
 				</div>
 			</div>
 		</div>
-	</div>
 
-</div>
+	</div>
 </div>
 <!-- /Page Wrapper -->
 <!-- /Main Wrapper -->

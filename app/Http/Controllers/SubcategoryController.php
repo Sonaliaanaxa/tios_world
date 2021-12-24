@@ -124,7 +124,7 @@ class SubcategoryController extends Controller
                 $data1['banner'] = 'banner_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/subcategory-banner');
                 $file->move($destinationPath, $data1['banner']);
-                Category::where('id', $id)->update($data1);
+                Subcategory::where('id', $id)->update($data1);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
@@ -139,7 +139,7 @@ class SubcategoryController extends Controller
                 $data2['img'] = 'categories_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/categories');
                 $file->move($destinationPath,  $data2['img']);
-                Category::where('id', $id)->update($data2);
+                Subcategory::where('id', $id)->update($data2);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }

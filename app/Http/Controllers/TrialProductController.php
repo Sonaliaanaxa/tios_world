@@ -23,8 +23,9 @@ class TrialProductController extends Controller
         $subtitle = "Trial Products";
         $activePage = "Trial Products";
         $pCount = TrialProduct::select('*')->count();
-        $products = TrialProduct::select('trial_products.*', 'categories.name as category_name')
+        $products = TrialProduct::select('trial_products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
             ->join('categories', 'trial_products.category_id', 'categories.id')
+            ->join('subcategories','trial_products.subcategory_id','subcategories.id')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
         return view('admin.trial-products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
@@ -36,8 +37,9 @@ class TrialProductController extends Controller
         $subtitle = "Trial Products";
         $activePage = "Trial Products";
         $pCount = TrialProduct::select('*')->where('trial_products.user_id',Auth::user()->id)->count();
-        $products = TrialProduct::select('trial_products.*', 'categories.name as category_name')
+        $products = TrialProduct::select('trial_products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
             ->join('categories', 'trial_products.category_id', 'categories.id')
+            ->join('subcategories','trial_products.subcategory_id','subcategories.id')
             ->where('trial_products.user_id',Auth::user()->id)
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
@@ -86,7 +88,7 @@ class TrialProductController extends Controller
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
                 $image_name = 'trail_product_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/trail_products');
+                $destinationPath = public_path('/uploads/trial_products');
                 $file->move($destinationPath, $image_name);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
@@ -111,12 +113,8 @@ class TrialProductController extends Controller
         ];
         $result = TrialProduct::create($data);
         // dd($data);
-        if(Auth::user()->user_type=='admin'){
-            return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Added!');
-        }
-        else{
-            return redirect(route('seller-trial-products.list'))->with('success', 'Trail Products Successfully Added!');
-        }
+            return redirect()->back()->with('success', 'Trail Products Successfully Added!');
+        
     }
  
     public function edit(Request $request, $id)
@@ -162,7 +160,7 @@ class TrialProductController extends Controller
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
                 $image_name = 'trail_product_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/trail_products');
+                $destinationPath = public_path('/uploads/trial_products');
                 $file->move($destinationPath, $image_name);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
@@ -202,10 +200,9 @@ class TrialProductController extends Controller
             'updated_at' => date('Y-m-d H:i:s')
             ];
         }
-    
-// dd($data);
+
         $result = TrialProduct::where('id', $id)->update($data);
-        return redirect(route('trial-products-list'))->with('success', 'Trail Products Successfully Updated!');
+        return redirect()->back()->with('success', 'Trail Products Successfully Updated!');
     }
 
     public function view(Request $request, $id)

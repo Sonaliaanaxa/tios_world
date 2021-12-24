@@ -42,7 +42,22 @@
                     </div>
                   </div>
 
-                  <div class="col-sm-6">
+                  <div class="col-sm-6 col-md-6">
+                    <label class="category">{{ __('Select Product*')  }}</label>
+                    <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
+                      <select class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}department" name='product_id[]' id="input-product_id" multiple>
+                        <option value=''>Select Product</option>
+                        @foreach($products as $c)
+                        <option value='{{ $c->id}}' {{ ($c->id==$collection->product_id)?'selected':''}}> {{ $c->name}} </option>
+                        @endforeach
+                      </select>
+                      @if ($errors->has('product_id'))
+                      <span id="product_id-error" class="error text-danger" for="input-product_id">Product is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+
+                <div class="col-sm-6">
 										<label class="category">{{ __('Status*') }}</label>
 										<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
 										<select  class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status"   >

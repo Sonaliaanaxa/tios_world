@@ -23,8 +23,9 @@ class ProductController extends Controller
         $subtitle = "Products";
         $activePage = "Products";
         $pCount = Product::select('*')->count();
-        $products = Product::select('products.*', 'categories.name as category_name')
+        $products = Product::select('products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
             ->join('categories', 'products.category_id', 'categories.id')
+            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
         return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
@@ -36,8 +37,9 @@ class ProductController extends Controller
         $subtitle = "Products";
         $activePage = "Products";
         $pCount = Product::select('*')->where('user_id', Auth::user()->id)->count();
-        $products = Product::select('products.*', 'categories.name as category_name')
+        $products = Product::select('products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
             ->join('categories', 'products.category_id', 'categories.id')
+            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
             ->where('products.user_id', Auth::user()->id)
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
@@ -78,6 +80,7 @@ class ProductController extends Controller
             'current_stock' => 'required',
             'short_details' => 'required',
             'details' => 'required',
+            'origin_details' => 'required',
             'status' => 'required'
 
         ]);
@@ -91,6 +94,19 @@ class ProductController extends Controller
                 $image_name = 'product_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/products');
                 $file->move($destinationPath, $image_name);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
+        $map_name = '';
+        if ($request->hasFile('myMap')) {
+            $file = $request->file('myMap');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
+                $map_name = 'product_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/map');
+                $file->move($destinationPath, $map_name);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
@@ -113,6 +129,8 @@ class ProductController extends Controller
             'current_stock' => $request->current_stock,
             'short_details' => $request->short_details,
             'details' => $request->details,
+            'origin_details' => $request->origin_details,
+            'map' => $map_name,
             'status' => $request->status,
             'is_show' => $request->is_show,
             'user_id' => Auth::user()->id,
@@ -164,74 +182,64 @@ class ProductController extends Controller
             'unit' => 'required',
             'current_stock' => 'required',
             'short_details' => 'required',
+            'origin_details' => 'required',
             'details' => 'required',
             'status' => 'required'
 
         ]);
 
-
-        $image_name = '';
+        $id = $request->id;
+        $data1['upload_image'] = '';
 
         if ($request->hasFile('myImage')) {
             $file = $request->file('myImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
-                $image_name = 'product_' . time() . '.' . $extension;
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
+                $data1['upload_image'] = 'products_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/products');
-                $file->move($destinationPath, $image_name);
+                $file->move($destinationPath, $data1['upload_image']);
+                Product::where('id', $id)->update($data1);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
-
-            $data = [
-                'category_id' => $request->category_id,
-                'subcategory_id' => $request->subcategory_id,
-                'name' => $request->name,
-                'slug' => Str::slug($request->name),
-                'purchase_price' => $request->purchase_price,
-                'selling_price' => $request->selling_price,
-                'discount' => $request->discount,
-                'saving' => $request->saving,
-                'tax_type' => $request->tax_type,
-                'tax' => $request->tax,
-                'tax_price' => $request->tax_price,
-                'weight' => $request->weight,
-                'unit' => $request->unit,
-                'current_stock' => $request->current_stock,
-                'short_details' => $request->short_details,
-                'details' => $request->details,
-                'status' => $request->status,
-                'is_show' => $request->is_show,
-                'user_id' => Auth::user()->id,
-                'upload_image' =>  $image_name,
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
-        } else {
-            $data = [
-                'category_id' => $request->category_id,
-                'subcategory_id' => $request->subcategory_id,
-                'name' => $request->name,
-                'slug' => Str::slug($request->name),
-                'purchase_price' => $request->purchase_price,
-                'selling_price' => $request->selling_price,
-                'discount' => $request->discount,
-                'saving' => $request->saving,
-                'tax_type' => $request->tax_type,
-                'tax' => $request->tax,
-                'tax_price' => $request->tax_price,
-                'weight' => $request->weight,
-                'unit' => $request->unit,
-                'current_stock' => $request->current_stock,
-                'short_details' => $request->short_details,
-                'details' => $request->details,
-                'status' => $request->status,
-                'is_show' => $request->is_show,
-                'user_id' => Auth::user()->id,
-                'updated_at' => date('Y-m-d H:i:s')
-            ];
         }
+        $id = $request->id;
+        $data2['map'] = '';
 
-
+        if ($request->hasFile('myMap')) {
+            $file = $request->file('myMap');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
+                $data2['map'] = 'maps_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/map');
+                $file->move($destinationPath,  $data2['map']);
+                Product::where('id', $id)->update($data2);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+            $data = [
+                'category_id' => $request->category_id,
+                'subcategory_id' => $request->subcategory_id,
+                'name' => $request->name,
+                'slug' => Str::slug($request->name),
+                'purchase_price' => $request->purchase_price,
+                'selling_price' => $request->selling_price,
+                'discount' => $request->discount,
+                'saving' => $request->saving,
+                'tax_type' => $request->tax_type,
+                'tax' => $request->tax,
+                'tax_price' => $request->tax_price,
+                'weight' => $request->weight,
+                'unit' => $request->unit,
+                'current_stock' => $request->current_stock,
+                'short_details' => $request->short_details,
+                'details' => $request->details,
+                'status' => $request->status,
+                'is_show' => $request->is_show,
+                'user_id' => Auth::user()->id,
+                'updated_at' => date('Y-m-d H:i:s')
+            ];
         $result = Product::where('id', $id)->update($data);
         if (Auth::user()->user_type == 'admin'){
             return redirect(route('products.list'))->with('success', 'Products Successfully Updated!');

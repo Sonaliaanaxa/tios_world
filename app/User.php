@@ -7,6 +7,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Kyslik\ColumnSortable\Sortable;
 use App\Cart;
+use App\Product;
+
 class User extends Authenticatable
 {
     use Notifiable;
@@ -26,6 +28,9 @@ class User extends Authenticatable
     {
         return $this->belongsto(Cart::class);
     }
+
+  
+   
 
     public $sortable = ['id','name','email','city','status','img','phone','country','created_at'];
     

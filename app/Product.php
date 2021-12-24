@@ -6,6 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 use Kyslik\ColumnSortable\Sortable;
 use App\Cart;
 use App\Order;
+use App\User;
 
 class Product extends Model
 {
@@ -18,8 +19,11 @@ class Product extends Model
     {
         return $this->hasMany(Order::class);
     }
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 
-    
     use Sortable;
 
      protected $guarded=[];
