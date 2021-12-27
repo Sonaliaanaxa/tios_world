@@ -14,11 +14,13 @@ use App\Policy;
 use App\ReturnRefund;
 use App\Cart;
 use App\Category;
+use App\Models\Subcategory;
 use App\Order;
 use App\OrderDetail;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\TrialProduct;
+use App\Models\Collection;
 use Exception;
 use Mail;
 use Illuminate\Support\Facades\Auth;
@@ -34,7 +36,7 @@ class HomeController extends Controller
         return view('front.index', compact('title', 'products', 'categories'));
     }
 
-    public function category()
+    public function category($slug)
     {
         $title = "Tios World";
         $trialProducts = TrialProduct::select('trial_products.*', 'subcategories.img as logo', 'subcategories.banner as banner')
@@ -58,12 +60,17 @@ class HomeController extends Controller
         $products = Product::get();
         return view('front.sample-page', compact('title', 'products'));
     }
-    public function collections()
+    public function collections($slug)
     {
         $title = "Tios World";
-        $products = Product::get();
-        return view('front.collections', compact('title', 'products'));
+        $collection = Collection::where('slug',$slug)->first();
+        $organicCollection = Collection::select('organic','name')->where('slug',$slug)->first();
+        $regularCollection = Collection::select('regular','name')->where('slug',$slug)->first();
+       
+        return view('front.collections', compact('title','organicCollection','regularCollection','collection'));
     }
+
+   
 
     public function about()
     {

@@ -327,7 +327,17 @@ margin-top: 283px;
 	z-index: 99;
 	/* display: none; */
 }
-
+.sample-card1{
+  position:relative;
+      margin-left: 25px;
+  margin-top: 36px;
+  }
+.try-samples1{
+	position:relative;
+	background-color:#f1f1f1;
+	z-index: 99;
+	/* display: none; */
+}
 .sample-card{
 background-color:#fff;	
 position:relative;
@@ -1092,10 +1102,6 @@ line-height:40px;
 font-style:normal;	
 
 }
-
-
-
-
 
 
 /*search icon css*/
@@ -2871,3 +2877,16 @@ padding-top: 100px;
   margin-bottom: 13px;
 }
 /*css by atul*/
+
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu{ display: none; }
+	.navbar .nav-item:hover .dropdown-menu{ display: block; }
+	.navbar .nav-item .dropdown-menu{ margin-top:0; margin-left:500px;}
+}
+
+
+@media all and (min-width: 992px) {
+	.navbar .nav-item .dropdown-menu1{ display: none; }
+	.navbar .nav-item:hover .dropdown-menu1{ display: block; }
+	.navbar .nav-item .dropdown-menu1{ margin-top:0; }
+}

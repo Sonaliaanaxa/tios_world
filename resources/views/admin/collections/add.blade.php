@@ -42,7 +42,15 @@
 											@endif
 										</div>
 									</div>
-
+									<div class="form-group col-md-6">
+										<label for="category">Collection Slug</label>
+										<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="input-slug" type="text" placeholder="{{ __('Collection Slug') }}" value="{{ old('slug') }}" aria-required="true" />
+											@if ($errors->has('slug'))
+											<span id="slug-error" class="error text-danger" for="input-slug">Slug is Empty!</span>
+											@endif
+										</div>
+									</div>
 									<div class="col-sm-6 col-md-6">
 										<label class="category">{{ __('Select Products *')  }}</label>
 										<div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
@@ -57,6 +65,33 @@
 											@endif
 										</div>
 									</div>
+								</div>
+								
+									<label class="col-sm-6 col-form-label">{{ __('Regular Details*')  }}</label>
+								<div class="col-sm-12 col-md-12">
+									<div class="form-group{{ $errors->has('regular') ? ' has-danger' : '' }}">
+										<textarea class="form-control{{ $errors->has('regular') ? ' is-invalid' : '' }}" name="regular" id="input-regular" type="regular" value="{{ old('regular') }}" placeholder="{{ __('Origin Details') }}" />
+										{{ old('regular') }}
+										</textarea>
+										
+										@if ($errors->has('regular'))
+										<span id="regular-error" class="error text-danger" for="input-regular">Regular Details is Empty!</span>
+										@endif
+									</div>
+								</div>
+								<label class="col-sm-6 col-form-label">{{ __('Organic Subcategory Details*')  }}</label>
+								<div class="col-sm-12 col-md-12">
+									<div class="form-group{{ $errors->has('organic') ? ' has-danger' : '' }}">
+										<textarea class="form-control{{ $errors->has('organic') ? ' is-invalid' : '' }}" name="organic" id="input-organic" type="organic" value="{{ old('organic') }}" placeholder="{{ __('Origin Details') }}" />
+										{{ old('organic') }}
+										</textarea>
+										
+										@if ($errors->has('organic'))
+										<span id="organic-error" class="error text-danger" for="input-organic">Organic Details is Empty!</span>
+										@endif
+									</div>
+								</div>
+								
 
 									<div class="col-sm-6">
 										<label class="category">{{ __('Status*') }}</label>

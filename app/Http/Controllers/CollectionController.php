@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Collection;
 use App\Product;
+use Illuminate\Support\Str;
 
 class CollectionController extends Controller
 {
@@ -37,6 +38,7 @@ class CollectionController extends Controller
     {
         $this->validate(request(), [
             'name' => 'required',
+            'slug' => 'required',
             'status' => 'required'
         ]);
 
@@ -57,7 +59,10 @@ class CollectionController extends Controller
 
         $collections = new Collection();
         $collections->name = $request->name;
+        $collections->slug =  Str::slug($request->name);
         $collections->status = $request->status;
+        $collections->regular = $request->regular;
+        $collections->organic = $request->organic;
         $data                   = array();
         $data       = $request->product_id;
         $collections->product_id        = json_encode($data);
@@ -81,7 +86,10 @@ class CollectionController extends Controller
     {
         $this->validate(request(), [
             'name' => 'required',
+            'slug' => 'required',
             'product_id' => 'required',
+            'organic' => 'required',
+            'regular' => 'required',
             'status' => 'required'
 
         ]);
@@ -91,7 +99,7 @@ class CollectionController extends Controller
             $extension = $file->getClientOriginalExtension(); // getting image extension
             if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
 
-                $image_name = 'brands_' . time() . '.' . $extension;
+                $image_name = 'collections_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/collections');
                 $file->move($destinationPath, $image_name);
             } else {
@@ -100,7 +108,10 @@ class CollectionController extends Controller
 
             $data = [
                 'name' => $request->name,
+                'slug' => $request->slug,
                 'product_id' => $request->product_id,
+                'organic' => $request->organic,
+                'regular' => $request->regular,
                 'status' => $request->status,
                 'img' =>  $image_name,
                 'updated_at' => date('Y-m-d H:i:s')
@@ -108,7 +119,10 @@ class CollectionController extends Controller
         } else {
             $data = [
                 'name' => $request->name,
+                'slug' => $request->slug,
                 'product_id' => $request->product_id,
+                'organic' => $request->organic,
+                'regular' => $request->regular,
                 'status' => $request->status,
                 'updated_at' => date('Y-m-d H:i:s')
             ];

@@ -81,6 +81,7 @@ class ProductController extends Controller
             'short_details' => 'required',
             'details' => 'required',
             'origin_details' => 'required',
+            'product_collection_type' => 'required',
             'status' => 'required'
 
         ]);
@@ -112,32 +113,36 @@ class ProductController extends Controller
             }
         }
 
-        $data = [
-            'category_id' => $request->category_id,
-            'subcategory_id' => $request->subcategory_id,
-            'name' => $request->name,
-            'slug' => Str::slug($request->name),
-            'purchase_price' => $request->purchase_price,
-            'selling_price' => $request->selling_price,
-            'discount' => $request->discount,
-            'saving' => $request->saving,
-            'tax_type' => $request->tax_type,
-            'tax' => $request->tax,
-            'tax_price' => $request->tax_price,
-            'weight' => $request->weight,
-            'unit' => $request->unit,
-            'current_stock' => $request->current_stock,
-            'short_details' => $request->short_details,
-            'details' => $request->details,
-            'origin_details' => $request->origin_details,
-            'map' => $map_name,
-            'status' => $request->status,
-            'is_show' => $request->is_show,
-            'user_id' => Auth::user()->id,
-            'upload_image' =>  $image_name
-        ];
-        $result = Product::create($data);
-        // dd($data);
+        $product = new Product();
+        $product->category_id = $request->category_id;
+        $product->subcategory_id = $request->subcategory_id;
+        $product->name = $request->name;
+        $product->slug =  Str::slug($request->name);
+        $product->purchase_price = $request->purchase_price;
+        $product->selling_price = $request->selling_price;
+        $product->discount = $request->discount;
+        $product->saving = $request->saving;
+        $product->tax_type = $request->tax_type;
+        $product->tax = $request->tax;
+        $product->tax_price = $request->tax_price;
+        $product->weight = $request->weight;
+        $product->unit = $request->unit;
+        $product->current_stock = $request->current_stock;
+        $product->short_details = $request->short_details;
+        $product->details = $request->details;
+        $product->origin_details = $request->origin_details;
+        $product->map = $request->map;
+        $product->status = $request->status;
+        $product->is_show = $request->is_show;
+        $product->user_id = Auth::user()->id;
+        $product->upload_image = $image_name;
+        $product->map = $map_name;
+        $data                   = array();
+        $data       = $request->product_collection_type;
+        $product->product_collection_type        = json_encode($data);
+        $product->save();
+        // dd($product);
+
         if (Auth::user()->user_type == 'admin') {
             return redirect(route('products.list'))->with('success', 'Products Successfully Added!');
         }
@@ -158,9 +163,13 @@ class ProductController extends Controller
         $product = Product::select('products.*', 'categories.name as category_name')
             ->where('products.id', $id)
             ->join('categories', 'products.category_id', 'categories.id')
-
             ->first();
-        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id', 'subcategories', 'categories'));
+            $products = Product::select('products.*', 'categories.name as category_name')
+            ->where('products.id', $id)
+            ->join('categories', 'products.category_id', 'categories.id')
+            ->get();
+          
+        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id', 'subcategories', 'categories','products'));
     }
 
 
@@ -218,6 +227,7 @@ class ProductController extends Controller
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
         }
+        $data1 = array();
             $data = [
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
@@ -238,8 +248,10 @@ class ProductController extends Controller
                 'status' => $request->status,
                 'is_show' => $request->is_show,
                 'user_id' => Auth::user()->id,
+                'product_collection_type' => $data1['product_collection_type'],
                 'updated_at' => date('Y-m-d H:i:s')
             ];
+           
         $result = Product::where('id', $id)->update($data);
         if (Auth::user()->user_type == 'admin'){
             return redirect(route('products.list'))->with('success', 'Products Successfully Updated!');

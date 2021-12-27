@@ -48,6 +48,8 @@ class SubcategoryController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'slug' => 'required|unique:subcategories',
+            'regular' => 'required',
+            'organic' => 'required',
             'status' => 'required'
         ]);    
         
@@ -84,6 +86,8 @@ class SubcategoryController extends Controller
             'category_id' => $request->category_id,
             'name' => $request->name,
             'slug' => $request->slug,
+            'regular' => $request->regular,
+            'organic' => $request->organic,
             'img' =>  $image_name,
             'banner' => $banner_name,
             'status' => $request->status,
@@ -110,6 +114,8 @@ class SubcategoryController extends Controller
             'name' => 'required',
             'category_id' => 'required',
             'slug' => 'required',
+            'regular' => 'required',
+            'organic' => 'required',
             'status' => 'required'
           
         ]);   
@@ -149,6 +155,8 @@ class SubcategoryController extends Controller
         $data=[
             'category_id' => $request->category_id,
             'name' => $request->name,
+            'regular' => $request->regular,
+            'organic' => $request->organic,
             'slug' => $request->slug,
             'status' => $request->status,
             'updated_at'=>date('Y-m-d H:i:s')
