@@ -42,10 +42,20 @@
                     </div>
                   </div>
 
+                  <div class="form-group col-md-6">
+                    <label for="category">Collection Slug</label>
+                    <div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
+                      <input class="form-control{{ $errors->has('slug') ? ' is-invalid' : '' }}" name="slug" id="input-slug" type="text" placeholder="{{ __('Collection Slug') }}" value="{{$collection->slug}}" aria-required="true" />
+                      @if ($errors->has('slug'))
+                      <span id="slug-error" class="error text-danger" for="input-slug">Slug is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+
                   <div class="col-sm-6 col-md-6">
                     <label class="category">{{ __('Select Product*')  }}</label>
                     <div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
-                      <select class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}department" name='product_id[]' id="input-product_id" multiple>
+                      <select class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}department" slug='product_id[]' id="input-product_id" multiple>
                         <option value=''>Select Product</option>
                         @foreach($products as $c)
                         <option value='{{ $c->id}}' {{ ($c->id==$collection->product_id)?'selected':''}}> {{ $c->name}} </option>
@@ -56,61 +66,83 @@
                       @endif
                     </div>
                   </div>
+                  <label class="col-sm-2 col-form-label">{{ __('Regular Details*')  }}</label>
+                  <div class="col-sm-12 col-md-12">
+                    <div class="form-group{{ $errors->has('regular') ? ' has-danger' : '' }}">
+                      <textarea class="form-control{{ $errors->has('regular') ? ' is-invalid' : '' }}" name="regular" id="input-regular" type="regular" value="{{$collection->regular}}" placeholder="{{ __('Origin Details') }}" />
+                      {{$collection->regular}}
+                      </textarea>
+
+                      @if ($errors->has('regular'))
+                      <span id="regular-error" class="error text-danger" for="input-regular">Regular Details is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+                  <label class="col-sm-2 col-form-label">{{ __('Organic Details*')  }}</label>
+                  <div class="col-sm-12 col-md-12">
+                    <div class="form-group{{ $errors->has('organic') ? ' has-danger' : '' }}">
+                      <textarea class="form-control{{ $errors->has('organic') ? ' is-invalid' : '' }}" name="organic" id="input-organic" type="organic" value="{{$collection->organic}}" placeholder="{{ __('Origin Details') }}" />
+                      {{$collection->organic}}
+                      </textarea>
+
+                      @if ($errors->has('organic'))
+                      <span id="organic-error" class="error text-danger" for="input-organic">Organic Details is Empty!</span>
+                      @endif
+                    </div>
+                  </div>
+                </div>
 
                 <div class="col-sm-6">
-										<label class="category">{{ __('Status*') }}</label>
-										<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
-										<select  class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status"   >
-										<option value='{{ $collection->status }}'>{{ $collection->status }}</option>
-										<option value='1' {{ ('1'==$collection->status)?'selected':''}}> Active </option>  
-										<option value='0' {{ ('0'==$collection->status)?'selected':''}}> Inactive</option>		
-										
-										</select>  @if ($errors->has('status'))
-											<span id="status-error" class="error text-danger" for="input-status">Please Select Status!</span>
-										@endif
-										</div>
-									</div> 
+                  <label class="category">{{ __('Status*') }}</label>
+                  <div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
+                    <select class="custom-select {{ $errors->has('status') ? ' is-invalid' : '' }}" name='status' id="input-status">
+                      <option value='{{ $collection->status }}'>{{ $collection->status }}</option>
+                      <option value='1' {{ ('1'==$collection->status)?'selected':''}}> Active </option>
+                      <option value='0' {{ ('0'==$collection->status)?'selected':''}}> Inactive</option>
 
-                  <div class="form-group col-md-6">
-                                                <label for="category">{{ __('Upload  Image')}}</label>
-                                                <div class="upload-img">
-                                                        <div class="change-photo-btn">
-                                                  
-                                                          <label htmlFor="myImage" >
-                                                            <input type="file" class="upload"  name="myImage" 
-                                                            accept="image/x-png,image/gif,image/jpeg,image/jpg" 
-                                                          id="myImage"
-                                                            /></label>
-                                                            <br>
-                                                      <img src="{{ asset('/uploads/collections') }}/{{ $collection->img }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;'/>
-                                                            <br>
-                                                        </div>
-                                                        <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-                                                    </div>
-                                             
-                                            </div>
+                    </select> @if ($errors->has('status'))
+                    <span id="status-error" class="error text-danger" for="input-status">Please Select Status!</span>
+                    @endif
+                  </div>
+                </div>
 
+                <div class="form-group col-md-6">
+                  <label for="category">{{ __('Upload  Image')}}</label>
+                  <div class="upload-img">
+                    <div class="change-photo-btn">
+
+                      <label htmlFor="myImage">
+                        <input type="file" class="upload" name="myImage" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="myImage" /></label>
+                      <br>
+                      <img src="{{ asset('/uploads/collections') }}/{{ $collection->img }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+                      <br>
+                    </div>
+                    <small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+                  </div>
 
                 </div>
 
+
               </div>
-
-
-
-
-              <div class="submit-section">
-                <button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
-              </div>
-            </form>
-            <!-- /Add Blog -->
-
 
           </div>
+
+
+
+
+          <div class="submit-section">
+            <button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+          </div>
+          </form>
+          <!-- /Add Blog -->
+
+
         </div>
       </div>
     </div>
-
   </div>
+
+</div>
 </div>
 <!-- /Page Wrapper -->
 <!-- /Main Wrapper -->

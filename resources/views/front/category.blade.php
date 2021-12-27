@@ -724,6 +724,7 @@
     </div>
 </section>
 <!--Curated collections end-->
+
 <section>
     <a href="#"><img src="{{asset('assets/img/add-2.png')}}"></a>
 

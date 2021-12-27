@@ -17,7 +17,7 @@
 
             <div class="col-md-3 my-3">
                 <div class="right-logo">
-                    <figure><img src="{{asset('assets/img/collaction-1.png')}}" alt="collaction-1"></figure>
+                    <figure><img src="{{ asset('/uploads/collections') }}/{{ $collection->img }}" alt="collaction-1"></figure>
 
                 </div>
 
@@ -400,7 +400,33 @@
 
 
 
+<!--try sample-->
+<section class="try-samples1 pt-30 pb-30">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-6 py-5">
 
+                <div class="sample-card1">
+                    <h5>organic {{lcfirst(@$organicCollection->name)}},aha</h5>
+
+                    <div class="sample-content">
+                        <p>{{@$organicCollection->organic}}</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6 py-5">
+                <div class="sample-card1">
+                    <h5>regular {{lcfirst(@$regularCollection->name)}}, nah</h5>
+                    <div class="sample-content">
+                        <p> {{@$regularCollection->regular}}</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+<!--try sample end-->
 <!--try sample-->
 <section class="try-samples pt-30 pb-30">
     <div class="container">

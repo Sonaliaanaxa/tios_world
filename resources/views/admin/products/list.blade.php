@@ -50,6 +50,10 @@
                                         </th>
 
                                         <th>
+                                            @sortablelink('product_collection_type',__('Product Type'))
+                                        </th>
+
+                                        <th>
                                             @sortablelink('name',__('Product'))
                                         </th>
 
@@ -90,6 +94,7 @@
                                         <td>
                                             <?php echo $i; ?>
                                         </td>
+                                       
                                         <td>
                                             @if($r->upload_image)
                                             <a href="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
@@ -98,6 +103,9 @@
                                                 {{ substr($r->name,0,1) }}
                                             </p>
                                             @endif
+                                        </td>
+                                        <td>
+                                            {{ $r->product_collection_type }}
                                         </td>
                                         <td>
                                             {{ $r->name }}

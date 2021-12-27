@@ -26,13 +26,30 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto">
         <li class="nav-item active">
-          <a class="nav-link" href="{{route('shop')}}">Shop <span class="sr-only">(current)</span></a>
+          <a class="nav-link dropdown-toggle" href="#">Shop <span class="sr-only">(current)</span></a>
+          <ul class="dropdown-menu1">
+            @php
+            $categories = App\Category::get();
+            @endphp
+            @foreach($categories as $category)
+			  <li><a class="dropdown-item" href="{{route('shop',$category->slug)}}">{{$category->name}}</a></li>
+        @endforeach
+		    </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('sample-page')}}">Try first</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="{{route('collections')}}"> Collections</a>
+          <a class="nav-link  dropdown-toggle" href="#"> Collections</a>
+          <ul class="dropdown-menu">
+            @php
+            $collections = App\Models\Collection::where('status','1')->get();
+            @endphp
+            @foreach($collections as $collection)
+			  <li><a class="dropdown-item" href="{{route('collections',$collection->slug)}}">{{$collection->name}}</a></li>
+        @endforeach
+			  
+		    </ul>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{{route('brand')}}">Brands</a>
@@ -66,3 +83,41 @@
     </div>
   </nav>
   <!--navbar end-->
+  <script>
+    document.addEventListener("DOMContentLoaded", function(){
+// make it as accordion for smaller screens
+if (window.innerWidth > 992) {
+
+	document.querySelectorAll('.navbar .nav-item').forEach(function(everyitem){
+
+		everyitem.addEventListener('mouseover', function(e){
+
+			let el_link = this.querySelector('a[data-bs-toggle]');
+
+			if(el_link != null){
+				let nextEl = el_link.nextElementSibling;
+				el_link.classList.add('show');
+				nextEl.classList.add('show');
+			}
+
+		});
+		everyitem.addEventListener('mouseleave', function(e){
+			let el_link = this.querySelector('a[data-bs-toggle]');
+
+			if(el_link != null){
+				let nextEl = el_link.nextElementSibling;
+				el_link.classList.remove('show');
+				nextEl.classList.remove('show');
+			}
+
+
+		})
+	});
+
+}
+// end if innerWidth
+}); 
+// DOMContentLoaded  end
+
+
+  </script>

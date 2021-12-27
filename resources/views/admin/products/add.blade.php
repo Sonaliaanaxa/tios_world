@@ -89,6 +89,24 @@
 
 										</div>
 									</div>
+
+									<label class="col-sm-6 col-form-label">{{ __('Select Product Collection Type')  }}</label>
+									<div class="col-sm-12 col-md-12">
+										<div class="form-group{{ $errors->has('product_collection_type') ? ' has-danger' : '' }}">
+											<div class="form-group{{ $errors->has('product_collection_type') ? ' has-danger' : '' }}">
+												<input type="checkbox" name="product_collection_type[]" value="organic">
+												<label class="col-sm-2 col-form-label">{{ __('Organic')  }}</label>
+												<input type="checkbox" name="product_collection_type[]" value="curated">
+												<label class="col-sm-2 col-form-label">{{ __('Curated')  }}</label>
+												<input type="checkbox" name="product_collection_type[]" value="sample">
+												<label class="col-sm-2 col-form-label">{{ __('Samples')  }}</label>
+												@if ($errors->has('product_collection_type'))
+												<span id="product_collection_type-error" class="error text-danger" for="input-product_collection_type">Product Collection Type is Empty!</span>
+												@endif
+											</div>
+
+										</div>
+									</div>
 								</div>
 								<br>
 

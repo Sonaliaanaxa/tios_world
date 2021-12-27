@@ -39,10 +39,10 @@ use Illuminate\Support\Facades\Route;
 /*--------------------WEBSITE PAGES ------------------------------------------*/
 
 Route::get('/', [HomeController::class, 'index'])->name('home');
-Route::get('/shop', [HomeController::class, 'category'])->name('shop');
+Route::get('/shop/{slug}', [HomeController::class, 'category'])->name('shop');
 Route::get('/brand', [HomeController::class, 'brand'])->name('brand');
 Route::get('/sample-page', [HomeController::class, 'samplePage'])->name('sample-page');
-Route::get('collections', [HomeController::class, 'collections'])->name('collections');
+Route::get('collections/{slug}', [HomeController::class, 'collections'])->name('collections');
 
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
