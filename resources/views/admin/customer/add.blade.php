@@ -70,9 +70,9 @@
 
 
 									<div class="form-group col-md-6" id="file-content">
-										<label class=" col-form-label">{{ __('Upload  Image*')}}</label>
+										<label class=" col-form-label">{{ __('Upload Logo*')}}</label>
 										<div class="col-sm-10">
-											<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+											<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myLogo' id="myImage" class="form-control" title="Upload Logo" class="add-input" onChange="displayImage1(this)">
 										</div>
 										<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 									</div>
@@ -110,11 +110,49 @@
 										@endif
 									</div>
 								</div>
+								
+								<div class="col-12">
+									<h5>About Your Founder</h5>
+								</div>
 
+								<div class="form-group col-md-6" id="file-content">
+									<label class=" col-form-label">{{ __('Upload  Image1*')}}</label>
+									<div class="col-sm-10">
+										<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage1' id="myImage1" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
 
-
-
-									<div class="form-group col-md-6">
+								<div class="form-group col-md-6" id="file-content">
+									<label class=" col-form-label">{{ __('Upload  Image2*')}}</label>
+									<div class="col-sm-10">
+										<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage2' id="myImage2" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+								<div class="form-group col-md-6" id="file-content">
+									<label class=" col-form-label">{{ __('Upload  Image3*')}}</label>
+									<div class="col-sm-10">
+										<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage3' id="myImage3" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('About Founder*')  }}</label>
+							<div class="col-sm-12 col-md-12">
+								<div class="form-group{{ $errors->has('about_founder') ? ' has-danger' : '' }}">
+									<textarea class="form-control{{ $errors->has('about_founder') ? ' is-invalid' : '' }}" name="about_founder" id="input-about_founder" type="about_founder" value="{{ old('about_founder') }}" placeholder="{{ __('About founder') }}" />
+									{{ old('about_founder') }}
+									</textarea>
+									<script>
+										CKEDITOR.replace('input-about_founder');
+									</script>
+									@if ($errors->has('about_founder'))
+									<span id="about_founder-error" class="error text-danger" for="input-about_founder">Founder Details is Empty!</span>
+									@endif
+								</div>
+							</div>
+                      	<div class="form-group col-md-6">
 										<label for="category">Role</label>
 										<div class="form-group">
 											<select class="custom-select" name='user_type' id="input-user_type">
@@ -124,17 +162,7 @@
 												<option value='admin'> Admin </option>
 											</select>
 										</div>
-									</div>
-
-
-
-
-
-
-
-
-
-								</div>
+									</div>	</div>
 							</div>
 					</div>
 

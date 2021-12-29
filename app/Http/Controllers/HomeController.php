@@ -24,6 +24,7 @@ use App\Models\Collection;
 use Exception;
 use Mail;
 use Illuminate\Support\Facades\Auth;
+use App\User;
 
 class HomeController extends Controller
 {
@@ -42,16 +43,26 @@ class HomeController extends Controller
         $trialProducts = TrialProduct::select('trial_products.*', 'subcategories.img as logo', 'subcategories.banner as banner')
             ->join('subcategories', 'trial_products.subcategory_id', 'subcategories.id')
             ->get();
-        $products = Product::first();
-      
-        return view('front.category', compact('title', 'trialProducts','products'));
+    
+       $product = Product::select('products.*')->where('slug',$slug)->first();
+       
+       $subcategory_id = $product->subcategory_id;
+       $user_id = $product->user_id;
+       $user = User::where('id',$user_id)->first();
+     
+       $subcategory = Subcategory::where('id',$subcategory_id)->first();
+       $products = Product::where('product_collection_type', 'LIKE', '%organic%')
+       ->orWhere('product_collection_type', 'LIKE', '%curated%')->get();
+        
+       $organicProducts = Product::where('product_collection_type', 'LIKE', '%organic%')->get();
+        return view('front.category', compact('title', 'trialProducts','product','subcategory','user','products','organicProducts'));
     }
 
     public function brand()
     {
         $title = "Tios World";
-        $products = Product::get();
-        return view('front.brand', compact('title', 'products'));
+        $userLogo = User::select('logo')->get();
+        return view('front.brand', compact('title', 'userLogo'));
     }
 
     public function samplePage()
@@ -66,8 +77,10 @@ class HomeController extends Controller
         $collection = Collection::where('slug',$slug)->first();
         $organicCollection = Collection::select('organic','name')->where('slug',$slug)->first();
         $regularCollection = Collection::select('regular','name')->where('slug',$slug)->first();
+        $trySamples = TrialProduct::get();
+        $products = Product::where('product_collection_type', 'LIKE', '%organic%')->get();
        
-        return view('front.collections', compact('title','organicCollection','regularCollection','collection'));
+        return view('front.collections', compact('title','organicCollection','regularCollection','collection','products','trySamples'));
     }
 
    

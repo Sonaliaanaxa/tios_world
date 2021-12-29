@@ -361,6 +361,10 @@ border: 1px solid #3F3127;
   margin-top: 25px;
   margin-right: 30px;
 }
+.sample-logo img {
+  height: 24px;
+  width: 68px;
+}
 
 .cart-group{
 display: flex;
@@ -742,7 +746,7 @@ display: flex;
     padding-bottom: 50px;
     position: relative;
     z-index: 1;
-    background-image: url(../../assets/img/bg.png);
+    /* background-image: url(../../assets/img/bg.png); */
     background-position: center center;
     background-repeat: no-repeat;
     background-size: cover;
@@ -2878,15 +2882,64 @@ padding-top: 100px;
 }
 /*css by atul*/
 
-@media all and (min-width: 992px) {
-	.navbar .nav-item .dropdown-menu{ display: none; }
-	.navbar .nav-item:hover .dropdown-menu{ display: block; }
-	.navbar .nav-item .dropdown-menu{ margin-top:0; margin-left:500px;}
+.mainmenu ul li{
+  display: inline-block;
+}
+.mainmenu ul li a{
+  display: inline-block;
+  text-decoration: none;
+  padding: 10px 22px;
 }
 
 
-@media all and (min-width: 992px) {
-	.navbar .nav-item .dropdown-menu1{ display: none; }
-	.navbar .nav-item:hover .dropdown-menu1{ display: block; }
-	.navbar .nav-item .dropdown-menu1{ margin-top:0; }
+
+
+/* menu css end */
+
+
+/* dropdown start */
+.mainmenu ul li{
+  position: relative;
+}
+.mainmenu ul li ul{
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: auto;
+  z-index: 999;
+  background: #fff;
+  visibility: hidden;
+  opacity: 0;
+  transform: scaleY(0);
+  transform-origin: top center;
+  border: 1px solid rgba(0, 0, 0, .15);
+  transition: .4s;
+
+}
+.mainmenu ul li ul li{
+  display: block;
+}
+.mainmenu ul li ul li a{
+  display: block;
+  color: #000;
+}
+
+/* hover part */
+
+.mainmenu ul li:hover > ul{
+ visibility: visible;
+ opacity: 1;
+ transform: scaleY(1);
+
+}
+
+
+/* dropdown under dropdown */
+
+.mainmenu ul li ul li ul{
+  left: 100%;
+  top: 0;
+
+  visibility: hidden;
+  opacity: 0;
 }

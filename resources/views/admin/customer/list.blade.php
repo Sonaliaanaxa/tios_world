@@ -43,7 +43,7 @@
                                             @sortablelink('id',__('S No'))
                                         </th>
                                         <th>
-                                            @sortablelink('img',__('Image'))
+                                            @sortablelink('logo',__('Logo'))
                                         </th>
                                         <th>
                                             @sortablelink('name',__('Name'))
@@ -87,8 +87,8 @@
 
                                         <td>
 
-                                            @if($r->image)
-                                            <a href="{{ asset('/uploads/profile_img') }}/{{ $r->image }}"><img src="{{ asset('/uploads/profile_img') }}/{{ $r->image }}" alt="User Image" style="height:90px;width:90px;"></a>
+                                            @if($r->logo)
+                                            <a href="{{ asset('/uploads/profile_img') }}/{{ $r->logo }}"><img src="{{ asset('/uploads/profile_img') }}/{{ $r->logo }}" alt="User Logo" style="height:50px;width:50px;"></a>
                                             @else
                                             <p class='text-center' style='margin-right: 12px;padding-top:8px;height:40px;width:40px;border-radius:50%; background-color:#0099cc;color:white;font-size:21px;'>
                                                 {{ substr($r->name,0,1) }}

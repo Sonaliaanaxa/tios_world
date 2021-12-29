@@ -1,17 +1,17 @@
 @include('front.layouts.header')
 
 
-<section class="product-bg">
+<section class="product-bg" style="background-image:url({{ ('/uploads/subcategory-banner/' .@$subcategory->banner) }})">
     <div class="container">
         <div class="row">
             <div class="col-md-6">
                 <div class="cart-image">
-                    <img src="{{asset('assets/img/cart-1.png')}}" alt="cart">
+                    <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" alt="cart">
                 </div>
             </div>
             <div class="col-md-6">
                 <div class="cart-content">
-                    <h4>Indigenous honey</h4>
+                    <h4>{{$product->name}}</h4>
                     <div class="reating">
                         <i class="fa fa-star"></i>
                         <i class="fa fa-star"></i>
@@ -24,9 +24,9 @@
                     <p>Sourced from Gir forest area, Gujarat</p>
                     <p>NMR Tested, Jaivik Bharat</p>
                     <div class="price">
-                        <span class="new-price">Rs.475 </span>
-                        <span class="old-price">Rs.520 (-9%)</span>
-                        <p>530g (Rs 0.9/g)</p>
+                        <span class="new-price">Rs.{{$product->purchase_price}} </span>
+                        <span class="old-price">Rs.{{$product->selling_price}} (-{{$product->discount}}%)</span>
+                        <p>{{$product->weight}} {{$product->unit}} (Rs 0.9/g)</p>
                     </div>
                     <div class="cart-btn">
                         <span><a href="#">add to <span class="it-style">cart</span></a></span>
@@ -46,15 +46,15 @@
             <div class="col-md-7">
                 <div class="frams-group">
                     <div class="frams-logo">
-                        <figure><img src="{{asset('assets/img/frams-logo.png')}}"></figure>
+                        <figure><img src="{{ asset('/uploads/profile_img') }}/{{ $user->logo }}"></figure>
                     </div>
                     <div class="frams-title">
-                        <h4>By Anveshan Farms</h4>
-                        <p>An initiative to empower indian farmers</p>
+                        <h4>{{$user->business_title}}</h4>
+                        <p>{{$user->tag_line}}</p>
                     </div>
                 </div>
                 <div class="frams-content">
-                    <p>Three young graduates from IIT Guwahati - Aayushi Khandelwal, Akhil Kansal, and Kuldeep Parewa; started the Anveshan revolution when they witnessed first-hand the duress of farmers at Kuldeep's ancestral village. Driven by a desire to help Indian farmers alleviate their financial hardships and enrich their lives, Anveshan strives to empower farmers to add value to their produce and democratize access to resources and markets.</p>
+                    <p>{{$user->about_business}}</p>
                     <div class="collections-btn" id="sapmple-btn">
                         <a href="#" class="common-btn mt-3"><span class="normal-style ml-0">Know more about Anveshan</span> <span class="common-btn-normal ml-0">farms</span></a>
                     </div>
@@ -73,28 +73,28 @@
 <section class="about-honey pt-30 pb-30">
     <div class="container">
         <div class="row">
+
             <div class="col-md-6">
                 <div class="about-content">
-                    <h3><span class="normal-style">about this</span> honey</h3>
-                    <span>ORIGION</span>
-                    <p>Pench Forest, Kanha Forest and Melghat Forest located in central India. </p>
-                    <span>HONEY TYPE</span>
-                    <p>Multi-flower Honey</p>
+                    {!!@$product->origin_details!!}
                 </div>
             </div>
+
             <div class="col-md-6">
                 <div class="about-image">
-                    <img src="{{asset('assets/img/ind-2.png')}}" alt="ind-2">
+                    <img src="{{ asset('/uploads/map') }}/{{ @$product->map }}" alt="ind-2">
                 </div>
             </div>
+
             <div class="col-md-12 my-3">
                 <div class="product-about">
-                    <p>Our Forest Honey is collected from these giant honey bees, the Apis Dorsata. It is the collection of Pench Forest, Kanha Forest and Melghat Forest located in central India. Apis Dorsata are the indigenous Honey Bees, also called as the Rock Bees, native only to south east Asia. They built natural hives in Forest and there is no human interference involved in the honey collected by these indigenous honey bees. </p>
+                    <h3>founders and their story</h3>
+                    <p>{!!$user->about_founder!!}</p>
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="honey-card">
-                    <figure><img src="{{asset('assets/img/ch-1.png')}}" alt="ch-1"></figure>
+                    <figure><img src="{{ asset('/uploads/profile_img') }}/{{ @$user->image1 }}" alt="ch-1"></figure>
                     <div class="honey-card-details">
                         <h4>Collection</h4>
                     </div>
@@ -102,7 +102,7 @@
             </div>
             <div class="col-md-3">
                 <div class="honey-card">
-                    <figure><img src="{{asset('assets/img/ch-1.png')}}" alt="ch-1"></figure>
+                    <figure><img src="{{ asset('/uploads/profile_img') }}/{{ @$user->image2 }}" alt="ch-1"></figure>
                     <div class="honey-card-details">
                         <h4>Collection</h4>
                     </div>
@@ -110,7 +110,7 @@
             </div>
             <div class="col-md-3">
                 <div class="honey-card">
-                    <figure><img src="{{asset('assets/img/ch-1.png')}}" alt="ch-1"></figure>
+                    <figure><img src="{{ asset('/uploads/profile_img') }}/{{ @$user->image3 }}" alt="ch-1"></figure>
                     <div class="honey-card-details">
                         <h4>Collection</h4>
                     </div>
@@ -242,13 +242,13 @@
                         </div>
                         <div class="sample-footer">
                             <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
                         </div>
                     </div>
                     @endforeach
-                   
+
                 </div>
             </div>
         </div>
@@ -269,121 +269,38 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="trending-samples-heading">
-                    <h4>other <span class="it-style">curated organic honeys</span></h4>
-                    <span>ALL HONEYS ON TIOSWORLD</span>
+                    <h4>other <span class="it-style">curated organic</span> {{strtolower($product->name)}}</h4>
+                    <span>ALL {{strtoupper($product->name)}} ON TIOSWORLD</span>
                 </div>
             </div>
             <!--carousel start-->
             <div class="col-md-12 my-5">
                 <div class="owl-carousel carousel-main">
+                    @foreach($products as $product)
                     <div class="sample-card">
                         <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                            @php
+                            $user_id = $product->user_id;
+                            $user = App\User::select('logo')->where('id',$user_id)->first();
+                            @endphp
+                            <img src="{{ asset('/uploads/profile_img') }}/{{ $user->logo }}" alt="{{$product->name}}">
                         </div>
                         <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
+                            <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" alt="{{$product->name}}" class="sample-image">
                         </div>
                         <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
+                            <h4>{{$product->name}}</h4>
+                            <p>Pack of 1 Rs. {{$product->selling_price}} 1 tios points</p>
                         </div>
                         <div class="sample-footer">
                             <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
                         </div>
                     </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+
                 </div>
             </div>
         </div>
@@ -396,139 +313,38 @@
         <div class="row">
             <div class="col-md-12">
                 <div class="trending-samples-heading">
-                    <h4>other <span class="it-style">organic</span> honeys</h4>
-                    <span>ALL HONEYS on tiosworld</span>
+                    <h4>other <span class="it-style">organic</span> {{strtolower($product->name)}}</h4>
+                    <span>ALL {{strtoupper($product->name)}} on tiosworld</span>
                 </div>
             </div>
             <!--carousel start-->
             <div class="col-md-12 my-5">
                 <div class="owl-carousel carousel-main">
+                    @foreach($organicProducts as $product)
                     <div class="sample-card">
                         <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        @php
+                            $user_id = $product->user_id;
+                            $user = App\User::select('logo')->where('id',$user_id)->first();
+                            @endphp
+                            <img src="{{ asset('/uploads/profile_img') }}/{{ $user->logo }}" alt="{{$product->name}}">
                         </div>
                         <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
+                            <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" alt="{{$product->name}}" class="sample-image">
                         </div>
                         <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
+                            <h4>{{$product->name}}</h4>
+                            <p>Pack of 1 Rs. {{$product->selling_price}} 1 tios points</p>
                         </div>
                         <div class="sample-footer">
                             <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
                         </div>
                     </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
+                    @endforeach
+                   
                 </div>
             </div>
         </div>

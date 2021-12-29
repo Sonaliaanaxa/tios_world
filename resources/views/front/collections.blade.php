@@ -9,7 +9,7 @@
             <div class="col-md-9 my-3">
                 <div class="try-samples-heading collection-heading" id="home-try">
                     <span class="star-logo">
-                        <h3>curated collection of <span class="it-style">organic honeys</span></h3>
+                        <h3>curated collection of <span class="it-style">organic {{strtolower($collection->name)}}</span></h3>
                     </span>
                     <span>HANDPICKED PRODUCTS</span>
                 </div>
@@ -17,7 +17,7 @@
 
             <div class="col-md-3 my-3">
                 <div class="right-logo">
-                    <figure><img src="{{ asset('/uploads/collections') }}/{{ $collection->img }}" alt="collaction-1"></figure>
+                    <figure><img src="{{ asset('/uploads/collections') }}/{{ $collection->img }}" alt="{{$collection->name}}"></figure>
 
                 </div>
 
@@ -28,17 +28,17 @@
             <!--carousel start-->
             <div class="col-md-12 my-5">
                 <div class="owl-carousel carousel-main">
-
+                    @foreach($products as $product)
                     <div class="sample-card">
                         <div class="sample-logo">
                             <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
                         </div>
                         <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
+                            <img src="{{asset('uploads/products')}}/{{$product->upload_image}}" alt="{{$product->name}}" class="sample-image">
                         </div>
 
                         <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
+                            <h4>{{$product->name}}</h4>
                             <div class="star-rate">
                                 <i class="fa fa-star"></i>
                                 <i class="fa fa-star"></i>
@@ -55,311 +55,25 @@
 
                             <div class="price-rate">
                                 <span class="new-price">
-                                    Rs.475
+                                    Rs.{{$product->purchase_price}}
                                 </span>
 
                                 <span class="old-price">
-                                    Rs.520 (-9%)
+                                    Rs.{{$product->selling_price}} ({{$product->discount}}%)
                                 </span>
 
-                                <span>530g (Rs 0.9/g)</span>
+                                <span>{{$product->weight}} {{$product->unit}} (Rs 0.9/g)</span>
                             </div>
 
                         </div>
                         <div class="sample-footer" id="collaction-card-footer">
                             <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
                         </div>
                     </div>
-
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
-                            <div class="star-rate">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </div>
-                            <p>8,708 ratings on amazon</p>
-                            <p>Wildflower Honey</p>
-
-                            <p>Sourced from Gir forest area, Gujarat</p>
-
-                            <p>NMR Tested, Jaivik Bharat</p>
-
-                            <div class="price-rate">
-                                <span class="new-price">
-                                    Rs.475
-                                </span>
-
-                                <span class="old-price">
-                                    Rs.520 (-9%)
-                                </span>
-
-                                <span>530g (Rs 0.9/g)</span>
-                            </div>
-
-                        </div>
-                        <div class="sample-footer" id="collaction-card-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
-                            <div class="star-rate">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </div>
-                            <p>8,708 ratings on amazon</p>
-                            <p>Wildflower Honey</p>
-
-                            <p>Sourced from Gir forest area, Gujarat</p>
-
-                            <p>NMR Tested, Jaivik Bharat</p>
-
-                            <div class="price-rate">
-                                <span class="new-price">
-                                    Rs.475
-                                </span>
-
-                                <span class="old-price">
-                                    Rs.520 (-9%)
-                                </span>
-
-                                <span>530g (Rs 0.9/g)</span>
-                            </div>
-
-                        </div>
-                        <div class="sample-footer" id="collaction-card-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
-                            <div class="star-rate">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </div>
-                            <p>8,708 ratings on amazon</p>
-                            <p>Wildflower Honey</p>
-
-                            <p>Sourced from Gir forest area, Gujarat</p>
-
-                            <p>NMR Tested, Jaivik Bharat</p>
-
-                            <div class="price-rate">
-                                <span class="new-price">
-                                    Rs.475
-                                </span>
-
-                                <span class="old-price">
-                                    Rs.520 (-9%)
-                                </span>
-
-                                <span>530g (Rs 0.9/g)</span>
-                            </div>
-
-                        </div>
-                        <div class="sample-footer" id="collaction-card-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
-                            <div class="star-rate">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </div>
-                            <p>8,708 ratings on amazon</p>
-                            <p>Wildflower Honey</p>
-
-                            <p>Sourced from Gir forest area, Gujarat</p>
-
-                            <p>NMR Tested, Jaivik Bharat</p>
-
-                            <div class="price-rate">
-                                <span class="new-price">
-                                    Rs.475
-                                </span>
-
-                                <span class="old-price">
-                                    Rs.520 (-9%)
-                                </span>
-
-                                <span>530g (Rs 0.9/g)</span>
-                            </div>
-
-                        </div>
-                        <div class="sample-footer" id="collaction-card-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
-                            <div class="star-rate">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </div>
-                            <p>8,708 ratings on amazon</p>
-                            <p>Wildflower Honey</p>
-
-                            <p>Sourced from Gir forest area, Gujarat</p>
-
-                            <p>NMR Tested, Jaivik Bharat</p>
-
-                            <div class="price-rate">
-                                <span class="new-price">
-                                    Rs.475
-                                </span>
-
-                                <span class="old-price">
-                                    Rs.520 (-9%)
-                                </span>
-
-                                <span>530g (Rs 0.9/g)</span>
-                            </div>
-
-                        </div>
-                        <div class="sample-footer" id="collaction-card-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content" id="collaction-page-content">
-                            <h4>Indigenous honey</h4>
-                            <div class="star-rate">
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star"></i>
-                                <i class="fa fa-star-half-o"></i>
-                            </div>
-                            <p>8,708 ratings on amazon</p>
-                            <p>Wildflower Honey</p>
-
-                            <p>Sourced from Gir forest area, Gujarat</p>
-
-                            <p>NMR Tested, Jaivik Bharat</p>
-
-                            <div class="price-rate">
-                                <span class="new-price">
-                                    Rs.475
-                                </span>
-
-                                <span class="old-price">
-                                    Rs.520 (-9%)
-                                </span>
-
-                                <span>530g (Rs 0.9/g)</span>
-                            </div>
-
-                        </div>
-                        <div class="sample-footer" id="collaction-card-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
+                    @endforeach
 
                 </div>
             </div>
@@ -407,7 +121,7 @@
             <div class="col-md-6 py-5">
 
                 <div class="sample-card1">
-                    <h5>organic {{lcfirst(@$organicCollection->name)}},aha</h5>
+                    <h5>organic {{strtolower(@$organicCollection->name)}},aha</h5>
 
                     <div class="sample-content">
                         <p>{{@$organicCollection->organic}}</p>
@@ -416,7 +130,7 @@
             </div>
             <div class="col-md-6 py-5">
                 <div class="sample-card1">
-                    <h5>regular {{lcfirst(@$regularCollection->name)}}, nah</h5>
+                    <h5>regular {{strtolower(@$regularCollection->name)}}, nah</h5>
                     <div class="sample-content">
                         <p> {{@$regularCollection->regular}}</p>
                     </div>
@@ -451,154 +165,33 @@
             <!--carousel start-->
             <div class="col-md-12 py-5">
                 <div class="owl-carousel carousel-main">
-
+                    @foreach($trySamples as $sample)
                     <div class="sample-card">
+                        @php
+                        $user_id = $sample->user_id;
+                        $user = App\User::select('logo')->where('id',$user_id)->first();
+                        @endphp
                         <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                            <img src="{{ asset('/uploads/profile_img') }}/{{ $user->logo }}" alt="{{$sample->name}}">
                         </div>
                         <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
+                            <img src="{{ asset('/uploads/trial_products') }}/{{ $sample->upload_image }}" alt="{{$sample->name}}" class="sample-image">
                         </div>
 
                         <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
+                            <h4>{{$sample->name}}</h4>
+                            <p>Pack of 1 Rs. {{$sample->selling_price}} {{$sample->tios_points}} tios points</p>
                         </div>
                         <div class="sample-footer">
                             <div class="cart-group">
                                 <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                                <span> <a href="wishlist.html"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
                         </div>
                     </div>
+                    @endforeach
 
 
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="sample-card">
-                        <div class="sample-logo">
-                            <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                        </div>
-                        <div class="sample-card-image">
-                            <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
-                        </div>
-
-                        <div class="sample-content">
-                            <h4>Bamboo toothbrush</h4>
-                            <p>Pack of 1 Rs. 80 1 tios points</p>
-                        </div>
-                        <div class="sample-footer">
-                            <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>
@@ -621,20 +214,22 @@
                     <span>ALL HONEYS ON TIOSWORLD</span>
                 </div>
             </div>
-
-
-
+            @foreach($products as $product)
             <div class="col-md-3">
                 <div class="sample-card">
                     <div class="sample-logo">
-                        <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
+                        @php
+                        $user_id = $product->user_id;
+                        $user = App\User::select('logo')->where('id',$user_id)->first();
+                        @endphp
+                        <img src="{{ asset('/uploads/profile_img') }}/{{ $user->logo }}" alt="{{$user->logo}}">
                     </div>
                     <div class="sample-card-image">
-                        <img src="{{asset('assets/img/sample-1.png')}}" alt="sample-1" class="sample-image">
+                        <img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" alt="{{$product->name}}" class="sample-image">
                     </div>
 
                     <div class="sample-content">
-                        <h4>Bamboo toothbrush</h4>
+                        <h4>{{$product->name}}</h4>
                         <p>Pack of 1 Rs. 80 1 tios points</p>
                     </div>
                     <div class="sample-footer">
@@ -645,74 +240,8 @@
                     </div>
                 </div>
             </div>
+            @endforeach
 
-
-            <div class="col-md-3">
-                <div class="sample-card">
-                    <div class="sample-logo">
-                        <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                    </div>
-                    <div class="sample-card-image">
-                        <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                    </div>
-
-                    <div class="sample-content">
-                        <h4>Bamboo toothbrush</h4>
-                        <p>Pack of 1 Rs. 80 1 tios points</p>
-                    </div>
-                    <div class="sample-footer">
-                        <div class="cart-group">
-                            <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                            <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-
-            <div class="col-md-3">
-                <div class="sample-card">
-                    <div class="sample-logo">
-                        <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                    </div>
-                    <div class="sample-card-image">
-                        <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                    </div>
-
-                    <div class="sample-content">
-                        <h4>Bamboo toothbrush</h4>
-                        <p>Pack of 1 Rs. 80 1 tios points</p>
-                    </div>
-                    <div class="sample-footer">
-                        <div class="cart-group">
-                            <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                            <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="col-md-3">
-                <div class="sample-card">
-                    <div class="sample-logo">
-                        <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
-                    </div>
-                    <div class="sample-card-image">
-                        <img src="{{asset('assets/img/trending-1.png')}}" alt="sample-1" class="sample-image">
-                    </div>
-
-                    <div class="sample-content">
-                        <h4>Bamboo toothbrush</h4>
-                        <p>Pack of 1 Rs. 80 1 tios points</p>
-                    </div>
-                    <div class="sample-footer">
-                        <div class="cart-group">
-                            <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                            <span> <a href="wishlist.html"><img src="./{{asset('assets/img/heart.png')}}" alt=""></a></span>
-                        </div>
-                    </div>
-                </div>
-            </div>
 
         </div>
 

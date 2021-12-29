@@ -1,7 +1,7 @@
 @include("admin.layouts.sidebar")
 <!-- Page Wrapper -->
 <div class="page-wrapper">
-<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
+	<script src="https://cdn.ckeditor.com/4.12.1/full/ckeditor.js"></script>
 
 	<div class="content container-fluid">
 
@@ -51,40 +51,32 @@
 										</div>
 									</div>
 
-									<div class="form-group col-md-6">
-										<label for="category">Passsword</label>
-										<div class="password">
-											<input class="form-control" name="password" id="password" type="password">
-										</div>
-									</div>
-
 
 									<div class="form-group col-md-6">
 										<label for="category">Mobile</label>
-										<div class="form-group{{ $errors->has('mobile') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('mobile') ? ' is-invalid' : '' }}" name="phone" id="input-mobile" type="number" placeholder="{{ __(' Mobile No') }}" value="{{ $customer->phone}}" aria-required="true" />
-											@if ($errors->has('mobile'))
-											<span id="mobile-error" class="error text-danger" for="input-mobile">Mobile No is Empty!</span>
+										<div class="form-group{{ $errors->has('phone') ? ' has-danger' : '' }}">
+											<input class="form-control{{ $errors->has('phone') ? ' is-invalid' : '' }}" name="phone" id="input-phone" type="number" placeholder="{{ __(' Mobile No') }}" value="{{ $customer->phone}}" aria-required="true" readonly />
+											@if ($errors->has('phone'))
+											<span id="phone-error" class="error text-danger" for="input-phone">Mobile No is Empty!</span>
 											@endif
 										</div>
 									</div>
+								</div>
 
-
-
-									<div class="form-group col-md-6" id="file-content">
-										<label class=" col-form-label">{{ __('Upload  Image*')}}</label>
-										<div class="col-sm-10">
-											<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
-											<img src="{{ asset('/uploads/profile_img') }}/{{ $customer->image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
-										</div>
-										<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								<div class="form-group col-md-6" id="file-content">
+									<label class=" col-form-label">{{ __('Upload  Logo*')}}</label>
+									<div class="col-sm-10">
+										<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myLogo' id="myLogo" class="form-control" title="Upload Logo" class="add-input" onChange="displayImage1(this)">
+										<img src="{{ asset('/uploads/profile_img') }}/{{ $customer->logo }}" style='margin-bottom:30px;height:50px;width:50px;border-radius:5%;' />
 									</div>
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
 
 
-									<div class="col-12">
-										<h5>About Your Business</h5>
-									</div>
-
+								<div class="col-12">
+									<h5>About Your Business</h5>
+								</div>
+								<div class="row">
 									<div class="form-group col-md-6">
 										<label for="title">Business Title</label>
 										<div class="form-group">
@@ -113,43 +105,84 @@
 											@endif
 										</div>
 									</div>
-
-								
-
-									<div class="form-group col-md-6">
-										<label for="category">Role</label>
-										<div class="form-group{{ $errors->has('user_type') ? ' has-danger' : '' }}">
-											<select class="custom-select {{ $errors->has('user_type') ? ' is-invalid' : '' }}" name='user_type' id="input-user_type">
-												<option value='{{ $customer->user_type}}'>Select the Role </option>
-												<option value='seller' {{ ('seller'==$customer->user_type)?'selected':''}}> Seller </option>
-												<option value='customer' {{ ('customer'==$customer->user_type)?'selected':''}}> Customer </option>
-												<option value='admin' {{ ('admin'==$customer->user_type)?'selected':''}}> Admin </option>
-											</select> @if ($errors->has('user_type'))
-											<span id="user_type-error" class="error text-danger" for="input-user_type">Role is Empty!</span>
-											@endif
+								</div>
+								<div class="col-12">
+									<h5>About Your Founder</h5>
+								</div>
+								<div class="row">
+									<div class="form-group col-md-6" id="file-content">
+										<label class=" col-form-label">{{ __('Upload  Image1*')}}</label>
+										<div class="col-sm-10">
+											<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage1' id="myImage1" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+											<img src="{{ asset('/uploads/profile_img') }}/{{ $customer->image1 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
 										</div>
+										<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 									</div>
 
 
+									<div class="form-group col-md-6" id="file-content">
+										<label class=" col-form-label">{{ __('Upload  Image2*')}}</label>
+										<div class="col-sm-10">
+											<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage2' id="myImage2" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+											<img src="{{ asset('/uploads/profile_img') }}/{{ $customer->image2 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+										</div>
+										<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+									</div>
+									<div class="form-group col-md-6" id="file-content">
+										<label class=" col-form-label">{{ __('Upload  Image3*')}}</label>
+										<div class="col-sm-10">
+											<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage3' id="myImage3" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+											<img src="{{ asset('/uploads/profile_img') }}/{{ $customer->image3 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+										</div>
+										<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+									</div>
+
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('About Founder*')  }}</label>
+								<div class="col-sm-12 col-md-12">
+									<div class="form-group{{ $errors->has('about_founder') ? ' has-danger' : '' }}">
+										<textarea class="form-control{{ $errors->has('about_founder') ? ' is-invalid' : '' }}" name="about_founder" id="input-about_founder" type="about_founder" value="{{ old('about_founder') }}" placeholder="{{ __('About founder') }}" />
+										{{ $customer->about_founder}}
+										</textarea>
+										<script>
+											CKEDITOR.replace('input-about_founder');
+										</script>
+										@if ($errors->has('about_founder'))
+										<span id="about_founder-error" class="error text-danger" for="input-about_founder">founder Details is Empty!</span>
+										@endif
+									</div>
 								</div>
 
+								<div class="form-group col-md-6">
+									<label for="category">Role</label>
+									<div class="form-group{{ $errors->has('user_type') ? ' has-danger' : '' }}">
+										<select class="custom-select {{ $errors->has('user_type') ? ' is-invalid' : '' }}" name='user_type' id="input-user_type">
+											<option value='{{ $customer->user_type}}'>Select the Role </option>
+											<option value='seller' {{ ('seller'==$customer->user_type)?'selected':''}}> Seller </option>
+											<option value='customer' {{ ('customer'==$customer->user_type)?'selected':''}}> Customer </option>
+											<option value='admin' {{ ('admin'==$customer->user_type)?'selected':''}}> Admin </option>
+										</select> @if ($errors->has('user_type'))
+										<span id="user_type-error" class="error text-danger" for="input-user_type">Role is Empty!</span>
+										@endif
+									</div>
+								</div>
+
+
 							</div>
+
 					</div>
-
-
-
-
-					<div class="submit-section">
-						<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
-					</div>
-					</form>
-					<!-- /Add Blog -->
-
-
 				</div>
+				<div class="submit-section">
+					<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+				</div>
+				</form>
+				<!-- /Add Blog -->
+
+
 			</div>
 		</div>
 	</div>
+</div>
 
 </div>
 </div>

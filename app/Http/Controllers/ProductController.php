@@ -63,6 +63,9 @@ class ProductController extends Controller
 
     public function save(Request $request)
     {
+        $collection_type = implode(',',$request->product_collection_type);
+    
+        
         $this->validate(request(), [
 
             'category_id' => 'required',
@@ -137,9 +140,7 @@ class ProductController extends Controller
         $product->user_id = Auth::user()->id;
         $product->upload_image = $image_name;
         $product->map = $map_name;
-        $data                   = array();
-        $data       = $request->product_collection_type;
-        $product->product_collection_type        = json_encode($data);
+        $product->product_collection_type        = $collection_type;
         $product->save();
         // dd($product);
 
@@ -175,7 +176,8 @@ class ProductController extends Controller
 
     public function update(Request $request, $id)
     {
-
+        $collection_type = implode(',',$request->product_collection_type);
+     
         $this->validate(request(), [
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
@@ -227,7 +229,7 @@ class ProductController extends Controller
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
         }
-        $data1 = array();
+       
             $data = [
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
@@ -248,7 +250,7 @@ class ProductController extends Controller
                 'status' => $request->status,
                 'is_show' => $request->is_show,
                 'user_id' => Auth::user()->id,
-                'product_collection_type' => $data1['product_collection_type'],
+                'product_collection_type' => $collection_type,
                 'updated_at' => date('Y-m-d H:i:s')
             ];
            
