@@ -5,7 +5,7 @@
         <div class="breadcrumb-wrap text-center">
             <h2 class="page-title">About Us</h2>
             <ul class="breadcrumb-pages">
-                <li class="page-item"><a class="page-item-link" href="index.html">Home</a></li>
+                <li class="page-item"><a class="page-item-link" href="{{route('index')}}">Home</a></li>
                 <li class="page-item">About Us</li>
             </ul>
         </div>

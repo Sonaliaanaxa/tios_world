@@ -43,6 +43,8 @@ Route::get('/shop/{slug}', [HomeController::class, 'category'])->name('shop');
 Route::get('/brand', [HomeController::class, 'brand'])->name('brand');
 Route::get('/sample-page', [HomeController::class, 'samplePage'])->name('sample-page');
 Route::get('collections/{slug}', [HomeController::class, 'collections'])->name('collections');
+Route::get('brand/{slug}', [HomeController::class, 'supplier'])->name('supplier');
+Route::get('category/{slug}', [HomeController::class, 'categoryDetails'])->name('categories');
 
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 
@@ -133,13 +135,14 @@ Route::group(['prefix' => 'admin','auth'], function () {
         Route::post('side-slider/update/{id}',  [SideSliderController::class, 'update'])->name('side.slider.update');
         Route::post('side-slider/destroy', [SideSliderController::class, 'destroy'])->name('side.slider.destroy');
 
-        //Category
-        Route::get('categories', 'CategoryController@index')->name('categories.list');
-        Route::get('categories/create', 'CategoryController@create')->name('categories.create');
-        Route::post('categories/create', 'CategoryController@save')->name('categories.create');
-        Route::get('categories/update/{id}', 'CategoryController@edit')->name('categories.update');
-        Route::post('categories/update/{id}', 'CategoryController@update')->name('categories.update');
-        Route::post('categories/destroy', 'CategoryController@destroy')->name('categories.destroy');
+       //Category
+       Route::get('categories', 'CategoryController@index')->name('categories.list');
+       Route::get('categories/create', 'CategoryController@create')->name('categories.create');
+       // Route::post('categories/create', 'CategoryController@save')->name('categories.create');
+       Route::get('categories/update/{id}', 'CategoryController@edit')->name('categories.update');
+       // Route::post('categories/update/{id}', 'CategoryController@update')->name('categories.update');
+       Route::post('categories/destroy', 'CategoryController@destroy')->name('categories.destroy');
+       Route::any('categories/create', 'CategoryController@createCategory')->name('createCategory');
 
 
         //SubCategories
@@ -159,12 +162,12 @@ Route::group(['prefix' => 'admin','auth'], function () {
         Route::post('collections/destroy',  [CollectionController::class, 'destroy'])->name('collections.destroy');
 
          //Collections
-         Route::get('product-collections',[ProductCollectionController::class, 'index'])->name('product-collections.list');
-         Route::get('product-collections/create', [ProductCollectionController::class, 'create'])->name('product-collections.create');
-         Route::post('product-collections/create', [ProductCollectionController::class, 'save'])->name('product-collections.create');
-         Route::get('product-collections/update/{id}', [ProductCollectionController::class, 'edit'])->name('product-collections.update');
-         Route::post('product-collections/update/{id}', [ProductCollectionController::class, 'update'])->name('product-collections.update');
-         Route::post('product-collections/destroy',  [ProductCollectionController::class, 'destroy'])->name('product-collections.destroy');
+         Route::get('custom-collections',[CustomCollectionController::class, 'index'])->name('custom-collections.list');
+         Route::get('custom-collections/create', [CustomCollectionController::class, 'create'])->name('custom-collections.create');
+         Route::post('custom-collections/create', [CustomCollectionController::class, 'save'])->name('custom-collections.create');
+         Route::get('custom-collections/update/{id}', [CustomCollectionController::class, 'edit'])->name('custom-collections.update');
+         Route::post('custom-collections/update/{id}', [CustomCollectionController::class, 'update'])->name('custom-collections.update');
+         Route::post('custom-collections/destroy',  [CustomCollectionController::class, 'destroy'])->name('custom-collections.destroy');
 
         //Trial Product List
         Route::get('trial-products-list', [TrialProductController::class, 'index'])->name('trial-products.list');
@@ -182,6 +185,15 @@ Route::group(['prefix' => 'admin','auth'], function () {
         Route::get('brands/update/{id}', 'BrandController@edit')->name('brands.update');
         Route::post('brands/update/{id}', 'BrandController@update')->name('brands.update');
         Route::post('brands/destroy', 'BrandController@destroy')->name('brands.destroy');
+
+         //Unit
+         Route::get('units', 'UnitController@index')->name('units.list');
+         Route::get('units/create', 'UnitController@create')->name('units.create');
+         Route::post('units/create', 'UnitController@save')->name('units.create');
+         Route::get('units/update/{id}', 'UnitController@edit')->name('units.update');
+         Route::post('units/update/{id}', 'UnitController@update')->name('units.update');
+         Route::post('units/destroy', 'UnitController@destroy')->name('units.destroy');
+ 
 
         //Home Page Footer Banner
         Route::get('banner', [HomePageBannerController::class, 'index'])->name('home.banner.list');

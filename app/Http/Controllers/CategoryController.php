@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Category;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 
 class CategoryController extends Controller
@@ -35,35 +36,65 @@ class CategoryController extends Controller
         $activePage = "Category";
         return view('admin.categories.add', compact('title', 'activePage', 'subtitle'));
     }
-
-
-    public function save(Request $request)
+    public function createCategory(Request $request)
     {
-        $this->validate(request(), [
-            'name' => 'required',
-            'slug' => 'required|unique:categories',
-        ]);
+    
+        $title = "Create New Category";
+        $subtitle = "Category";
+        $activePage = "Category";
+        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
+        if($request->method()=='GET')
+        {
+            return view('admin.categories.add', compact('categories','title','subtitle','activePage'));
+        }
+        if($request->method()=='POST')
+        {
+            $validator = $request->validate([
+                'name'      => 'required',
+                'slug'      => 'required|unique:categories',
+                'parent_id' => 'nullable|numeric'
+            ]);
+
+            Category::create([
+                'name' => $request->name,
+                'slug' => $request->slug,
+                'slug' => Str::slug($request->name),
+                'parent_id' =>$request->parent_id
+            ]);
+
+            return redirect(route('categories.list'))->with('success', 'Category has been created successfully.');
+        }
+    }
+
+    // public function save(Request $request)
+    // {
+    //     $this->validate(request(), [
+    //         'name' => 'required',
+    //         'slug' => 'required|unique:categories',
+    //     ]);
 
         
 
-        $data = [
-            'name' => $request->name,
-            'user_id' => Auth::user()->id,
-            'slug' => $request->slug,
+    //     $data = [
+    //         'name' => $request->name,
+    //         'user_id' => Auth::user()->id,
+    //         'slug' => $request->slug,
            
-        ];
+    //     ];
 
-        $result = Category::create($data);
-        return redirect(route('categories.list'))->with('success', 'Category Successfully Added!');
-    }
+    //     $result = Category::create($data);
+    //     return redirect(route('categories.list'))->with('success', 'Category Successfully Added!');
+    // }
 
     public function edit(Request $request, $id)
     {
         $title = "Update Category";
         $subtitle = "Category";
         $activePage = "Category";
+        $categories = Category::where('parent_id', null)->orderby('name', 'asc')->get();
+        
         $category = Category::where('id', $id)->first();
-        return view('admin.categories.edit', compact('title', 'category', 'activePage', 'subtitle', 'id'));
+        return view('admin.categories.edit', compact('title', 'category', 'activePage', 'subtitle', 'id','categories'));
     }
 
 
@@ -72,6 +103,7 @@ class CategoryController extends Controller
         $this->validate(request(), [
             'name' => 'required',
             'slug' => 'required',
+            'parent_id' => 'nullable|numeric'
 
         ]);
        
@@ -79,6 +111,7 @@ class CategoryController extends Controller
             'name' => $request->name,
             'slug' => $request->slug,
             'user_id' => Auth::user()->id,
+            'parent_id' =>$request->parent_id,
             'updated_at' => date('Y-m-d H:i:s')
         ];
 

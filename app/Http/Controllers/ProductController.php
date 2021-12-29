@@ -9,6 +9,7 @@ use Illuminate\Support\Str;
 use App\Product;
 use App\Models\Subcategory;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Unit;
 
 class ProductController extends Controller
 {
@@ -56,18 +57,15 @@ class ProductController extends Controller
         $categories = Category::get();
         $category_id = $categories[0]->id ?? '';
         $subcategories = json_decode(json_encode(Subcategory::get()), true);
+        $units = Unit::where('status','1')->get();
 
-        return view('admin.products.add', compact('title', 'activePage', 'subtitle', 'categories', 'subcategories'));
+        return view('admin.products.add', compact('title', 'activePage', 'subtitle', 'categories', 'subcategories','units'));
     }
 
 
     public function save(Request $request)
     {
-        $collection_type = implode(',',$request->product_collection_type);
-    
-        
         $this->validate(request(), [
-
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
             'name' => 'required',
@@ -83,18 +81,32 @@ class ProductController extends Controller
             'current_stock' => 'required',
             'short_details' => 'required',
             'details' => 'required',
-            'origin_details' => 'required',
-            'product_collection_type' => 'required',
+            'origin' => 'required',
+            'type' => 'required',
+            'certification' => 'required',
             'status' => 'required'
 
         ]);
 
+
+        $map_name = '';
+        if ($request->hasFile('myMap')) {
+            $file = $request->file('myMap');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $map_name = 'product_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/map');
+                $file->move($destinationPath, $map_name);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
         $image_name = '';
 
-        if ($request->hasFile('myImage')) {
-            $file = $request->file('myImage');
+        if ($request->hasFile('myFrontImage')) {
+            $file = $request->file('myFrontImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg') {
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
                 $image_name = 'product_' . time() . '.' . $extension;
                 $destinationPath = public_path('/uploads/products');
                 $file->move($destinationPath, $image_name);
@@ -103,18 +115,75 @@ class ProductController extends Controller
             }
         }
 
-        $map_name = '';
-        if ($request->hasFile('myMap')) {
-            $file = $request->file('myMap');
+        $back_image_name = '';
+
+        if ($request->hasFile('myBackImage')) {
+            $file = $request->file('myBackImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
-                $map_name = 'product_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/map');
-                $file->move($destinationPath, $map_name);
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $back_image_name = 'product_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/products');
+                $file->move($destinationPath, $back_image_name);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
         }
+        $image1 = '';
+
+        if ($request->hasFile('myImage1')) {
+            $file = $request->file('myImage1');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $image1 = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $image1);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
+        $image2 = '';
+
+        if ($request->hasFile('myImage2')) {
+            $file = $request->file('myImage2');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $image2 = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $image2);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
+        $image3 = '';
+
+        if ($request->hasFile('myImage3')) {
+            $file = $request->file('myImage3');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $image3 = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $image3);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
+        $image4 = '';
+
+        if ($request->hasFile('myImage4')) {
+            $file = $request->file('myImage4');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $image4 = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $image4);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+
 
         $product = new Product();
         $product->category_id = $request->category_id;
@@ -133,14 +202,20 @@ class ProductController extends Controller
         $product->current_stock = $request->current_stock;
         $product->short_details = $request->short_details;
         $product->details = $request->details;
-        $product->origin_details = $request->origin_details;
+        $product->origin = $request->origin;
+        $product->type = $request->type;
+        $product->certification = $request->certification;
         $product->map = $request->map;
         $product->status = $request->status;
         $product->is_show = $request->is_show;
         $product->user_id = Auth::user()->id;
         $product->upload_image = $image_name;
+        $product->back_image = $back_image_name;
+        $product->image1 = $image1;
+        $product->image2 = $image2;
+        $product->image3 = $image3;
+        $product->image4 = $image4;
         $product->map = $map_name;
-        $product->product_collection_type        = $collection_type;
         $product->save();
         // dd($product);
 
@@ -169,15 +244,14 @@ class ProductController extends Controller
             ->where('products.id', $id)
             ->join('categories', 'products.category_id', 'categories.id')
             ->get();
-          
-        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id', 'subcategories', 'categories','products'));
+
+        $units = Unit::where('status','1')->get(); 
+        return view('admin.products.edit', compact('title', 'categories', 'product', 'activePage', 'subtitle', 'id', 'subcategories', 'categories','products','units'));
     }
 
 
     public function update(Request $request, $id)
     {
-        $collection_type = implode(',',$request->product_collection_type);
-     
         $this->validate(request(), [
             'category_id' => 'required',
             'subcategory_id' => 'nullable',
@@ -193,43 +267,123 @@ class ProductController extends Controller
             'unit' => 'required',
             'current_stock' => 'required',
             'short_details' => 'required',
-            'origin_details' => 'required',
             'details' => 'required',
+            'origin' => 'required',
+            'type' => 'required',
+            'certification' => 'required',
             'status' => 'required'
 
         ]);
 
         $id = $request->id;
-        $data1['upload_image'] = '';
+        $data1['map'] = '';
 
-        if ($request->hasFile('myImage')) {
-            $file = $request->file('myImage');
+        if ($request->hasFile('myMap')) {
+            $file = $request->file('myMap');
             $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
-                $data1['upload_image'] = 'products_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/products');
-                $file->move($destinationPath, $data1['upload_image']);
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data1['map'] = 'maps_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/map');
+                $file->move($destinationPath,  $data1['map']);
                 Product::where('id', $id)->update($data1);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
         }
-        $id = $request->id;
-        $data2['map'] = '';
 
-        if ($request->hasFile('myMap')) {
-            $file = $request->file('myMap');
+        $data2['upload_image'] = '';
+
+        if ($request->hasFile('myFrontImage')) {
+            $file = $request->file('myFrontImage');
             $extension = $file->getClientOriginalExtension(); // getting image extension
-            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif') {
-                $data2['map'] = 'maps_' . time() . '.' . $extension;
-                $destinationPath = public_path('/uploads/map');
-                $file->move($destinationPath,  $data2['map']);
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data2['upload_image'] = 'products_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/products');
+                $file->move($destinationPath, $data2['upload_image']);
                 Product::where('id', $id)->update($data2);
             } else {
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
         }
-       
+
+        $data3['back_image'] = '';
+
+        if ($request->hasFile('myBackImage')) {
+            $file = $request->file('myBackImage');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data3['back_image'] = 'products_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/products');
+                $file->move($destinationPath, $data3['back_image']);
+                Product::where('id', $id)->update($data3);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        
+
+        $data4['image1'] = '';
+
+        if ($request->hasFile('myImage1')) {
+            $file = $request->file('myImage1');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data4['image1'] = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $data4['image1']);
+                Product::where('id', $id)->update($data4);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        
+        $data5['image2'] = '';
+
+        if ($request->hasFile('myImage2')) {
+            $file = $request->file('myImage2');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data5['image2'] = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $data5['image2']);
+                Product::where('id', $id)->update($data5);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        
+        $data6['image3'] = '';
+
+        if ($request->hasFile('myImage3')) {
+            $file = $request->file('myImage3');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data6['image3'] = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $data6['image3']);
+                Product::where('id', $id)->update($data6);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        
+        $data7['image4'] = '';
+
+        if ($request->hasFile('myImage4')) {
+            $file = $request->file('myImage4');
+            $extension = $file->getClientOriginalExtension(); // getting image extension
+            if ($extension == 'png' || $extension == 'jpg' || $extension == 'jpeg' || $extension == 'gif' || $extension == 'json') {
+                $data7['image4'] = 'gallery_' . time() . '.' . $extension;
+                $destinationPath = public_path('/uploads/gallery');
+                $file->move($destinationPath, $data7['image4']);
+                Product::where('id', $id)->update($data7);
+            } else {
+                return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
+            }
+        }
+        
+      
+      
             $data = [
                 'category_id' => $request->category_id,
                 'subcategory_id' => $request->subcategory_id,
@@ -245,12 +399,14 @@ class ProductController extends Controller
                 'weight' => $request->weight,
                 'unit' => $request->unit,
                 'current_stock' => $request->current_stock,
+                'origin' => $request->origin,
+                'type' => $request->type,
+                'certification' => $request->certification,
                 'short_details' => $request->short_details,
                 'details' => $request->details,
                 'status' => $request->status,
                 'is_show' => $request->is_show,
                 'user_id' => Auth::user()->id,
-                'product_collection_type' => $collection_type,
                 'updated_at' => date('Y-m-d H:i:s')
             ];
            

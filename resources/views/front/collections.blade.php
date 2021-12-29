@@ -184,8 +184,8 @@
                         </div>
                         <div class="sample-footer">
                             <div class="cart-group">
-                                <p><a href="view-cart.html">Add to <span class="it-style">cart</span></a></p>
-                                <span> <a href="wishlist.html"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
+                                <p><a href="{{route('view-cart')}}">Add to <span class="it-style">cart</span></a></p>
+                                <span> <a href="{{route('wishlist')}}"><img src="{{asset('assets/img/heart.png')}}" alt=""></a></span>
                             </div>
                         </div>
                     </div>

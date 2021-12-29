@@ -55,7 +55,7 @@
                                         <p>Hello <strong>{{Auth::user()->name}}, </strong></p>
                                     </div>
 
-                                    <p class="mb-0">Welcome to <strong>HygieneHerbs Agro Fresh Pvt. Ltd.!</strong> <br/>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses and edit account details.</p>
+                                    <p class="mb-0">Welcome to <strong>Tios World. Ltd.!</strong> <br/>From your account dashboard. you can easily check &amp; view your recent orders, manage your shipping and billing addresses and edit account details.</p>
                                 </div>
                             </div>
                             <!-- Single Tab Content End -->

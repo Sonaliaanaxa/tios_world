@@ -33,7 +33,43 @@
 							<div class="service-fields mb-3">
 								<div class="row">
 
-								<div class="form-group col-md-6">
+									<div class="col-sm-6 col-md-6">
+										<label class="category">{{ __('Select End Level Category *')  }}</label>
+										<div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('category_id') ? ' is-invalid' : '' }}category" name='category_id' id="categoryList">
+												<option selected disabled>Select End Level Category</option>
+												@foreach($categories as $category)
+												<option value='{{ $category->id}}' {{ ($category->id==old('category_id'))?'selected':''}}> {{ $category->name}} </option>
+												@foreach ($category->parent as $childCategory)
+												@include('categories.child_category', ['child_category' => $childCategory])
+												@endforeach
+												@endforeach
+											</select>
+											@if ($errors->has('category_id'))
+											<span id="category_id-error" class="error text-danger" for="categoryList">Category is Empty!</span>
+											@endif
+										</div>
+									</div>
+
+
+									<div class="col-sm-6 col-md-6">
+										<label>{{ __('Select Products *')  }}</label>
+										<div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
+											<select id="subcategoryList" class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}subcategory" name='product_id[]' disabled multiple>
+												<option value=''>Select Products</option>
+												{{-- @foreach($products as $c)
+												<option value='{{ $c->id}}' class='parent-{{ $c->category_id }} subcategory'> {{ $c->name}} </option>
+												@endforeach --}}
+											</select>
+											@if ($errors->has('product_id'))
+											<span id="product_id-error" class="error text-danger" for="subcategoryList">Please Select Product!</span>
+											@endif
+										</div>
+									</div>
+
+
+
+									<div class="form-group col-md-6">
 										<label for="category">Collection Name</label>
 										<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
 											<input class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" id="input-name" type="text" placeholder="{{ __('Collection Name') }}" value="{{ old('name') }}" aria-required="true" />
@@ -51,47 +87,20 @@
 											@endif
 										</div>
 									</div>
-									<div class="col-sm-6 col-md-6">
-										<label class="category">{{ __('Select Products *')  }}</label>
-										<div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
-											<select class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}category" name='product_id[]' id="input-product_id" multiple>
-												<option value=''>Select Products</option>
-												@foreach($products as $d)
-												<option value='{{ $d->id}}' {{ ($d->id==old('product_id'))?'selected':''}}> {{ $d->name}} </option>
-												@endforeach
-											</select>
-											@if ($errors->has('product_id'))
-											<span id="product_id-error" class="error text-danger" for="input-product_id">Product is Empty!</span>
+									<div class="col-sm-6">
+										<label class="category">{{ __('Select Product Collection Type*') }}</label>
+										<div class="form-group{{ $errors->has('product_collection_type') ? ' has-danger' : '' }}">
+											<select class="custom-select {{ $errors->has('product_collection_type') ? ' is-invalid' : '' }}" name='product_collection_type' id="input-product_collection_type">
+												<option value=''>Select Product Collection Type</option>
+												<option value='curated' {{ ('curated'==old('product_collection_type'))?'selected':''}}> Curated </option>
+												<option value='trial' {{ ('trial'==old('product_collection_type'))?'selected':''}}> Trial</option>
+												<option value='sponsored' {{ ('sponsored'==old('product_collection_type'))?'selected':''}}> Sponsored</option>
+												<option value='other' {{ ('other'==old('product_collection_type'))?'selected':''}}> Other</option>
+											</select> @if ($errors->has('product_collection_type'))
+											<span id="product_collection_type-error" class="error text-danger" for="input-product_collection_type"> Please Select Product Collection Type!</span>
 											@endif
 										</div>
 									</div>
-								</div>
-								
-									<label class="col-sm-6 col-form-label">{{ __('Regular Details*')  }}</label>
-								<div class="col-sm-12 col-md-12">
-									<div class="form-group{{ $errors->has('regular') ? ' has-danger' : '' }}">
-										<textarea class="form-control{{ $errors->has('regular') ? ' is-invalid' : '' }}" name="regular" id="input-regular" type="regular" value="{{ old('regular') }}" placeholder="{{ __('Origin Details') }}" />
-										{{ old('regular') }}
-										</textarea>
-										
-										@if ($errors->has('regular'))
-										<span id="regular-error" class="error text-danger" for="input-regular">Regular Details is Empty!</span>
-										@endif
-									</div>
-								</div>
-								<label class="col-sm-6 col-form-label">{{ __('Organic Subcategory Details*')  }}</label>
-								<div class="col-sm-12 col-md-12">
-									<div class="form-group{{ $errors->has('organic') ? ' has-danger' : '' }}">
-										<textarea class="form-control{{ $errors->has('organic') ? ' is-invalid' : '' }}" name="organic" id="input-organic" type="organic" value="{{ old('organic') }}" placeholder="{{ __('Origin Details') }}" />
-										{{ old('organic') }}
-										</textarea>
-										
-										@if ($errors->has('organic'))
-										<span id="organic-error" class="error text-danger" for="input-organic">Organic Details is Empty!</span>
-										@endif
-									</div>
-								</div>
-								
 
 									<div class="col-sm-6">
 										<label class="category">{{ __('Status*') }}</label>
@@ -107,41 +116,55 @@
 									</div>
 								</div>
 
-									<div class="row">
+								<div class="row">
 
-										<div class="form-group col-md-6">
-											<label for="category">{{ __('Upload  Collection Image')}}</label>
-											<div class="upload-img">
-												<div class="change-photo-btn">
+									<div class="form-group col-md-6">
+										<label for="category">{{ __('Upload  Collection Image')}}</label>
+										<div class="upload-img">
+											<div class="change-photo-btn">
 
-													<label htmlFor="myImage">
-														<input type="file" class="upload" name="myImage" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="myImage" /></label>
-												</div>
-												<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+												<label htmlFor="myImage">
+													<input type="file" class="upload" name="myImage" accept="image/x-png,image/gif,image/jpeg,image/jpg" id="myImage" /></label>
 											</div>
-
+											<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 										</div>
 
-										
 									</div>
-								
+
+
 								</div>
 
 							</div>
 
-							<div class="submit-section">
-								<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
-							</div>
-						</form>
-						<!-- /Add Blog -->
-
-
 					</div>
+
+					<div class="submit-section">
+						<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>
+					</div>
+					</form>
+					<!-- /Add Blog -->
+
+
 				</div>
 			</div>
 		</div>
-
 	</div>
+
+</div>
 </div>
 <!-- /Page Wrapper -->
 <!-- /Main Wrapper -->
+<script>
+	let products = <?php echo (json_encode($products)) ?>;
+	$('#categoryList').on('change', function() {
+		let currentCategorySubCategory = products.filter(v => v.subcategory_id == $(this).val());
+		console.log(currentCategorySubCategory);
+		let optionDom = '';
+		currentCategorySubCategory.map((v) => {
+			optionDom += `<option value='${v.id}'>${v.name}</option>`;
+			return true
+		})
+		$("#subcategoryList").html(optionDom) //enable subcategory select
+		$("#subcategoryList").attr('disabled', false); //enable subcategory select
+	});
+</script>

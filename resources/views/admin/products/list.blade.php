@@ -49,18 +49,17 @@
                                             @sortablelink('img',__('Image'))
                                         </th>
 
-                                        <th>
-                                            @sortablelink('product_collection_type',__('Product Type'))
-                                        </th>
+                                      
 
                                         <th>
                                             @sortablelink('name',__('Product'))
                                         </th>
 
+                                        @if(Auth::user()->user_type=='admin')
                                         <th>
                                             @sortablelink('seller_name',__('Seller Name'))
                                         </th>
-
+                                        @endif
                                         <th>
                                             @sortablelink('category_id',__('Category'))
                                         </th>
@@ -104,15 +103,15 @@
                                             </p>
                                             @endif
                                         </td>
-                                        <td>
-                                            {{ $r->product_collection_type }}
-                                        </td>
+                                      
                                         <td>
                                             {{ $r->name }}
                                         </td>
+                                        @if(Auth::user()->user_type=='admin')
                                         <td>
                                             {{ $r->user->name }}
                                         </td>
+                                        @endif
 
                                         <td>
                                             <strong>Category:</strong> {{ $r->category_name }}<br>

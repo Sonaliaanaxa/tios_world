@@ -24,35 +24,18 @@
       </button>
       <div class="collapse navbar-collapse mainmenu" id="navbarSupportedContent">
       <ul class="navbar-nav m-auto">
-        <li class="nav-item dropdown-toggle"><a class="nav-link" href="#">Shop</a>
+        <li class="nav-item "><a class="nav-link" href="#">Shop</a>
           <ul>
           @php
-            $categories = App\Category::get();
+            $categories = App\Category::where('parent_id','=',null)->get();
             @endphp
+            
             @foreach($categories as $category)
               <li><a href="#">{{$category->name}}</a>
-              @php
-              $category_id = $category->id;
-              $subcategories = App\Models\Subcategory::where('category_id',$category_id)->get();
-              @endphp
-             
                   <ul>
-                  @foreach($subcategories as $subcategory)
-                      <li>
-                        <a href="#">{{$subcategory->name}}</a>
-                      @php
-                      $subcategory_id = $subcategory->id;
-                      $products = App\Product::where('subcategory_id',$subcategory_id)->get();
-                      @endphp
-                     
-                        <ul>
-                        @foreach($products as $product)
-                        <li><a href="{{route('shop',$product->slug)}}">{{$product->name}}</a></li>
+                  @foreach ($category->children as $children)
+                  <li><a href="{{route('categories',$children->slug)}}">{{$children->name}}</a>
                         @endforeach
-                        </ul>
-                     
-                    </li>
-                    @endforeach
                   </ul>
                  
               </li>
@@ -62,7 +45,7 @@
       <li class="nav-item">
           <a class="nav-link" href="{{route('sample-page')}}">Try first</a>
         </li>
-        <li class="nav-item dropdown-toggle"><a class="nav-link" href="#">Collections</a>
+        <li class="nav-item"><a class="nav-link" href="#">Collections</a>
 
           <ul>
           @php
@@ -99,8 +82,8 @@
               </div>
             </a>
           </li>
-          <li><a href="login.html"><img src="./assets/img/Icon.png" alt=""></a></li>
-          <li><a href="view-cart.html"><img src="./assets/img/cart.png" alt=""></a></li>
+          <li><a href="{{route('login')}}"><img src="./assets/img/Icon.png" alt=""></a></li>
+          <li><a href="{{route('view-cart')}}"><img src="./assets/img/cart.png" alt=""></a></li>
         </ul>
       </div>
 	   </div>

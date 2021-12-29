@@ -9,9 +9,15 @@
 		<div class="page-header">
 			<div class="row">
 				<div class="col-sm-12">
+
 					<h3 class="page-title">{{ __($title) }}
+						@if(Auth::user()->user_type=='admin')
 						<a href="{{route('products.list')}}" class="btn btn-primary float-right"><i class='fa fa-arrow-left'> {{ __('Back') }}</i> </a>
+						@else
+						<a href="{{route('seller-products.list')}}" class="btn btn-primary float-right"><i class='fa fa-arrow-left'> {{ __('Back') }}</i> </a>
+						@endif
 					</h3>
+
 
 				</div>
 			</div>
@@ -46,7 +52,7 @@
 											@endif
 										</div>
 									</div>
-									
+
 									<label class="col-sm-2 col-form-label">{{ __('Select Subcategory *')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('subcategory_id') ? ' has-danger' : '' }}">
@@ -59,9 +65,6 @@
 										</div>
 									</div>
 
-
-
-
 									<label class="col-sm-2 col-form-label">{{ __('Product Name*') }}</label>
 									<div class="col-sm-4">
 										<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -73,7 +76,7 @@
 									</div>
 
 
-									<label class="col-sm-2 col-form-label">{{ __('Product Slug')  }}</label>
+									<!-- <label class="col-sm-2 col-form-label">{{ __('Product Slug')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
 											<div class="form-group{{ $errors->has('slug') ? ' has-danger' : '' }}">
@@ -84,31 +87,9 @@
 											</div>
 
 										</div>
-									</div>
+									</div> -->
 								</div>
-								<?php 
-								
-								$product_collection_type = [];
-								foreach($products as $product){
-									$product_collection_type = $product->product_collection_type;
-								}
-								?>
-								<label class="col-sm-6 col-form-label">{{ __('Select Product Collection Type')  }}</label>
-								<div class="col-sm-12 col-md-12">
-									<div class="form-group{{ $errors->has('product_collection_type') ? ' has-danger' : '' }}">
-										<div class="form-group{{ $errors->has('product_collection_type') ? ' has-danger' : '' }}">
-											<input type="checkbox" name="product_collection_type[]" value="organic"  <?=$product_collection_type == 'organic' ?'checked':''?>>
-											<label class="col-sm-2 col-form-label">{{ __('Organic')  }}</label>
-											<input type="checkbox" name="product_collection_type[]" value="curated"  <?=$product_collection_type == 'curated' ?'checked':''?>>
-											<label class="col-sm-2 col-form-label">{{ __('Curated')  }}</label>
-											<input type="checkbox" name="product_collection_type[]" value="sample" <?=$product_collection_type == 'sample' ?'checked':''?>>
-											<label class="col-sm-2 col-form-label">{{ __('Samples')  }}</label>
-											@if ($errors->has('product_collection_type'))
-											<span id="product_collection_type-error" class="error text-danger" for="input-product_collection_type">Product Collection Type is Empty!</span>
-											@endif
-										</div>
-									</div>
-								</div>
+
 
 							</div>
 
@@ -136,11 +117,9 @@
 										@if ($errors->has('selling_price'))
 										<span id="selling_price-error" class="error text-danger" for="input-selling_price">Selling Price is Empty!</span>
 										@endif
-										<span id="err_selling_price" style="color:red;font-size:12px;"></span>
+										<span id="selling_price-error" style="color:red;font-size:12px;"></span>
 									</div>
 								</div>
-
-
 
 								<label class="col-sm-2 col-form-label">{{ __('Discount % *') }}</label>
 								<div class="col-sm-4">
@@ -194,11 +173,25 @@
 								</div>
 							</div>
 
-							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
+							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
 								Stock & Quantity
 							</h4>
 
 							<div class='row'>
+								<label class="col-sm-2 col-form-label">{{ __('Unit*') }}</label>
+								<div class="col-sm-6 col-md-4">
+									<div class="form-group{{ $errors->has('unit') ? ' has-danger' : '' }}">
+										<select class="custom-select {{ $errors->has('unit') ? ' is-invalid' : '' }}category" name='unit'>
+											<option value=''>Select Unit</option>
+											@foreach($units as $c)
+											<option value='{{ $c->id}}' {{ ($c->id==$product->unit)?'selected':''}}> {{ $c->name}} </option>
+											@endforeach
+										</select>
+										@if ($errors->has('unit'))
+										<span id="unit-error" class="error text-danger" for="categoryList">Unit is Empty!</span>
+										@endif
+									</div>
+								</div>
 
 								<label class="col-sm-2 col-form-label">{{ __('Weight*') }}</label>
 								<div class="col-sm-4">
@@ -210,24 +203,7 @@
 										@endif
 									</div>
 								</div>
-
-
-								<label class="col-sm-2 col-form-label">{{ __('Weight Unit*') }}</label>
-								<div class="col-sm-4">
-									<div class="form-group{{ $errors->has('unit') ? ' has-danger' : '' }}">
-										<select class="custom-select {{ $errors->has('unit') ? ' is-invalid' : '' }}" name='unit' id="input-unit">
-											<option value='{{ $product->unit }}'>{{ $product->unit }}</option>
-											<option value='kg' {{ ('kg'==$product->unit)?'selected':''}}> Kg </option>
-											<option value='ltr' {{ ('ltr'==$product->unit)?'selected':''}}> Ltr</option>
-											<option value='gm' {{ ('gm'==$product->unit)?'selected':''}}> gm</option>
-											<option value='ml' {{ ('ml'==$product->unit)?'selected':''}}> ml</option>
-											<option value='piece' {{ ('piece'==$product->unit)?'selected':''}}> Piece</option>
-										</select> @if ($errors->has('unit'))
-										<span id="unit-error" class="error text-danger" for="input-unit">Unit is Empty!</span>
-										@endif
-									</div>
-								</div>
-
+								
 								<label class="col-sm-2 col-form-label">{{ __('Current Stock*') }}</label>
 								<div class="col-sm-4">
 									<div class="form-group{{ $errors->has('current_stock') ? ' has-danger' : '' }}">
@@ -241,13 +217,98 @@
 
 							</div>
 
-
-							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#03cc00;border-radius:5px;margin:17px 0px;'>
-								Advance Features
+							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
+								Origin Details
 							</h4>
 
+							<div class='row'>
+								<label class="col-sm-2 col-form-label">{{ __('Origin*') }}</label>
+								<div class="col-sm-10">
+									<div class="form-group{{ $errors->has('origin') ? ' has-danger' : '' }}">
+										<input class="form-control{{ $errors->has('origin') ? ' is-invalid' : '' }}" name="origin" id="input-origin" type="text" placeholder="{{ __('Origin') }}" value="{{ $product->origin }}" aria-required="true" />
 
+										@if ($errors->has('origin'))
+										<span id="origin-error" class="error text-danger" for="input-origin">Origin Details is Empty!</span>
+										@endif
+									</div>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('Type*') }}</label>
+								<div class="col-sm-10">
+									<div class="form-group{{ $errors->has('type') ? ' has-danger' : '' }}">
+										<input class="form-control{{ $errors->has('type') ? ' is-invalid' : '' }}" name="type" id="input-type" type="text" placeholder="{{ __('Type') }}" value="{{ $product->type }}" aria-required="true" />
 
+										@if ($errors->has('type'))
+										<span id="type-error" class="error text-danger" for="input-type">Type Details is Empty!</span>
+										@endif
+									</div>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('Certification*') }}</label>
+								<div class="col-sm-10">
+									<div class="form-group{{ $errors->has('certification') ? ' has-danger' : '' }}">
+										<input class="form-control{{ $errors->has('certification') ? ' is-invalid' : '' }}" name="certification" id="input-certification" type="text" placeholder="{{ __('Certification') }}" value="{{ $product->certification }}" aria-required="true" />
+
+										@if ($errors->has('certification'))
+										<span id="certification-error" class="error text-danger" for="input-certification">Short Details is Empty!</span>
+										@endif
+									</div>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('Upload Map*')}}</label>
+								<div class="col-sm-10">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myMap' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/map') }}/{{ $product->map }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+							</div>
+
+							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
+								Upload Images
+							</h4>
+
+							<div class="row" id="file-content">
+								<label class="col-sm-2 col-form-label">{{ __('Product Front Image*')}}</label>
+								<div class="col-sm-4">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myFrontImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('Product Back Image*')}}</label>
+								<div class="col-sm-4">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myBackImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/products') }}/{{ $product->back_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+
+								<label class="col-sm-2 col-form-label">{{ __('Gallery Image1*')}}</label>
+								<div class="col-sm-4">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage1' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/gallery') }}/{{ $product->image1 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+
+								<label class="col-sm-2 col-form-label">{{ __('Gallery Image2*')}}</label>
+								<div class="col-sm-4">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage2' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/gallery') }}/{{ $product->image2 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+
+								<label class="col-sm-2 col-form-label">{{ __('Gallery Image3*')}}</label>
+								<div class="col-sm-4">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage3' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/gallery') }}/{{ $product->image3 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+								<label class="col-sm-2 col-form-label">{{ __('Gallery Image4*')}}</label>
+								<div class="col-sm-4">
+									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage4' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
+									<img src="{{ asset('/uploads/gallery') }}/{{ $product->image4 }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
+									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
+								</div>
+
+							</div>
+							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
+								Advance Features
+							</h4>
 
 							<div class='row'>
 
@@ -268,9 +329,7 @@
 										<textarea class="form-control{{ $errors->has('details') ? ' is-invalid' : '' }}" name="details" id="input-details" type="details" value="{{ old('details') }}" placeholder="{{ __('Product Details') }}" />
 										{{ $product->details }}
 										</textarea>
-										<script>
-											CKEDITOR.replace('input-details');
-										</script>
+
 										@if ($errors->has('details'))
 										<span id="details-error" class="error text-danger" for="input-details">Product Details is Empty!</span>
 										@endif
@@ -281,51 +340,9 @@
 
 							</div>
 
-							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
-								Origin Details
-							</h4>
 
-							<div class='row'>
-								<label class="col-sm-2 col-form-label">{{ __('Origin Details*')  }}</label>
-								<div class="col-sm-10 col-md-10">
-									<div class="form-group{{ $errors->has('origin_details') ? ' has-danger' : '' }}">
-										<textarea class="form-control{{ $errors->has('origin_details') ? ' is-invalid' : '' }}" name="origin_details" id="input-origin_details" type="origin_details" value="{{ old('origin_details') }}" placeholder="{{ __('Origin Details') }}" />
-										{{ $product->origin_details }}
-										</textarea>
-										<script>
-											CKEDITOR.replace('input-origin_details');
-										</script>
-										@if ($errors->has('origin_details'))
-										<span id="origin_details-error" class="error text-danger" for="input-origin_details">Origin Details is Empty!</span>
-										@endif
-									</div>
-								</div>
-								<label class="col-sm-2 col-form-label">{{ __('Upload Map*')}}</label>
-								<div class="col-sm-10">
-									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myMap' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
-									<img src="{{ asset('/uploads/map') }}/{{ $product->map }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
-									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-								</div>
-							</div>
-							<br>
-							<h4 class="card-title" style='border:1px dashed #ccc;padding:5px;color:#196988;border-radius:5px;margin:17px 0px;'>
-								Upload Images
-							</h4>
 
 							<div class="row" id="file-content">
-								<label class="col-sm-2 col-form-label">{{ __('Upload  Image*')}}</label>
-								<div class="col-sm-10">
-
-
-
-									<input type='file' accept="image/x-png,image/gif,image/jpeg,image/jpg" name='myImage' id="myImage" class="form-control" title="Upload image" class="add-input" onChange="displayImage1(this)">
-									<br>
-									<img src="{{ asset('/uploads/products') }}/{{ $product->upload_image }}" style='margin-bottom:30px;height:200px;width:250px;border-radius:5%;' />
-									<br>
-
-
-									<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
-								</div>
 								<label class="col-sm-2 col-form-label">{{ __('Status*') }}</label>
 								<div class="col-sm-4">
 									<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">

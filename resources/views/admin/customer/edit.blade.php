@@ -44,7 +44,7 @@
 									<div class="form-group col-md-6">
 										<label for="category">Email</label>
 										<div class="form-group{{ $errors->has('email') ? ' has-danger' : '' }}">
-											<input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="text" placeholder="{{ __(' Email id') }}" value="{{ $customer->email}}" aria-required="true" />
+											<input class="form-control{{ $errors->has('email') ? ' is-invalid' : '' }}" name="email" id="input-email" type="text" placeholder="{{ __(' Email id') }}" value="{{ $customer->email}}" aria-required="true" readonly/>
 											@if ($errors->has('email'))
 											<span id="email-error" class="error text-danger" for="input-email">Email is Empty!</span>
 											@endif
@@ -95,11 +95,9 @@
 									<div class="col-sm-12 col-md-12">
 										<div class="form-group{{ $errors->has('about_business') ? ' has-danger' : '' }}">
 											<textarea class="form-control{{ $errors->has('about_business') ? ' is-invalid' : '' }}" name="about_business" id="input-about_business" type="about_business" value="{{ old('about_business') }}" placeholder="{{ __('About Business') }}" />
-											{{ $customer->about_business }}
+											{!! $customer->about_business !!}
 											</textarea>
-											<script>
-												CKEDITOR.replace('input-about_business');
-											</script>
+										
 											@if ($errors->has('about_business'))
 											<span id="about_business-error" class="error text-danger" for="input-about_business">Product Details is Empty!</span>
 											@endif
@@ -142,11 +140,9 @@
 								<div class="col-sm-12 col-md-12">
 									<div class="form-group{{ $errors->has('about_founder') ? ' has-danger' : '' }}">
 										<textarea class="form-control{{ $errors->has('about_founder') ? ' is-invalid' : '' }}" name="about_founder" id="input-about_founder" type="about_founder" value="{{ old('about_founder') }}" placeholder="{{ __('About founder') }}" />
-										{{ $customer->about_founder}}
+										{!! $customer->about_founder !!}
 										</textarea>
-										<script>
-											CKEDITOR.replace('input-about_founder');
-										</script>
+										
 										@if ($errors->has('about_founder'))
 										<span id="about_founder-error" class="error text-danger" for="input-about_founder">founder Details is Empty!</span>
 										@endif

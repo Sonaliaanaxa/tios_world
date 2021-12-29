@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Collection;
+use App\Category;
 use App\Product;
 use Illuminate\Support\Str;
 
@@ -30,8 +31,12 @@ class CollectionController extends Controller
         $title = "Create New Collections";
         $subtitle = "Collections";
         $activePage = "Collections";
-        $products = Product::where('status', '1')->get();
-        return view('admin.collections.add', compact('title', 'activePage', 'subtitle','products'));
+        $categories = Category::where('parent_id', 0)
+            ->with('childrenCategories')
+            ->get();
+        $products = json_decode(json_encode(Product::get()), true);
+      
+        return view('admin.collections.add', compact('title', 'activePage', 'subtitle','products','categories'));
     }
 
     public function save(Request $request)
@@ -61,8 +66,6 @@ class CollectionController extends Controller
         $collections->name = $request->name;
         $collections->slug =  Str::slug($request->name);
         $collections->status = $request->status;
-        $collections->regular = $request->regular;
-        $collections->organic = $request->organic;
         $data                   = array();
         $data       = $request->product_id;
         $collections->product_id        = json_encode($data);
@@ -88,8 +91,6 @@ class CollectionController extends Controller
             'name' => 'required',
             'slug' => 'required',
             'product_id' => 'required',
-            'organic' => 'required',
-            'regular' => 'required',
             'status' => 'required'
 
         ]);
@@ -110,8 +111,6 @@ class CollectionController extends Controller
                 'name' => $request->name,
                 'slug' => $request->slug,
                 'product_id' => $request->product_id,
-                'organic' => $request->organic,
-                'regular' => $request->regular,
                 'status' => $request->status,
                 'img' =>  $image_name,
                 'updated_at' => date('Y-m-d H:i:s')
@@ -121,8 +120,6 @@ class CollectionController extends Controller
                 'name' => $request->name,
                 'slug' => $request->slug,
                 'product_id' => $request->product_id,
-                'organic' => $request->organic,
-                'regular' => $request->regular,
                 'status' => $request->status,
                 'updated_at' => date('Y-m-d H:i:s')
             ];

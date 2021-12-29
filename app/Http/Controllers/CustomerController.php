@@ -3,20 +3,11 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-
-
-use Illuminate\Support\Facades\Session;
-
 use App\Http\Controllers\Controller;
-
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
-use Illuminate\Support\Facades\Auth;
-use Intervention\Image\Facades\Image;
-use Illuminate\Http\UploadedFile;
-use Illuminate\Support\Facades\Storage;
-use App\Http\Controllers\Redirect;
+use Illuminate\Support\Str;
+
 
 use App\User;
 
@@ -52,7 +43,6 @@ class CustomerController extends Controller
         $activePage = "Seller";
         return view('admin.customer.add', compact('title', 'activePage', 'subtitle'));
     }
-
 
     public function save(Request $request)
     {
@@ -127,6 +117,7 @@ class CustomerController extends Controller
         /*-------image------*/
         $user = new User;
         $user->name = $request->name;
+        $user->slug =  Str::slug($request->name);
         $user->email = $request->email;
         $user->phone = $request->phone;
         $user->password = Hash::make($request->password);
@@ -234,8 +225,11 @@ class CustomerController extends Controller
         }
 
 
+        $user = User::where('id', $id)->first();
+
         $data = [
             'name' => $request->name,
+            'slug' => Str::slug($user->name),
             'email' => $request->email,
             'user_type' => $request->user_type,
             'updated_at' => date('Y-m-d H:i:s'),

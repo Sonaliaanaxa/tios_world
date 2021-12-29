@@ -164,17 +164,17 @@
                         @endif
 
 
-                        @if(auth()->user()->user_type=='admin')
+                        <!-- @if(auth()->user()->user_type=='admin')
                         <li class="item{{ $activePage == 'Subcategory' ? ' active' : '' }}">
                             <a href="{{ route('subcategories.list')}}"><i class="fa fa-filter" aria-hidden="true"></i> <span>{{ __('Subcategory') }} </a>
                         </li>
-                        @endif
-
-                        <!-- @if(auth()->user()->user_type=='admin')
-                        <li class="item{{ $activePage == 'Brand' ? ' active' : '' }}">
-                            <a href="{{ route('brands.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Brand') }} </a>
-                        </li>
                         @endif -->
+
+                        @if(auth()->user()->user_type=='admin')
+                        <li class="item{{ $activePage == 'Unit' ? ' active' : '' }}">
+                            <a href="{{ route('units.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Units') }} </a>
+                        </li>
+                        @endif
 
                        
 
@@ -194,10 +194,13 @@
 
                         @if(auth()->user()->user_type=='admin')
                         <li class="submenu">
-                            <a href="#"><i class="fa fa-bars" aria-hidden="true"></i> <span> Collections </span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fa fa-bars" aria-hidden="true"></i> <span> Collection</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li class="item{{ $activePage == 'Collections' ? ' active' : '' }}">
-                                    <a href="{{ route('collections.list')}}">Collections</a>
+                                    <a href="{{ route('collections.list')}}">Curated Collection</a>
+                                </li>
+                                <li class="item{{ $activePage == 'CustomCollections' ? ' active' : '' }}">
+                                    <a href="{{ route('custom-collections.list')}}">Custom Collection</a>
                                 </li>
                               
 
@@ -220,7 +223,7 @@
                         </li>
                         @endif
 
-                        @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
+                        @if(auth()->user()->user_type=='admin')
                         <li class="submenu">
                             <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> <span> Trial Products </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">

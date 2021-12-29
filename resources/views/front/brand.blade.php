@@ -16,7 +16,8 @@
                     @foreach($userLogo as $logo)
                     <div class="col col1">
                         <div class="barnd-logo">
-                            <img src="{{asset('uploads/profile_img')}}/{{$logo->logo}}" alt="{{$logo->name}}">
+                            <a href="{{route('supplier',$logo->slug)}}">
+                            <img src="{{asset('uploads/profile_img')}}/{{$logo->logo}}" alt="{{$logo->name}}"></a>
                         </div>
                     </div>
                     @endforeach

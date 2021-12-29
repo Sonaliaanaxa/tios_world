@@ -66,30 +66,7 @@
                       @endif
                     </div>
                   </div>
-                  <label class="col-sm-2 col-form-label">{{ __('Regular Details*')  }}</label>
-                  <div class="col-sm-12 col-md-12">
-                    <div class="form-group{{ $errors->has('regular') ? ' has-danger' : '' }}">
-                      <textarea class="form-control{{ $errors->has('regular') ? ' is-invalid' : '' }}" name="regular" id="input-regular" type="regular" value="{{$collection->regular}}" placeholder="{{ __('Origin Details') }}" />
-                      {{$collection->regular}}
-                      </textarea>
-
-                      @if ($errors->has('regular'))
-                      <span id="regular-error" class="error text-danger" for="input-regular">Regular Details is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
-                  <label class="col-sm-2 col-form-label">{{ __('Organic Details*')  }}</label>
-                  <div class="col-sm-12 col-md-12">
-                    <div class="form-group{{ $errors->has('organic') ? ' has-danger' : '' }}">
-                      <textarea class="form-control{{ $errors->has('organic') ? ' is-invalid' : '' }}" name="organic" id="input-organic" type="organic" value="{{$collection->organic}}" placeholder="{{ __('Origin Details') }}" />
-                      {{$collection->organic}}
-                      </textarea>
-
-                      @if ($errors->has('organic'))
-                      <span id="organic-error" class="error text-danger" for="input-organic">Organic Details is Empty!</span>
-                      @endif
-                    </div>
-                  </div>
+       
                 </div>
 
                 <div class="col-sm-6">
