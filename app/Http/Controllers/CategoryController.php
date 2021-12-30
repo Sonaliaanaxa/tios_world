@@ -51,13 +51,11 @@ class CategoryController extends Controller
         {
             $validator = $request->validate([
                 'name'      => 'required',
-                'slug'      => 'required|unique:categories',
                 'parent_id' => 'nullable|numeric'
             ]);
 
             Category::create([
                 'name' => $request->name,
-                'slug' => $request->slug,
                 'slug' => Str::slug($request->name),
                 'parent_id' =>$request->parent_id
             ]);
@@ -102,14 +100,13 @@ class CategoryController extends Controller
     {
         $this->validate(request(), [
             'name' => 'required',
-            'slug' => 'required',
             'parent_id' => 'nullable|numeric'
 
         ]);
        
         $data = [
             'name' => $request->name,
-            'slug' => $request->slug,
+            'slug' => Str::slug($request->name),
             'user_id' => Auth::user()->id,
             'parent_id' =>$request->parent_id,
             'updated_at' => date('Y-m-d H:i:s')

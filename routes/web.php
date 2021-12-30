@@ -140,7 +140,7 @@ Route::group(['prefix' => 'admin','auth'], function () {
        Route::get('categories/create', 'CategoryController@create')->name('categories.create');
        // Route::post('categories/create', 'CategoryController@save')->name('categories.create');
        Route::get('categories/update/{id}', 'CategoryController@edit')->name('categories.update');
-       // Route::post('categories/update/{id}', 'CategoryController@update')->name('categories.update');
+       Route::post('categories/update/{id}', 'CategoryController@update')->name('categories.update');
        Route::post('categories/destroy', 'CategoryController@destroy')->name('categories.destroy');
        Route::any('categories/create', 'CategoryController@createCategory')->name('createCategory');
 
