@@ -36,15 +36,18 @@
 									<div class="col-sm-6 col-md-6">
 										<label class="category">{{ __('Select End Level Category *')  }}</label>
 										<div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
-											<select class="custom-select {{ $errors->has('category_id') ? ' is-invalid' : '' }}category" name='category_id' id="categoryList">
-												<option selected disabled>Select End Level Category</option>
-												@foreach($categories as $category)
-												<option value='{{ $category->id}}' {{ ($category->id==old('category_id'))?'selected':''}}> {{ $category->name}} </option>
-												@foreach ($category->parent as $childCategory)
-												@include('categories.child_category', ['child_category' => $childCategory])
-												@endforeach
-												@endforeach
-											</select>
+										<select type="text" name="category_id" class="form-control">
+                                        <option value="">None</option>
+                                        @if($categories)
+                                            @foreach($categories as $category)
+                                                <?php $dash=''; ?>
+                                                <option value="{{$category->id}}">{{$category->name}}</option>
+                                                @if(count($category->subcategory))
+                                                    @include('admin.categories.subCategoryList-option',['subcategories' => $category->subcategory])
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </select>
 											@if ($errors->has('category_id'))
 											<span id="category_id-error" class="error text-danger" for="categoryList">Category is Empty!</span>
 											@endif

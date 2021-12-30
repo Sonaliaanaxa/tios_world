@@ -298,6 +298,7 @@ Route::group(['prefix' => 'mydashboard'], function () {
         Route::post('products/update/{id}', [ProductController::class, 'update'])->name('products.update');
         Route::post('products/destroy', [ProductController::class, 'destroy'])->name('products.destroy');
         Route::get('products/view/{id}', [ProductController::class, 'view'])->name('products.view');
+        Route::post('products-request-update', [ProductController::class, 'requestStatusUpdate'])->name('products.request.status.update');
 
         //Trial Products
         Route::get('seller-trial-products-list', [TrialProductController::class, 'indexSeller'])->name('seller-trial-products.list');

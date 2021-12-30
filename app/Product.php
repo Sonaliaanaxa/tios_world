@@ -24,6 +24,11 @@ class Product extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function children()
+    {
+        return $this->hasMany('App\Category', 'parent_id');
+    }
+    
     use Sortable;
 
      protected $guarded=[];

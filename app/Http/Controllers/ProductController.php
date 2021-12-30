@@ -24,12 +24,11 @@ class ProductController extends Controller
         $subtitle = "Products";
         $activePage = "Products";
         $pCount = Product::select('*')->count();
-        $products = Product::select('products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
-            ->join('categories', 'products.category_id', 'categories.id')
-            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
+        $products = Product::select('products.*')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
-        return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
+            $categories = Category::all();
+        return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount','categories'));
     }
 
     public function indexSeller()
@@ -38,13 +37,12 @@ class ProductController extends Controller
         $subtitle = "Products";
         $activePage = "Products";
         $pCount = Product::select('*')->where('user_id', Auth::user()->id)->count();
-        $products = Product::select('products.*', 'categories.name as category_name','subcategories.name as subcategory_name')
-            ->join('categories', 'products.category_id', 'categories.id')
-            ->join('subcategories', 'products.subcategory_id', 'subcategories.id')
+        $products = Product::select('products.*')
             ->where('products.user_id', Auth::user()->id)
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
-        return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount'));
+        $categories = Category::all();
+        return view('admin.products.list', compact('title', 'products', 'activePage', 'subtitle', 'pCount','categories'));
     }
 
 
@@ -67,7 +65,6 @@ class ProductController extends Controller
     {
         $this->validate(request(), [
             'category_id' => 'required',
-            'subcategory_id' => 'nullable',
             'name' => 'required',
             'purchase_price' => 'required',
             'selling_price' => 'required',
@@ -187,7 +184,6 @@ class ProductController extends Controller
 
         $product = new Product();
         $product->category_id = $request->category_id;
-        $product->subcategory_id = $request->subcategory_id;
         $product->name = $request->name;
         $product->slug =  Str::slug($request->name);
         $product->purchase_price = $request->purchase_price;
@@ -233,14 +229,16 @@ class ProductController extends Controller
         $subtitle = "Products";
         $activePage = "Products";
 
-        $categories = Category::get();
+        $categories = Category::orderby('name', 'asc')->get();
+     
+       
         $subcategories = Subcategory::get();
 
         $product = Product::select('products.*', 'categories.name as category_name')
             ->where('products.id', $id)
             ->join('categories', 'products.category_id', 'categories.id')
             ->first();
-            $products = Product::select('products.*', 'categories.name as category_name')
+        $products = Product::select('products.*', 'categories.name as category_name')
             ->where('products.id', $id)
             ->join('categories', 'products.category_id', 'categories.id')
             ->get();
@@ -254,7 +252,6 @@ class ProductController extends Controller
     {
         $this->validate(request(), [
             'category_id' => 'required',
-            'subcategory_id' => 'nullable',
             'name' => 'required',
             'purchase_price' => 'required',
             'selling_price' => 'required',
@@ -386,7 +383,6 @@ class ProductController extends Controller
       
             $data = [
                 'category_id' => $request->category_id,
-                'subcategory_id' => $request->subcategory_id,
                 'name' => $request->name,
                 'slug' => Str::slug($request->name),
                 'purchase_price' => $request->purchase_price,
@@ -443,5 +439,14 @@ class ProductController extends Controller
         } else {
             return back()->with('error', 'Error Occured!');
         }
+    }
+    public function requestStatusUpdate(Request $request)
+    {
+        $product = Product::findOrFail($request->id);
+        $product->status = $request->status;
+        if($product->save()){
+            return 1;
+        }
+        return 0;
     }
 }

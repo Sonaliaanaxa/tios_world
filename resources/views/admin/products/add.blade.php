@@ -32,38 +32,29 @@
 
 							<div class="service-fields mb-3">
 
-
 								<div class="row">
 									<label class="col-sm-2 col-form-label">{{ __('Select Category *')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('category_id') ? ' has-danger' : '' }}">
-											<select class="custom-select {{ $errors->has('category_id') ? ' is-invalid' : '' }}category" name='category_id' id="categoryList">
-												<option selected disabled>Select Category</option>
-												@foreach($categories as $c)
-												<option value='{{ $c->id}}' {{ ($c->id==old('category_id'))?'selected':''}}> {{ $c->name}} </option>
-												@endforeach
-											</select>
+										<select type="text" name="category_id" class="form-control">
+                                        <option value="" disabled selected>Select Category</option>
+                                        @if($categories)
+                                            @foreach($categories as $category)
+                                                <?php $dash=''; ?>
+                                                <option value="{{$category->id}}" style="font-size:15px;font-weight:700;">{{$category->name}}</option>
+                                                @if(count($category->subcategory))
+                                                    @include('admin.categories.subCategoryList-option',['subcategories' => $category->subcategory])
+                                                @endif
+                                            @endforeach
+                                        @endif
+                                    </select>
 											@if ($errors->has('category_id'))
 											<span id="category_id-error" class="error text-danger" for="categoryList">Category is Empty!</span>
 											@endif
 										</div>
 									</div>
 
-									<label class="col-sm-2 col-form-label">{{ __('Select Subcategory *')  }}</label>
-									<div class="col-sm-6 col-md-4">
-										<div class="form-group{{ $errors->has('subcategory_id') ? ' has-danger' : '' }}">
-											<select id="subcategoryList" class="custom-select {{ $errors->has('subcategory_id') ? ' is-invalid' : '' }}subcategory" name='subcategory_id' disabled>
-												<option value=''>Select Subcategory</option>
-												{{-- @foreach($subcategories as $c)
-												<option value='{{ $c->id}}' class='parent-{{ $c->category_id }} subcategory'> {{ $c->name}} </option>
-												@endforeach --}}
-											</select>
-											@if ($errors->has('subcategory_id'))
-											<span id="subcategory_id-error" class="error text-danger" for="subcategoryList">Please Select Subcategory!</span>
-											@endif
-										</div>
-									</div>
-
+									
 									<label class="col-sm-2 col-form-label">{{ __('Product Name')  }}</label>
 									<div class="col-sm-6 col-md-4">
 										<div class="form-group{{ $errors->has('name') ? ' has-danger' : '' }}">
@@ -101,7 +92,7 @@
 										<div class="form-group{{ $errors->has('purchase_price') ? ' has-danger' : '' }}">
 											<input class="form-control{{ $errors->has('purchase_price') ? ' is-invalid' : '' }}" name="purchase_price" id="input-purchase_price" type="number" placeholder="{{ __(' Purchase Price') }}" value="{{ old('Purchase Price') }}" aria-required="true" />
 											@if ($errors->has('purchase_price'))
-											<span id="purchase_price-error" class="error text-danger" for="input-purchase_price">Purchase Price is Empty!</span>
+											<span id="err_purchase_price" class="error text-danger" for="input-purchase_price">Purchase Price is Empty!</span>
 											@endif
 										</div>
 									</div>
@@ -385,24 +376,6 @@
 <!-- /Page Wrapper -->
 <!-- /Main Wrapper -->
 <script>
-	//Bitcoin
-	$(document).ready(function() {
-
-		$("#input-selling_price").keyup(function() {
-			var purchase_price = $("#input-purchase_price").val();
-
-			if (purchase_price == null || purchase_price == '') {
-				document.getElementById("err_purchase_price").innerHTML = "Please enter the Purchase Price to calculate discount!";
-			} else {
-				var selling_price = $("#input-selling_price").val();
-				var purchase_bitcoin = purchase_price * 0.000000239;
-				var selling_bitcoin = selling_price * 0.000000239;
-				$('input[name=\'purchase_bitcoin\']').val(purchase_bitcoin);
-				$('input[name=\'selling_bitcoin\']').val(selling_bitcoin);
-			}
-		});
-	});
-
 	$(document).ready(function() {
 
 		$("#input-selling_price").keyup(function() {

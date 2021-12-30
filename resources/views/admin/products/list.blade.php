@@ -1,4 +1,5 @@
 @include("admin.layouts.sidebar")
+
 <!-- Page Wrapper -->
 <div class="page-wrapper">
     <div class="content container-fluid">
@@ -49,7 +50,7 @@
                                             @sortablelink('img',__('Image'))
                                         </th>
 
-                                      
+
 
                                         <th>
                                             @sortablelink('name',__('Product'))
@@ -70,20 +71,20 @@
                                         <th>
                                             @sortablelink('stock',__('Current Stock'))
                                         </th>
-
-
+                                        @if(Auth::user()->user_type=='seller')
                                         <th>
-                                            @sortablelink('status',__('Status'))
+                                            @sortablelink('status', __('Status'))
+                                        </th>
+                                        @else
+                                        <th>
+                                            @sortablelink('status',__('Change Status'))
 
                                         </th>
+                                        @endif
                                         <th>
                                             @sortablelink('action',__('Action'))
 
                                         </th>
-
-
-
-
                                 </thead>
                                 <tbody id="myTable">
                                     <?php $i = 0; ?>
@@ -93,7 +94,7 @@
                                         <td>
                                             <?php echo $i; ?>
                                         </td>
-                                       
+
                                         <td>
                                             @if($r->upload_image)
                                             <a href="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" target='_blank'> <img src="{{ asset('/uploads/products') }}/{{ $r->upload_image }}" style='height:50px;width:50px;border-radius:5%;' /></a>
@@ -103,7 +104,7 @@
                                             </p>
                                             @endif
                                         </td>
-                                      
+
                                         <td>
                                             {{ $r->name }}
                                         </td>
@@ -112,10 +113,15 @@
                                             {{ $r->user->name }}
                                         </td>
                                         @endif
-
                                         <td>
-                                            <strong>Category:</strong> {{ $r->category_name }}<br>
-                                            <strong>Subcategory:</strong> {{ $r->subcategory_name }}
+                                            @php $categories = App\Category::where('id', $r->category_id)->get(); @endphp
+                                            @foreach($categories as $category)
+                                            <b> {{$category->name}} </b>
+                                            @foreach ($category->children as $children)
+                                            >> {{ $children->name }}
+                                            @endforeach
+
+                                            @endforeach
                                         </td>
                                         <td>
                                             <span style='color:#1d77fb;font-size:12px;'>Purchase Price - &#8377 {{ $r->purchase_price }}</span>
@@ -124,26 +130,34 @@
                                             <p style='color:gray;font-size:10px;margin-top:-14px;'>Discount : {{ $r->discount }}% </span> </p>
                                         </td>
 
-                                         
+
                                         <td>
-                                            {{$r->current_stock}} Products
+                                            {{$r->current_stock}}
                                         </td>
+                                        @if(Auth::user()->user_type=='admin')
+                                        <td>
+                                            <label class="switch">
+                                                <input type="checkbox" onchange="update_status(this)" value="{{ $r->id }}" <?php if ($r->status == 1) echo "checked"; ?>>
+                                                <span class="slider round"></span>
+                                            </label>
+                                        </td>
+                                        @else
                                         <td>
                                             @if($r->status==1)
-
                                             <i class='fa fa-check-circle' style='color:green;'> {{ __('Active') }} </i>
                                             @else
-                                            <i class='fa fa-question-circle' style='color:gold;'>{{ __(' Not Active') }} </i>
+                                            <i class='fa fa-question-circle' style='color:red;'>{{ __(' Inactive') }} </i>
                                             @endif
                                         </td>
+                                        @endif
                                         <td>
 
                                             {{--<a href="{{route('products.view',$r->id)}}" target='_blank' style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                                             <i class="fa fa-eye"></i></a>--}}
-                                            <br>
+
                                             <a href="{{route('products.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                                                 <i class="fa fa-edit"></i></a>
-                                            <br>
+
                                             <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-product' title="Delete" data-id="{{$r->id}}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
@@ -202,4 +216,23 @@
             });
         });
     });
+
+    function update_status(el) {
+        if (el.checked) {
+            var status = 1;
+        } else {
+            var status = 0;
+        }
+        $.post("{{ route('products.request.status.update') }}", {
+            _token: '{{ csrf_token() }}',
+            id: el.value,
+            status: status
+        }, function(data) {
+            if (data == 1) {
+                alert('Product Status updated successfully!')
+            } else {
+                alert('Something went wrong!')
+            }
+        });
+    }
 </script>

@@ -21,10 +21,11 @@ class CategoryController extends Controller
         $subtitle = "Category";
         $activePage = "Category";
         $cCount = Category::select('*')->count();
+        $categoriess = Category::all();
         $categories = Category::select('categories.*')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(10);
-        return view('admin.categories.list', compact('title', 'categories', 'activePage', 'subtitle', 'cCount'));
+        return view('admin.categories.list', compact('title', 'categories', 'activePage', 'subtitle', 'cCount','categoriess'));
     }
 
 

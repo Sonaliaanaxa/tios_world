@@ -66,20 +66,19 @@
                                         </thead>
                      <tbody id="myTable"> 
                     <?php $i=0; ?>
-                      @foreach($categories as $r)
+                      @foreach($categoriess as $r)
                       <?php $i++; ?>
                         <tr>
                         <td>
                         <?php echo $i; ?>
                           </td>
-                        
-                        
-
-                          
+          
                              <td>
                               <b>
-                              <a> {{$r->name}}</a> 
-                               </b>
+                              <a> {{$r->name}}  </a>  </b>
+                              @foreach ($r->children as $children)
+                              >> {{ $children->name }}        
+                            @endforeach
                                  
                              </td>
 
@@ -104,6 +103,7 @@
                          <i class="fa fa-trash"></i>
                          </a>
                           </td>
+                        
                         
                         </tr>
                       @endforeach

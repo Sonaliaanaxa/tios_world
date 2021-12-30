@@ -31,9 +31,7 @@ class CollectionController extends Controller
         $title = "Create New Collections";
         $subtitle = "Collections";
         $activePage = "Collections";
-        $categories = Category::where('parent_id', 0)
-            ->with('childrenCategories')
-            ->get();
+        $categories = Category::all();
         $products = json_decode(json_encode(Product::get()), true);
       
         return view('admin.collections.add', compact('title', 'activePage', 'subtitle','products','categories'));
