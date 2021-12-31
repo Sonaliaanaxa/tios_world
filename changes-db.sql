@@ -37,3 +37,17 @@ ADD `slug` varchar(255) COLLATE 'utf8mb4_unicode_ci' NOT NULL AFTER `name`;
 
 ALTER TABLE `categories`
 ADD `parent_id` int(11) NULL AFTER `user_id`;
+
+//30-dec
+
+ALTER TABLE `collections`
+CHANGE `name` `name` varchar(255) COLLATE 'utf8mb4_general_ci' NOT NULL AFTER `category_id`,
+CHANGE `slug` `slug` varchar(255) COLLATE 'utf8mb4_general_ci' NOT NULL AFTER `name`,
+CHANGE `product_id` `product_id` varchar(255) COLLATE 'utf8mb4_general_ci' NOT NULL AFTER `slug`,
+CHANGE `img` `img` varchar(255) COLLATE 'utf8mb4_general_ci' NOT NULL AFTER `product_id`,
+CHANGE `status` `status` enum('1','0') COLLATE 'utf8mb4_general_ci' NOT NULL DEFAULT '1' AFTER `img`,
+CHANGE `created_at` `created_at` datetime NOT NULL AFTER `status`,
+CHANGE `updated_at` `updated_at` datetime NOT NULL AFTER `created_at`;
+
+ALTER TABLE `collections`
+ADD `product_collection_type` varchar(255) NOT NULL AFTER `category_id`;

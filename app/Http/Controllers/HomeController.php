@@ -43,43 +43,46 @@ class HomeController extends Controller
         $trialProducts = TrialProduct::select('trial_products.*', 'subcategories.img as logo', 'subcategories.banner as banner')
             ->join('subcategories', 'trial_products.subcategory_id', 'subcategories.id')
             ->get();
-    
-       $product = Product::select('products.*')->where('slug',$slug)->first();
-       
-       $subcategory_id = $product->category_id;
-       $user_id = $product->user_id;
-       $user = User::where('id',$user_id)->first();
-     
-       $subcategory = Category::where('id',$subcategory_id)->first();
-       $products = Product::where('status', '1')->get();
-        
-       $organicProducts = Product::where('status', '1')->get();
-        return view('front.category', compact('title', 'trialProducts','product','subcategory','user','products','organicProducts'));
+
+        $product = Product::select('products.*')->where('slug', $slug)->first();
+
+        $subcategory_id = $product->category_id;
+        $user_id = $product->user_id;
+        $user = User::where('id', $user_id)->first();
+
+        $subcategory = Category::where('id', $subcategory_id)->first();
+        $products = Product::where('status', '1')->get();
+
+        $organicProducts = Product::where('status', '1')->get();
+        return view('front.category', compact('title', 'trialProducts', 'product', 'subcategory', 'user', 'products', 'organicProducts'));
     }
 
     public function brand()
     {
         $title = "Tios World";
-        $userLogo = User::select('logo','slug','name')->get();
+        $userLogo = User::select('logo', 'slug', 'name')->get();
         return view('front.brand', compact('title', 'userLogo'));
     }
 
-    public function supplier($slug){
+    public function supplier($slug)
+    {
         $title = "Tios World";
         $user = User::select('users.*')->where('slug', $slug)->first();
         $trialProducts = TrialProduct::select('trial_products.*', 'subcategories.img as logo', 'subcategories.banner as banner')
-        ->join('subcategories', 'trial_products.subcategory_id', 'subcategories.id')
-        ->get();
-        $brands = User::select('logo','name','slug')->get();
+            ->join('subcategories', 'trial_products.subcategory_id', 'subcategories.id')
+            ->get();
+        $brands = User::select('logo', 'name', 'slug')->get();
         $brandCount = User::select('logo')->count();
-        return view('front.supplier', compact('title', 'user','trialProducts','brands','brandCount'));
+        return view('front.supplier', compact('title', 'user', 'trialProducts', 'brands', 'brandCount'));
     }
 
-    function categoryDetails($slug){
+    function categoryDetails($slug)
+    {
         $title = "Tios World";
-        $subcategory = Category::where('slug',$slug)->first();
+        $subcategory = Category::where('slug', $slug)->first();
         $products = Product::where('category_id', $subcategory->id)->get();
-        return view('front.category-details', compact('title','products'));
+        $collections = Collection::where('product_collection_type', 'LIKE', '%curated%')->get();
+        return view('front.category-details', compact('title', 'products', 'subcategory', 'collections'));
     }
 
     public function samplePage()
@@ -91,11 +94,18 @@ class HomeController extends Controller
     public function collections($slug)
     {
         $title = "Tios World";
-        $collection = Collection::where('slug',$slug)->first();
+        $collection = Collection::where('slug', $slug)->first();
         $trySamples = TrialProduct::get();
-        $products = Product::where('status', '1')->get();
-       
-        return view('front.collections', compact('title','collection','products','trySamples'));
+        $curatedProducts = Collection::where('product_collection_type', 'LIKE', '%curated%')
+            ->join('products', 'products.id',  'collections.product_id')
+            ->where('collections.slug', $slug)
+            ->where('products.status', '1')->get();
+
+        $organicProducts = Collection::where('product_collection_type', 'LIKE', '%organic%')
+            ->join('products', 'products.id',  'collections.product_id')
+            ->where('collections.slug', $slug)
+            ->where('products.status', '1')->get();
+        return view('front.collections', compact('title', 'collection', 'organicProducts', 'trySamples','curatedProducts'));
     }
     public function about()
     {

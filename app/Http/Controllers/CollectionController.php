@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Collection;
 use App\Category;
 use App\Product;
+use App\User;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 
 class CollectionController extends Controller
@@ -32,9 +34,9 @@ class CollectionController extends Controller
         $subtitle = "Collections";
         $activePage = "Collections";
         $categories = Category::all();
-        $products = json_decode(json_encode(Product::get()), true);
-      
-        return view('admin.collections.add', compact('title', 'activePage', 'subtitle','products','categories'));
+        $products = json_decode(json_encode(Product::select('products.*','users.name as user_name')->join('users','users.id','products.user_id')->get()), true);
+        $users = json_decode(json_encode(User::get()), true);
+        return view('admin.collections.add', compact('title', 'activePage', 'subtitle','products','categories','users'));
     }
 
     public function save(Request $request)
@@ -60,13 +62,16 @@ class CollectionController extends Controller
             }
         }
 
+        $product_id = implode(',',$request->product_id);
+        $product_collection_type = implode(',',$request->product_collection_type);
+
         $collections = new Collection();
+        $collections->category_id = $request->category_id;
         $collections->name = $request->name;
         $collections->slug =  Str::slug($request->name);
         $collections->status = $request->status;
-        $data                   = array();
-        $data       = $request->product_id;
-        $collections->product_id        = json_encode($data);
+        $collections->product_id        = $product_id;
+        $collections->product_collection_type        = $product_collection_type;
         $collections->img = $image_name;
         $collections->save();
 
@@ -79,12 +84,16 @@ class CollectionController extends Controller
         $subtitle = "Collection";
         $activePage = "Collections";
         $collection = Collection::where('id', $id)->first();
-        $products = Product::where('status', '1')->get();
-        return view('admin.collections.edit', compact('title', 'collection', 'activePage', 'subtitle', 'id','products'));
+        $products = json_decode(json_encode(Product::select('products.*','users.name as user_name')->join('users','users.id','products.user_id')->get()), true);
+        $categories = Category::all();
+        return view('admin.collections.edit', compact('title', 'collection', 'activePage', 'subtitle', 'id','products','categories'));
     }
 
     public function update(Request $request, $id)
     {
+        $product_id = implode(',',$request->product_id);
+        $product_collection_type = implode(',',$request->product_collection_type);
+        
         $this->validate(request(), [
             'name' => 'required',
             'slug' => 'required',
@@ -105,19 +114,24 @@ class CollectionController extends Controller
                 return redirect()->back()->with('error', 'Invalid file attached! Please updload the image!');
             }
 
+
             $data = [
+                'category_id' => $request->category_id,
                 'name' => $request->name,
                 'slug' => $request->slug,
-                'product_id' => $request->product_id,
+                'product_id' => $product_id,
+                'product_collection_type' => $product_collection_type,
                 'status' => $request->status,
                 'img' =>  $image_name,
                 'updated_at' => date('Y-m-d H:i:s')
             ];
         } else {
             $data = [
+                'category_id' => $request->category_id,
                 'name' => $request->name,
                 'slug' => $request->slug,
-                'product_id' => $request->product_id,
+                'product_id' => $product_id,
+                'product_collection_type' => $product_collection_type,
                 'status' => $request->status,
                 'updated_at' => date('Y-m-d H:i:s')
             ];

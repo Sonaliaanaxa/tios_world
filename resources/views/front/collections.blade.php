@@ -2,33 +2,25 @@
 
 
 <section class="collaction-honeys-slider pt-50 pb-50">
-
     <div class="container">
         <div class="row">
-
             <div class="col-md-9 my-3">
                 <div class="try-samples-heading collection-heading" id="home-try">
                     <span class="star-logo">
-                        <h3>curated collection of <span class="it-style">organic {{strtolower($collection->name)}}</span></h3>
+                        <h3>curated collection of <span class="it-style"> {{strtolower($collection->name)}}</span></h3>
                     </span>
                     <span>HANDPICKED PRODUCTS</span>
                 </div>
             </div>
-
             <div class="col-md-3 my-3">
                 <div class="right-logo">
                     <figure><img src="{{ asset('/uploads/collections') }}/{{ $collection->img }}" alt="{{$collection->name}}"></figure>
-
                 </div>
-
             </div>
-
-
-
             <!--carousel start-->
             <div class="col-md-12 my-5">
                 <div class="owl-carousel carousel-main">
-                    @foreach($products as $product)
+                    @foreach($curatedProducts as $product)
                     <div class="sample-card">
                         <div class="sample-logo">
                             <img src="{{asset('assets/img/sapmple-logo.png')}}" alt="sample-1">
@@ -52,6 +44,7 @@
                             <p>Sourced from Gir forest area, Gujarat</p>
 
                             <p>NMR Tested, Jaivik Bharat</p>
+
 
                             <div class="price-rate">
                                 <span class="new-price">
@@ -77,15 +70,9 @@
 
                 </div>
             </div>
-
-
         </div>
 
     </div>
-
-
-
-
 
 </section>
 <!--organic honeys end-->
@@ -101,19 +88,6 @@
     </section>
 </a>
 <!--add end-->
-
-
-
-
-
-
-
-
-
-
-
-
-
 <!--try sample-->
 <section class="try-samples1 pt-30 pb-30">
     <div class="container">
@@ -214,7 +188,7 @@
                     <span>ALL HONEYS ON TIOSWORLD</span>
                 </div>
             </div>
-            @foreach($products as $product)
+            @foreach($curatedProducts as $product)
             <div class="col-md-3">
                 <div class="sample-card">
                     <div class="sample-logo">
@@ -230,7 +204,7 @@
 
                     <div class="sample-content">
                         <h4>{{$product->name}}</h4>
-                        <p>Pack of 1 Rs. 80 1 tios points</p>
+                        <p>Pack of 1 Rs. {{$product->selling_price}} 1 tios points</p>
                     </div>
                     <div class="sample-footer">
                         <div class="cart-group">
@@ -241,17 +215,11 @@
                 </div>
             </div>
             @endforeach
-
-
         </div>
 
     </div>
 </section>
 <!--end trending-->
-
-
-
-
 
 
 <section class="curated-collections pt-30 pb-30">
@@ -352,9 +320,6 @@
                     </div>
                 </div>
             </div>
-
-
-
             <!--2nd row end-->
         </div>
     </div>

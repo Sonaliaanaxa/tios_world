@@ -197,22 +197,19 @@
                             <a href="#"><i class="fa fa-bars" aria-hidden="true"></i> <span> Collection</span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                                 <li class="item{{ $activePage == 'Collections' ? ' active' : '' }}">
-                                    <a href="{{ route('collections.list')}}">Curated Collection</a>
+                                    <a href="{{ route('collections.list')}}">Category-wise Collection</a>
                                 </li>
                                 <li class="item{{ $activePage == 'CustomCollections' ? ' active' : '' }}">
                                     <a href="{{ route('custom-collections.list')}}">Custom Collection</a>
                                 </li>
-                              
-
+                            
                             </ul>
                         </li>
                         @endif
 
-
-
                         @if(auth()->user()->user_type=='admin' || auth()->user()->user_type=='seller')
                         <li class="submenu">
-                            <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> <span> Other Products </span> <span class="menu-arrow"></span></a>
+                            <a href="#"><i class="fa fa-product-hunt" aria-hidden="true"></i> <span> Products </span> <span class="menu-arrow"></span></a>
                             <ul style="display: none;">
                             @if(auth()->user()->user_type=='admin')
                                 <li><a href="{{ route('products.list')}}">Products</a></li>

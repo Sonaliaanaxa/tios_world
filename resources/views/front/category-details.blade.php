@@ -6,14 +6,11 @@
             <div class="col-md-8 my-5">
                 <div class="try-samples-heading collection-heading" id="home-try">
                     <span class="star-logo">
-                        <h3>all of <span class="it-style">organic honey</span></h3>
+                        <h3>all of <span class="it-style">{{$subcategory->name}}</span></h3>
                     </span>
                     <span>ALL PRODUCTS</span>
                 </div>
             </div>
-
-
-
             <div class="col-md-2 my-5">
                 <div class="collections-btn">
                     <a href="#" class="common-btn"><img src="{{asset('assets/img/short.png')}}"><span>Sort</span></a>
