@@ -21,6 +21,7 @@ use App\Http\Controllers\PincodeController;
 use App\Http\Controllers\DeliveryChargesController;
 use App\Http\Controllers\TrialProductController;
 use App\Http\Controllers\WarehouseController;
+use App\Http\Controllers\CustomCollectionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -186,13 +187,21 @@ Route::group(['prefix' => 'admin','auth'], function () {
         Route::post('brands/update/{id}', 'BrandController@update')->name('brands.update');
         Route::post('brands/destroy', 'BrandController@destroy')->name('brands.destroy');
 
-         //Unit
-         Route::get('units', 'UnitController@index')->name('units.list');
-         Route::get('units/create', 'UnitController@create')->name('units.create');
-         Route::post('units/create', 'UnitController@save')->name('units.create');
-         Route::get('units/update/{id}', 'UnitController@edit')->name('units.update');
-         Route::post('units/update/{id}', 'UnitController@update')->name('units.update');
-         Route::post('units/destroy', 'UnitController@destroy')->name('units.destroy');
+         //Variation
+         Route::get('variations', 'VariationController@index')->name('variations.list');
+         Route::get('variations/create', 'VariationController@create')->name('variations.create');
+         Route::post('variations/create', 'VariationController@save')->name('variations.create');
+         Route::get('variations/update/{id}', 'VariationController@edit')->name('variations.update');
+         Route::post('variations/update/{id}', 'VariationController@update')->name('variations.update');
+         Route::post('variations/destroy', 'VariationController@destroy')->name('variations.destroy');
+ 
+         //Variation Units
+         Route::get('variation-units', 'VariationUnitController@index')->name('variation-units.list');
+         Route::get('variation-units/create', 'VariationUnitController@create')->name('variation-units.create');
+         Route::post('variation-units/create', 'VariationUnitController@save')->name('variation-units.create');
+         Route::get('variation-units/update/{id}', 'VariationUnitController@edit')->name('variation-units.update');
+         Route::post('variation-units/update/{id}', 'VariationUnitController@update')->name('variation-units.update');
+         Route::post('variation-units/destroy', 'VariationUnitController@destroy')->name('variation-units.destroy');
  
 
         //Home Page Footer Banner

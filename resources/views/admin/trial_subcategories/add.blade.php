@@ -79,16 +79,10 @@
 											<span id="status-error" class="error text-danger" for="input-status"> Status</span>
 										@endif
 										</div>
-									</div> 
-
-
-
+									</div>
 									
 								</div>
 							</div>
-
-
-
 
 							<div class="submit-section">
 								<button class="btn btn-primary submit-btn" type="submit" name="form_submit" value="submit">Submit</button>

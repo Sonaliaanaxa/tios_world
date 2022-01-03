@@ -51,3 +51,15 @@ CHANGE `updated_at` `updated_at` datetime NOT NULL AFTER `created_at`;
 
 ALTER TABLE `collections`
 ADD `product_collection_type` varchar(255) NOT NULL AFTER `category_id`;
+
+//3-Jan
+CREATE TABLE `variations` (
+  `id` int NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  `name` varchar(255) NOT NULL,
+  `status` enum('1','0') NOT NULL DEFAULT '1',
+  `created_at` datetime NOT NULL,
+  `updated_at` datetime NOT NULL
+);
+
+ALTER TABLE `units`
+ADD `variation_id` int NOT NULL AFTER `id`;

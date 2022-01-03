@@ -10,12 +10,12 @@
                 <div class="col-sm-7 col-auto">
                     <h3 class="page-title">{{ __($title) }}</h3>
                     <ul class="breadcrumb">
-                        <li class="breadcrumb-item">Total Product Collections - {{ $cCount}}</li>
+                        <li class="breadcrumb-item">Total Units - {{ $cCount}}</li>
 
                     </ul>
                 </div>
                 <div class="col-sm-5 col">
-                    <a href="{{route('product-collections.create')}}" class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
+                    <a href="{{route('variations.create')}}" class="btn btn-primary float-right mt-2"><i class='fa fa-plus-circle'> {{ __('New') }}</i></a>
                 </div>
             </div>
         </div>
@@ -44,16 +44,17 @@
 
                                             @sortablelink('id',__('S No'))
                                         </th>
-                                        <th>
-                                            @sortablelink('collection_id',__('Collection'))
 
-                                        </th>
                                         <th>
-                                            @sortablelink('product_id',__('Product'))
-
+                                            @sortablelink('name',__('Unit Name'))
                                         </th>
+
                                         <th>
                                             @sortablelink('created_at',__('Added At'))
+
+                                        </th>
+                                        <th>
+                                            @sortablelink('status',__('Status'))
 
                                         </th>
                                         <th>
@@ -65,37 +66,39 @@
                                 </thead>
                                 <tbody id="myTable">
                                     <?php $i = 0; ?>
-                                    @foreach($collections as $r)
+                                    @foreach($categories as $r)
                                     <?php $i++; ?>
                                     <tr>
                                         <td>
                                             <?php echo $i; ?>
                                         </td>
-                                  
+
                                         <td>
                                             <b>
-                                                <a> {{$r->collection_name}}</a>
+                                                <a> {{$r->name}}</a>
                                             </b>
 
                                         </td>
 
-                                        <td>
-                                            <b>
-                                                <a> {{$r->product_name}}</a>
-                                            </b>
-
-                                        </td>
-                                      <td style='font-size:12px;'>
+                                        <td style='font-size:12px;'>
                                             {{ $r->created_at->format('d F, Y') }}
 
                                         </td>
+                                        <td>
+                                            @if($r->status==1)
+
+                                            <i class='fa fa-check-circle' style='color:green;'> {{ __('Active') }} </i>
+                                            @else
+                                            <i class='fa fa-question-circle' style='color:gold;'>{{ __(' Inactive') }} </i>
+                                            @endif
+                                        </td>
 
                                         <td>
 
-                                            <a href="{{route('product-collections.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
+                                            <a href="{{route('variations.update',$r->id)}}" style='color:#0099cc;font-size:16px;padding-right:15px;' title="Update" data-id="{{$r->id}}">
                                                 <i class="fa fa-edit"></i></a>
 
-                                            <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-collections' title="Delete" data-id="{{$r->id}}">
+                                            <a href="javascript:;" style='color:#0099cc;font-size:16px;padding-right:15px;' class='delete-units' title="Delete" data-id="{{$r->id}}">
                                                 <i class="fa fa-trash"></i>
                                             </a>
                                         </td>
@@ -107,12 +110,16 @@
                         </div>
                     </div>
                 </div>
-                {!! $collections->appends(request()->except('page'))->render() !!}
+                {!! $categories->appends(request()->except('page'))->render() !!}
             </div>
         </div>
     </div>
 </div>
 <!-- /Page Wrapper -->
+
+
+
+
 
 </div>
 <!-- /Main Wrapper -->
@@ -121,7 +128,7 @@
 
 <script>
     $(document).ready(function() {
-        $('.delete-collections').on('click', function(e) {
+        $('.delete-units').on('click', function(e) {
             if (!confirm("Are you sure to Delete?")) {
                 e.preventDefault();
                 return false;
@@ -131,7 +138,7 @@
 
             $.ajax({
                 type: 'POST',
-                url: "{{route('product-collections.destroy')}}",
+                url: "{{route('variations.destroy')}}",
                 data: {
                     id: id,
                     _token: '{{ csrf_token() }}'
@@ -139,7 +146,7 @@
                 success: function(data) {
                     if (data.success == 1) {
                         //    selector.closest('tr').hide('slow');
-                        swal("Success!", "Collections Successfully Deleted!", "success");
+                        swal("Success!", "Variation Successfully Deleted!", "success");
 
                     }
 

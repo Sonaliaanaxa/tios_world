@@ -68,8 +68,11 @@
 											</select>
 										</div>
 									</div>
-										
-									<div class="col-sm-6">
+								</div>
+								
+								<h5>Select Curated Products</h5>	
+								<div class="row" style="border:1px solid #ced4da;padding:30px;border-radius:10px;"  id="dynamicTable">
+								<div class="col-sm-6">
 										<label class="category">{{ __('Select Product Type*') }}</label>
 										<div class="form-group{{ $errors->has('product_collection_type') ? ' has-danger' : '' }}">
 											<select class="custom-select {{ $errors->has('product_collection_type') ? ' is-invalid' : '' }}" name='product_collection_type' id="input-product_collection_type">
@@ -85,7 +88,7 @@
 									</div> 
 
 									<div class="col-sm-6 col-md-6">
-										<label>{{ __('Select Products*')  }}</label>
+										<label>{{ __('Select Curated Products*')  }}</label>
 										<div class="form-group{{ $errors->has('product_id') ? ' has-danger' : '' }}">
 											<select id="subcategoryList" class="custom-select {{ $errors->has('product_id') ? ' is-invalid' : '' }}subcategory" name='product_id[]' disabled multiple>
 												<option value=''>Select Products</option>
@@ -98,7 +101,13 @@
 											@endif
 										</div>
 									</div>
+									<div class="col-md-12 float-left">
+              	 					<button type="button" name="add" id="add" class="btn btn-success" style="float:right">Add More</button>
+									</div>
 
+								</div>
+								
+								<div class="row">
 									<div class="col-sm-6">
 										<label class="category">{{ __('Status*') }}</label>
 										<div class="form-group{{ $errors->has('status') ? ' has-danger' : '' }}">
@@ -113,7 +122,7 @@
 									</div>
 								</div>
 
-								<div class="row">
+							
 									<div class="form-group col-md-6">
 										<label for="category">{{ __('Upload  Collection Image')}}</label>
 										<div class="upload-img">
@@ -124,7 +133,7 @@
 											<small class="form-text text-muted">Allowed JPG, GIF or PNG. Max size of 2MB</small>
 										</div>
 									</div>
-								</div>
+								
 								 </div>
 					</div>
 
@@ -155,4 +164,18 @@
 		$("#subcategoryList").html(optionDom) //enable subcategory select
 		$("#subcategoryList").attr('disabled', false); //enable subcategory select
 	});
+   
+    var i = 0;
+       
+    $("#add").click(function(){
+   
+        ++i;
+   
+        $("#dynamicTable").append('<tr><td><input type="text" name="addmore['+i+'][name]" placeholder="Enter your Name" class="form-control" /></td><td><input type="text" name="addmore['+i+'][qty]" placeholder="Enter your Qty" class="form-control" /></td><td><input type="text" name="addmore['+i+'][price]" placeholder="Enter your Price" class="form-control" /></td><td><button type="button" class="btn btn-danger remove-tr">Remove</button></td></tr>');
+    });
+   
+    $(document).on('click', '.remove-tr', function(){  
+         $(this).parents('tr').remove();
+    });  
+   
 </script>

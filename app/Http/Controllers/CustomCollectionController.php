@@ -16,7 +16,7 @@ class CustomCollectionController extends Controller
 
     public function index()
     {
-        $title = "Product Collections";
+        $title = "Custom Collections";
         $subtitle = "Collections";
         $activePage = "ProductCollections";
         $cCount = ProductCollection::select('*')->count();
@@ -25,16 +25,17 @@ class CustomCollectionController extends Controller
             ->join('collections', 'collections.id', 'product_collections.collection_id')
             ->orderBy('id', 'DESC')
             ->sortable()->paginate(30);
-        return view('admin.product_collections.list', compact('title', 'collections', 'activePage', 'subtitle', 'cCount'));
+        return view('admin.custom_collections.list', compact('title', 'collections', 'activePage', 'subtitle', 'cCount'));
     }
+    
     public function create()
     {
-        $title = "Create New Product Collections";
+        $title = "Create New Custom Collections";
         $subtitle = "Collections";
         $activePage = "ProductCollections";
         $collections =  Collection::where('status', '1')->get();
         $products = Product::where('status', '1')->get();
-        return view('admin.product_collections.add', compact('title', 'activePage', 'subtitle', 'collections', 'products'));
+        return view('admin.custom_collections.add', compact('title', 'activePage', 'subtitle', 'collections', 'products'));
     }
 
     public function save(Request $request)
@@ -53,7 +54,7 @@ class CustomCollectionController extends Controller
         $collections->product_id        = json_encode($data);
         $collections->save();
 
-        return redirect(route('product-collections.list'))->with('success', 'Product Collection Successfully Added!');
+        return redirect(route('custom-collections.list'))->with('success', 'Product Collection Successfully Added!');
     }
 
     public function edit(Request $request, $id)
@@ -82,7 +83,7 @@ class CustomCollectionController extends Controller
             'updated_at' => date('Y-m-d H:i:s')
         ];
         $result = ProductCollection::where('id', $id)->update($data);
-        return redirect(route('product-collections.list'))->with('success', 'Product Collection Successfully Updated!');
+        return redirect(route('custom-collections.list'))->with('success', 'Product Collection Successfully Updated!');
     }
 
     public function destroy(Request $request)

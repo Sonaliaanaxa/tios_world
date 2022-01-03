@@ -171,10 +171,23 @@
                         @endif -->
 
                         @if(auth()->user()->user_type=='admin')
-                        <li class="item{{ $activePage == 'Unit' ? ' active' : '' }}">
-                            <a href="{{ route('units.list')}}"><i class="fa fa-sliders" aria-hidden="true"></i> <span>{{ __('Units') }} </a>
+                        <li class="submenu">
+                            <a href="#"><i class="fa fa-sliders" aria-hidden="true"></i> <span>Variation Management </span> <span class="menu-arrow"></span></a>
+                            <ul style="display: none;">
+                             
+                                <li class="item{{ $activePage == 'Variations' ? ' active' : '' }}">
+                                    <a href="{{ route('variations.list')}}"><span>{{ __('Variations') }} </a>
+                                </li>
+                              
+                                <li class="item{{ $activePage == 'Variation Units' ? ' active' : '' }}">
+                                    <a href="{{ route('variation-units.list')}}"><span>{{ __('Variation Units') }} </a>
+                                </li>
+                            </ul>
+                        </li>
                         </li>
                         @endif
+
+                     
 
                        
 
@@ -331,6 +344,8 @@
 
         <!-- Custom JS -->
         <script src="{{ asset('material/admin') }}/js/script.js"></script>
+        <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/css/bootstrap-colorpicker.min.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-colorpicker/2.3.3/js/bootstrap-colorpicker.min.js"></script>
         @stack('js')
         <link href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" rel="stylesheet" />
         <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
